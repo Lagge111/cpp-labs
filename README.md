@@ -1,12 +1,15 @@
 # Programming in C++
 
-### Lab assignments from the course 726G77 / TDDE18 (2022)
+### Lab assignments from the course [726G77 / TDDE18](https://www.ida.liu.se/~TDDE18/current/info/index.en.shtml) (2022)
+### -----------------------------------------------------------------
 
-##### Lab1 - Basic input and output | Tax table | Word length
-##### Lab2 - Time
+##### Lab1 - [Basic input and output](https://gitlab.liu.se/jacla554/726g77/-/blob/main/Lab1/lab1a.cpp) | [Tax table](https://gitlab.liu.se/jacla554/726g77/-/blob/main/Lab1/lab1b.cpp) | [Word length](https://gitlab.liu.se/jacla554/726g77/-/blob/main/Lab1/lab1c.cpp)
+##### Lab2 - [Time](https://gitlab.liu.se/jacla554/726g77/-/tree/main/Lab2)
 ##### Lab3 - Linked list
 ##### Lab4 - Circuit simulator
 ##### Lab5 - Text editor
 
+### -----------------------------------------------------------------
 
-### by A3 Studio
+
+## by A3 Studio
