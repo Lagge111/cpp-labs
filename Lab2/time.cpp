@@ -14,30 +14,18 @@ bool is_am(Time const &time) {
 };
 
 string to_string(Time const &time, bool twelve_format) {
-    /* Var for appending am or pm to time string. */
     string append{};  
-
-    /* Var for formatting time to either 12- or 24-hour clock, depending on outcome of is_am(). */ 
     bool pm{false}; 
-
-    /* Var to "print" time to a string. */
     std::ostringstream oss{};
 
-    /* If input bool is true */
     if (twelve_format) {
-        /* If the time is am */
         if (is_am(time)) {
             append = " am";
         } else {
             append = " pm";
-            /* Set "pm" to true for later use. See below. */
             pm = true; 
         }
     }
-    /* 
-    If "pm" is true, pm == 1, and the "print" will be time.hour - 12, i.e. 12-hour clock format. 
-    If "pm" is false, p == 0, and the "print" will be time.hour - 0, i.e. 24-hour clock format. 
-    */
     oss << setfill('0') 
     << setw(2) << time.hour - (12*pm) << ":"  
     << setw(2) << time.min << ":" 
@@ -71,15 +59,17 @@ Time operator--(Time const &time, int n) {
 }
 
 bool operator<(Time const &time1, Time const &time2) {
-    if (time1.hour < time2.hour) {
+    /*if (time1.hour < time2.hour) {
         return true;
     } else if (time1.min < time2.min) {
         return true;
     } else if (time1.sec < time2.sec) {
         return true;
     }
-    return false;
+    return false;*/
+    return to_string(time1) < to_string(time2);
 }
+
 
 bool operator>(Time const &time1, Time const &time2) {
     if (time1.hour > time2.hour) {
@@ -119,10 +109,6 @@ bool operator<=(Time const &time1, Time const &time2) {
     }
     return false;
 }
-
-/*string operator>>(Time const &time) {
-
-}*/
 
 // Helper functions
 

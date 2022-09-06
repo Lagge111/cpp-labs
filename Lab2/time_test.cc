@@ -131,11 +131,3 @@ TEST_CASE ("Test \"<=\" operator")
     Time t2 {12, 03, 03};
     CHECK(t1 <= t2);
 }
-
-TEST_CASE ("Test \">>\"")
-{
-    Time t1 {12, 30, 40};
-    std::string str{};
-    CHECK(str << t1);
-    
-}

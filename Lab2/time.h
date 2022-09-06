@@ -41,8 +41,6 @@ bool operator>=(Time const &time1, Time const &time2);
 
 bool operator<=(Time const &time1, Time const &time2);
 
-std::string operator>>(std::istringstream str, Time const &time);
-
 Time timeAdd(Time const &time, int n);
 
 Time timeSub(Time const &time, int n);
