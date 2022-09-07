@@ -1,5 +1,5 @@
 #include "time.h"
-//#include <sstream>
+#include <sstream>
 #include <iomanip>
 using namespace std;
 
@@ -16,7 +16,7 @@ bool is_am(Time const &time) {
 string to_string(Time const &time, bool twelve_format) {
     string append{};  
     bool pm{false}; 
-    std::ostringstream oss{};
+    ostringstream oss{};
 
     if (twelve_format) {
         if (is_am(time)) {
@@ -59,25 +59,35 @@ Time operator--(Time const &time, int n) {
 }
 
 bool operator<(Time const &time1, Time const &time2) {
-    /*if (time1.hour < time2.hour) {
+    if (time1.hour < time2.hour) {
         return true;
-    } else if (time1.min < time2.min) {
-        return true;
-    } else if (time1.sec < time2.sec) {
-        return true;
+    } else if (time1.hour == time2.hour) {
+        if (time1.min < time2.min) {
+            return true;
+        } else if (time1.min == time2.min) {
+            if (time1.sec < time2.sec) {
+                return true;
+            } else if (time1.sec == time2.sec) {
+                return false;
+            }
+        }
     }
-    return false;*/
-    return to_string(time1) < to_string(time2);
+    return false;
 }
-
 
 bool operator>(Time const &time1, Time const &time2) {
     if (time1.hour > time2.hour) {
         return true;
-    } else if (time1.min > time2.min) {
-        return true;
-    } else if (time1.sec > time2.sec) {
-        return true;
+    } else if (time1.hour == time2.hour) {
+        if (time1.min > time2.min) {
+            return true;
+        } else if (time1.min == time2.min) {
+            if (time1.sec > time2.sec) {
+                return true;
+            } else if (time1.sec == time2.sec) {
+                return false;
+            }
+        }
     }
     return false;
 }
@@ -110,8 +120,28 @@ bool operator<=(Time const &time1, Time const &time2) {
     return false;
 }
 
-// Helper functions
+ostream& operator<<(ostream &os, Time const &time) {
+    os << to_string(time, 0);
+    return os;
+}
 
+istream& operator>>(istream &is, Time &time) {
+    char c{};
+    is >> time.hour >> c >> time.min >> c >> time.sec;
+    if (is_valid(time)) {
+        is.setstate(ios_base::goodbit);
+    } else {
+        is.setstate(ios_base::failbit);
+    }
+    is.clear();
+    return is;
+}
+
+
+/*  Helper functions for adding and subtracting time,
+    used in the functions for the operators 
+    "+", "-", "++" and "--".
+*/
 Time timeAdd(Time const &time, int n) {
     Time time_tmp{time};
     time_tmp.sec += n;

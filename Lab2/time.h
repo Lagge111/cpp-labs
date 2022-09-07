@@ -3,7 +3,7 @@
 #ifndef TEST_H 
 #define TEST_H 
 
-#include <string>
+#include <sstream>
 
 struct Time {
     int hour{};
@@ -40,6 +40,10 @@ bool operator!=(Time const &time1, Time const &time2);
 bool operator>=(Time const &time1, Time const &time2);
 
 bool operator<=(Time const &time1, Time const &time2);
+
+std::ostream& operator<<(std::ostream &os, Time const &time);
+
+std::istream& operator>>(std::istream &is, Time &time);
 
 Time timeAdd(Time const &time, int n);
 
