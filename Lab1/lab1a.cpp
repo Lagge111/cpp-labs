@@ -2,6 +2,12 @@
 #include <iomanip>
 using namespace std;
 
+// TODO: Complementary work: Don't repeat sticky IO manipulators.
+// Every manipulator (except setw) will "stick" until a different
+// manipulator overrides it, so it is unnecessary to repeat them.
+
+// Fixed by only declaring sticky manipulators once. 
+
 int main() {
 
     int number{};
@@ -29,14 +35,14 @@ int main() {
     cin >> number;
     cin >> f_number;
     cout << "The real is: " << right << setw(11) << fixed << setprecision(3) << f_number << endl;
-    cout << "The integer is: " << right << setw(8) << fixed << number << endl;
+    cout << "The integer is: " << setw(8) << number << endl;
     cin.ignore(1000, '\n');
 
     cout << "\nEnter one real and one integer number: ";
     cin >> f_number;
     cin >> number;
-    cout << "The real is: " << right << setfill('.') << setw(11) << fixed << setprecision(3) << f_number << endl;
-    cout << "The integer is: " << right << setfill('.') << setw(8) << number << endl;
+    cout << "The real is: " << setfill('.') << setw(11) << f_number << endl;
+    cout << "The integer is: " << setw(8) << number << endl;
     cin.ignore(1000, '\n');
 
     cout << "\nEnter a character: ";
@@ -64,7 +70,7 @@ int main() {
     cout << "\nEnter a word and a real number ";
     cin >> word;
     cin >> f_number;
-    cout << "You entered \"" << word << "\" and \"" << fixed << setprecision(3) << f_number << "\"." << endl;
+    cout << "You entered \"" << word << "\" and \"" << f_number << "\"." << endl;
     cin.ignore(1000, '\n');
 
     cout << "\nEnter a text-line: ";
