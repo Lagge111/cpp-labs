@@ -5,7 +5,9 @@ using namespace std;
 
 // TODO: Complementary work: Does the check for the first word
 // need to be inside the loop every time?
-// Fixed by reading the first word of the file outside of the loop.
+
+// Fixed by reading the first word of the file outside of the loop,
+// and also setting word_count = 1 to compensate. 
 
 int main() {
     int word_count{};
