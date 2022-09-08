@@ -28,7 +28,7 @@ int main() {
 
     cout << "Enter stride " << setw(6) << ": ";
     cin >> stride;
-    while (stride < 0.01) {
+    while (stride < 0.01f) {
         cerr << "ERROR: Stride must be at least 0.01" << endl;
         cout << "Enter stride " << setw(6) << ": ";
         cin >> stride;
