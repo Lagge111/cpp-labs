@@ -6,7 +6,7 @@ using namespace std;
 // Every manipulator (except setw) will "stick" until a different
 // manipulator overrides it, so it is unnecessary to repeat them.
 
-// Fixed by only declaring sticky manipulators once. 
+// Fixed by only declaring sticky IO manipulators once. 
 
 int main() {
 

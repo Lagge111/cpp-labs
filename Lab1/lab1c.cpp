@@ -7,7 +7,7 @@ using namespace std;
 // need to be inside the loop every time?
 
 // Fixed by reading the first word of the file outside of the loop,
-// and also setting word_count = 1 to compensate. 
+// to give longest_word and shortest_word values. 
 
 int main() {
     int word_count{};
@@ -15,7 +15,6 @@ int main() {
     string shortest_word{};
     string longest_word{};
     string current_word{};
-    bool first_word{true};
     
     ifstream input_file{"data.txt"};
 
@@ -26,16 +25,9 @@ int main() {
 
     input_file >> longest_word;
     shortest_word = longest_word;
-    word_count = 1;
+    word_count++;
 
     while (input_file >> current_word) {
-
-        /*if (first_word) {
-            longest_word = current_word;
-            shortest_word = current_word;
-            first_word = false;
-        }*/
-
         char_count += current_word.length();
         word_count++;
 

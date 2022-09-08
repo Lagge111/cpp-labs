@@ -5,8 +5,8 @@ using namespace std;
 // TODO: Complementary work: The stride should be at least 0.01 but
 // the user can't enter 0.01.
 
-// Fixed issue by changing "stride < 0.01" to "stride < 0.01f", 
-// making it a literal of float instead of a double.
+// Fixed by changing "stride < 0.01" to "stride < 0.01f", 
+// making it a literal of float.
 
 int main() {
     float first_price{};
