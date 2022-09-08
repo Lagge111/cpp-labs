@@ -3,6 +3,10 @@
 #include <iomanip>
 using namespace std;
 
+// TODO: Complementary work: Does the check for the first word
+// need to be inside the loop every time?
+// Fixed by reading the first word of the file outside of the loop.
+
 int main() {
     int word_count{};
     int char_count{};
@@ -18,13 +22,17 @@ int main() {
         return 0;
     }
 
+    input_file >> longest_word;
+    shortest_word = longest_word;
+    word_count = 1;
+
     while (input_file >> current_word) {
 
-        if (first_word) {
+        /*if (first_word) {
             longest_word = current_word;
             shortest_word = current_word;
             first_word = false;
-        }
+        }*/
 
         char_count += current_word.length();
         word_count++;
