@@ -26,6 +26,7 @@ int main() {
     input_file >> longest_word;
     shortest_word = longest_word;
     word_count++;
+    char_count = longest_word.length();
 
     while (input_file >> current_word) {
         char_count += current_word.length();
