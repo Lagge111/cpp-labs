@@ -1,7 +1,6 @@
 #include "catch.hpp"
 #include "time.h"
 #include <string>
-#include <iostream>
 
 TEST_CASE ("Test is_valid()") 
 {
@@ -11,8 +10,11 @@ TEST_CASE ("Test is_valid()")
     Time t2 {26, 20, 9};
     REQUIRE_FALSE(is_valid(t2));
 
-    Time t3 {00, 00, 00};
-    REQUIRE(is_valid(t3));
+    Time t3 {00, 00, 80};
+    REQUIRE_FALSE(is_valid(t3));
+
+    Time t4 {00, 80, 00};
+    REQUIRE_FALSE(is_valid(t4));
 }
 
 TEST_CASE ("Test is_am()")
@@ -198,12 +200,19 @@ TEST_CASE ("Test \">>\" operator")
     Time t1{};
     std::istringstream iss{"12:30:50"};
     iss >> t1;
-    CHECK(to_string(t1, 0) == "12:30:50");
     CHECK(iss.good());
+    CHECK(to_string(t1, 0) == "12:30:50");
 
     Time t2{};
     std::istringstream iss2{"12:30:55"};
     iss2 >> t2;
-    REQUIRE_FALSE(to_string(t2, 0) == "11:41:50");
     CHECK(iss2.good());
+    REQUIRE_FALSE(to_string(t2, 0) == "11:41:50");
+    
+    Time t3{};
+    std::istringstream iss3{"12:80:55"};
+    iss3 >> t3;
+    CHECK(iss3.fail());
+    REQUIRE_FALSE(to_string(t3, 0) == "11:41:50");
+    REQUIRE_FALSE(to_string(t3, 0) == "12:80:55");
 }

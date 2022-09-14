@@ -1,5 +1,3 @@
-// Header file. Contains the declarations of functions that should be available in your module. 
-
 #ifndef TEST_H 
 #define TEST_H 
 

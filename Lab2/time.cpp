@@ -5,8 +5,8 @@ using namespace std;
 
 bool is_valid(Time const &time) {
     return ((time.hour < 24 && time.hour >= 0) && 
-            (time.min < 60 && time.min >= 0) && 
-            (time.sec < 60 && time.sec >= 0));
+           (time.min < 60 && time.min >= 0) && 
+           (time.sec < 60 && time.sec >= 0));
 };
 
 bool is_am(Time const &time) {
@@ -127,13 +127,15 @@ ostream& operator<<(ostream &os, Time const &time) {
 
 istream& operator>>(istream &is, Time &time) {
     char c{};
-    is >> time.hour >> c >> time.min >> c >> time.sec;
-    if (is_valid(time)) {
+    Time temp{};
+    is >> temp.hour >> c >> temp.min >> c >> temp.sec;
+    is.clear();
+    if (is_valid(temp)) {
+        time = temp;
         is.setstate(ios_base::goodbit);
     } else {
         is.setstate(ios_base::failbit);
     }
-    is.clear();
     return is;
 }
 
