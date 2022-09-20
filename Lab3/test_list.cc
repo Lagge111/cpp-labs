@@ -12,9 +12,8 @@
 
 // This define lets Catch create the main test program
 // (Must be in only one place!)
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-
+#include "sorted_list.h"
 #include <random>
 
 //=======================================================================
@@ -23,9 +22,22 @@
 
 TEST_CASE( "Create an empty list" ) {
   Sorted_List l{};
+  REQUIRE(l.is_empty() == true);
+  l.insert(1);
+  l.insert(2);
+  REQUIRE(l.size() == 2);
+  l.insert(3);
+  l.insert(4);
+  l.insert(5);
+  REQUIRE(l.getValueAt(0) == 1);
+  REQUIRE_FALSE(l.size() == 6);
+  REQUIRE(l.size() == 5);
+  REQUIRE(l.is_empty() == false);
+  l.print();
 
-  REQUIRE( l.is_empty() == true );
-  REQUIRE( l.size() == 0 );
+
+  // REQUIRE( l.is_empty() == true );
+  // REQUIRE( l.size() == 0 );
 }
 
 // It is your job to create new test cases and fully test your Sorted_List class
