@@ -8,20 +8,12 @@ class Sorted_List {
     int getValueAt(int const &index); 
     int size();
     void print();
-    void remove();
+    void remove(int const &index);
 };
 
 struct Node {
     int data{};
     Node* next{};
 };
-
-
-
-void remove();
-
-void print();
-
-void getValueAt(int const &index);
 
 #endif

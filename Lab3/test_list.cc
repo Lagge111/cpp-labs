@@ -15,6 +15,8 @@
 #include "catch.hpp"
 #include "sorted_list.h"
 #include <random>
+#include <iostream>
+using namespace std;
 
 //=======================================================================
 // Test cases
@@ -23,17 +25,23 @@
 TEST_CASE( "Create an empty list" ) {
   Sorted_List l{};
   REQUIRE(l.is_empty() == true);
-  l.insert(1);
-  l.insert(2);
-  REQUIRE(l.size() == 2);
-  l.insert(3);
-  l.insert(4);
   l.insert(5);
-  REQUIRE(l.getValueAt(0) == 1);
-  REQUIRE_FALSE(l.size() == 6);
-  REQUIRE(l.size() == 5);
-  REQUIRE(l.is_empty() == false);
+  l.insert(3);
+  l.insert(9);
+  //REQUIRE(l.size() == 2);
+  //l.insert(9);
+  //l.insert(7);
+  //l.insert(1);
+  //l.insert(6);
   l.print();
+
+  // REQUIRE(l.getValueAt(0) == 1);
+  // REQUIRE(l.size() == 6);
+  // REQUIRE(l.is_empty() == false);
+  // l.print();
+  // l.remove(2);
+  // cout << l.size() << endl;
+  // l.print();
 
 
   // REQUIRE( l.is_empty() == true );

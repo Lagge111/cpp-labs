@@ -6,24 +6,80 @@ using namespace std;
 Node* first{};
 
 void Sorted_List::insert(int const &value) {
-    Node* tmp{new Node{value}};
-    tmp->next = first;
-    first = tmp;
     
+    Node* new_node{new Node{value}};
+    Node* tmp{};
 
+
+    if (is_empty()) {
+         first = new_node;
+         new_node->next = NULL;
+    } else if (size() == 1) {
+        if (first->data > value) {
+        tmp->next = first;
+        first = tmp;
+        } else {
+            first->next = new_node;
+        }
+    } else {
+        if (first->data > value) {
+            tmp->next = first;
+            first = tmp;
+        } else {
+            tmp = first->next;
+            while (tmp->next->data > value) {
+                tmp = tmp->next;
+            } 
+            tmp = new_node;
+
+        }
+    } 
+
+
+
+
+    // if (is_empty()) {
+    //     first = tmp;
+    //     tmp->next = NULL;
+    // } else if (first->data > value) {
+    //     tmp->next = first;
+    //     first = tmp;
+    // }
+
+
+    //tmp->next = first;
+    //first = tmp;
+    
 }
 
-void Sorted_List::remove() {
+void Sorted_List::remove(int const &index) {
+    Node* tmp = first;
+    Node* last = first;
+    for (int i{0}; i < size(); ++i) {
+    
 
+
+        if (i == index) {
+            last->next = tmp->next;
+            delete tmp;
+        } else {
+        last = tmp;
+        tmp = tmp->next;
+        }
+        
+        
+        //tmp = first->next;
+    }
 }
 
 void Sorted_List::print() {
     if (!is_empty()) {
         Node* tmp = first;
         for (int i{0}; i < size(); ++i) {
-            cout << tmp->data << " <- ";
+            cout << tmp->data << " -> ";
             tmp = tmp->next;
         }
+        cout << endl;
     } else {
         cout << "The list is empty." << endl;
     }
