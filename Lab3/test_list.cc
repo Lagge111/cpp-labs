@@ -36,6 +36,8 @@ TEST_CASE( "Create an empty list" ) {
   //l.insert(1);
   //l.insert(6);
   l.print();
+  l.remove(2);
+  l.print();
 
   // REQUIRE(l.getValueAt(0) == 1);
   // REQUIRE(l.size() == 6);
