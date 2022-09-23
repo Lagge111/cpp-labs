@@ -46,7 +46,9 @@ Time operator++(Time const &time) {
     return timeAdd(time, 1);
 }
 
-/* Fixed postfix addition by returning temp var. I have not tested it. */
+/* Fixed postfix addition by returning temp var. I have not tested it. 
+    Might not be necessary since we use a temp in the helper function. 
+*/
 Time operator++(Time const &time, int n) {    
     Time temp_time{time};
     return timeAdd(temp_time, 1);
@@ -56,7 +58,9 @@ Time operator--(Time const &time) {
     return timeSub(time, 1);
 }
 
-/* Fixed postfix subtraction by returning temp var. I have not tested it. */
+/* Fixed postfix subtraction by returning temp var. I have not tested it. 
+    Might not be necessary since we use a temp in the helper function. 
+*/
 Time operator--(Time const &time, int n) {
     Time temp_time{time};
     return timeSub(temp_time, 1);
