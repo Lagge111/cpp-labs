@@ -13,10 +13,10 @@ private:
 
 public:
     void insert(int const &value);
-    bool is_empty();
-    int getValueAt(int const &index); 
-    int size();
-    void print();
+    bool is_empty() const;
+    int getValueAt(int const &index) const; 
+    int size() const;
+    void print() const;
     void remove(int const &index);
 };
 

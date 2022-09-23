@@ -98,7 +98,7 @@ void Sorted_List::remove(int const &index) {
     }
 }
 
-void Sorted_List::print() {
+void Sorted_List::print() const {
     if (!is_empty()) {
         Node* tmp = first;
         for (int i{0}; i < size(); ++i) {
@@ -111,7 +111,7 @@ void Sorted_List::print() {
     }
 }
 
-int Sorted_List::getValueAt(int const &index) {
+int Sorted_List::getValueAt(int const &index) const {
     if (!is_empty()) {
         Node* tmp = first;
         for (int i{size()}; i > (index + 1); --i) {
@@ -121,7 +121,7 @@ int Sorted_List::getValueAt(int const &index) {
     }
 }
 
-int Sorted_List::size() {
+int Sorted_List::size() const {
     Node* tmp = first;
     int size{0};
     while (tmp != NULL) {
@@ -131,6 +131,6 @@ int Sorted_List::size() {
     return size;
 }
 
-bool Sorted_List::is_empty() {
+bool Sorted_List::is_empty() const {
     return first == NULL;
 }
