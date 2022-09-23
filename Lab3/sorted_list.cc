@@ -3,25 +3,24 @@
 
 using namespace std;
 
-Node* first{};
+//Node* first{};
 
-void Sorted_List::insert(int const &value) {
+void Sorted_List::insert(int const &data) {
     
     // Node* new_node{new Node{value}};
     // Node* tmp{};
 
     /* ======== Test ======== */
     
-    Node* head{};
-    
-    Node* new_node{new Node{value}};
-    new_node->next = NULL;
+    Node* temp{new Node{data, nullptr}};
 
-    if (head == NULL) {
-        head = new_node;
+    if (first == nullptr) {
+        first = temp;
+    } else if (data > first->data) {
+        temp->next = first;
+        first = temp;
     } else {
-        new_node->next = head;
-        head = new_node;
+        insert_sort(first, temp);
     }
 
     /* ===================== */
@@ -65,6 +64,23 @@ void Sorted_List::insert(int const &value) {
     //tmp->next = first;
     //first = tmp;
     
+}
+
+/* Only works if you insert <= three values. */
+void Sorted_List::insert_sort(Node* current_node, Node* new_node) {
+    if (current_node->next == nullptr) {
+        current_node->next = new_node;
+        new_node->next = nullptr;
+        return;
+    } 
+    Node* next_node{current_node->next};
+    if (new_node->data <= next_node->data) {
+        current_node->next = new_node;
+        new_node->next = next_node;
+        return;
+    } else {
+        insert_sort(next_node, new_node);
+    }
 }
 
 void Sorted_List::remove(int const &index) {

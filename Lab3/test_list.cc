@@ -25,10 +25,12 @@ using namespace std;
 TEST_CASE( "Create an empty list" ) {
   Sorted_List l{};
   REQUIRE(l.is_empty() == true);
-  l.insert(5);
-  l.insert(3);
-  l.insert(9);
-  //REQUIRE(l.size() == 2);
+  l.insert(6);
+  l.insert(2);
+  l.insert(7);
+  //l.insert(1);
+  // l.insert(2);
+  //REQUIRE(l.size() == 3);
   //l.insert(9);
   //l.insert(7);
   //l.insert(1);
