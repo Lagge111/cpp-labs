@@ -7,33 +7,48 @@ Node* first{};
 
 void Sorted_List::insert(int const &value) {
     
+    // Node* new_node{new Node{value}};
+    // Node* tmp{};
+
+    /* ======== Test ======== */
+    
+    Node* head{};
+    
     Node* new_node{new Node{value}};
-    Node* tmp{};
+    new_node->next = NULL;
 
-
-    if (is_empty()) {
-         first = new_node;
-         new_node->next = NULL;
-    } else if (size() == 1) {
-        if (first->data > value) {
-        tmp->next = first;
-        first = tmp;
-        } else {
-            first->next = new_node;
-        }
+    if (head == NULL) {
+        head = new_node;
     } else {
-        if (first->data > value) {
-            tmp->next = first;
-            first = tmp;
-        } else {
-            tmp = first->next;
-            while (tmp->next->data > value) {
-                tmp = tmp->next;
-            } 
-            tmp = new_node;
+        new_node->next = head;
+        head = new_node;
+    }
 
-        }
-    } 
+    /* ===================== */
+
+    // if (is_empty()) {
+    //      first = new_node;
+    //      new_node->next = NULL;
+    // } else if (size() == 1) {
+    //     if (first->data > value) {
+    //     tmp->next = first;
+    //     first = tmp;
+    //     } else {
+    //         first->next = new_node;
+    //     }
+    // } else {
+    //     if (first->data > value) {
+    //         tmp->next = first;
+    //         first = tmp;
+    //     } else {
+    //         tmp = first->next;
+    //         while (tmp->next->data > value) {
+    //             tmp = tmp->next;
+    //         } 
+    //         tmp = new_node;
+
+    //     }
+    // } 
 
 
 
@@ -56,9 +71,6 @@ void Sorted_List::remove(int const &index) {
     Node* tmp = first;
     Node* last = first;
     for (int i{0}; i < size(); ++i) {
-    
-
-
         if (i == index) {
             last->next = tmp->next;
             delete tmp;
@@ -66,8 +78,6 @@ void Sorted_List::remove(int const &index) {
         last = tmp;
         tmp = tmp->next;
         }
-        
-        
         //tmp = first->next;
     }
 }

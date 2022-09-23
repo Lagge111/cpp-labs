@@ -46,16 +46,20 @@ Time operator++(Time const &time) {
     return timeAdd(time, 1);
 }
 
+/* Fixed postfix addition by returning temp var. I have not tested it. */
 Time operator++(Time const &time, int n) {    
-    return timeAdd(time, 1);
+    Time temp_time{time};
+    return timeAdd(temp_time, 1);
 }
 
 Time operator--(Time const &time) {
     return timeSub(time, 1);
 }
 
+/* Fixed postfix subtraction by returning temp var. I have not tested it. */
 Time operator--(Time const &time, int n) {
-    return timeSub(time, 1);
+    Time temp_time{time};
+    return timeSub(temp_time, 1);
 }
 
 bool operator<(Time const &time1, Time const &time2) {
