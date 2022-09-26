@@ -3,6 +3,9 @@
 
 #include <sstream>
 
+// TODO: Complementary work needed: What should prefix
+// and postfix return?
+
 struct Time
 {
     int hour{};
