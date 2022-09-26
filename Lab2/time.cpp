@@ -5,12 +5,16 @@ using namespace std;
 
 // TODO: Complementary work needed: The post/prefix operators are not correctly implemented.
 /*
-Fixed by correctly implementing post-/prefix operators,
+Fixed by correctly implementing postfix/prefix operators,
 by returning temp variables for the postfix versions.
 */
 
 // TODO: Complementary work needed: Don't take an argument as const & if the
 // first thing you do is make a copy.
+/*
+Fixed by only using const & where necessary according to the complementary
+work comment.
+*/
 
 // TODO: Complementary work needed: if your functions only return true or
 // false with one condition then you should change it to return condition or
@@ -54,59 +58,59 @@ string to_string(Time const &time, bool twelve_format)
             pm = true;
         }
     }
+    /* Added append to print 'am' or 'pm' */
     oss << setfill('0')
         << setw(2) << time.hour - (12 * pm) << ":"
         << setw(2) << time.min << ":"
-        << setw(2) << time.sec;
+        << setw(2) << time.sec << append;
 
     return oss.str();
 }
 
 /* Removed helper function for addition since we only use it here now */
-Time operator+(Time const &time, int n)
+Time operator+(Time &time, int n)
 {
     // return timeAdd(time, n);
-    Time temp_time{time};
-    temp_time.sec += n;
-    temp_time.min += (temp_time.sec / 60);
-    temp_time.sec = temp_time.sec % 60;
-    temp_time.hour += (temp_time.min / 60);
-    temp_time.min = temp_time.min % 60;
-    temp_time.hour = temp_time.hour % 24;
-    return temp_time;
+
+    time.sec += n;
+    time.min += (time.sec / 60);
+    time.sec = time.sec % 60;
+    time.hour += (time.min / 60);
+    time.min = time.min % 60;
+    time.hour = time.hour % 24;
+    return time;
 }
 
 /* Removed helper function for subtraction since we only use it here now */
-Time operator-(Time const &time, int n)
+Time operator-(Time &time, int n)
 {
     // return timeSub(time, n);
 
-    Time temp_time{time};
-    temp_time.sec -= (n % 60);
-    temp_time.min -= ((temp_time.sec + n) / 60) % 60;
-    temp_time.hour -= ((temp_time.sec + n) / 60) / 60;
+    time.sec -= (n % 60);
+    time.min -= ((time.sec + n) / 60) % 60;
+    time.hour -= ((time.sec + n) / 60) / 60;
 
-    if (temp_time.sec < 0)
+    if (time.sec < 0)
     {
-        temp_time.min--;
-        temp_time.sec += 60;
+        time.min--;
+        time.sec += 60;
     }
-    if (temp_time.min < 0)
+    if (time.min < 0)
     {
-        temp_time.hour--;
-        temp_time.min += 60;
+        time.hour--;
+        time.min += 60;
     }
-    while (temp_time.hour < 0)
+    while (time.hour < 0)
     {
-        temp_time.hour += 24;
+        time.hour += 24;
     }
-    return temp_time;
+    return time;
 }
 
 /*
 Fixed prefix addition by not calling a helper function.
 */
-Time operator++(Time &time)
+Time &operator++(Time &time)
 {
     // return timeAdd(time, 1);
 
@@ -132,7 +136,7 @@ Time operator++(Time &time)
 Fixed postfix addition by not calling a helper function,
 and by returning a temp variable.
 */
-Time operator++(Time const &time, int n)
+Time operator++(Time &time, int n)
 {
     // Time temp_time{time};
     // return timeAdd(temp_time, 1);
@@ -159,7 +163,7 @@ Time operator++(Time const &time, int n)
 /*
 Fixed prefix subtraction by not calling a helper function.
 */
-Time operator--(Time &time)
+Time &operator--(Time &time)
 {
     // return timeSub(time, 1);
 
@@ -185,7 +189,7 @@ Time operator--(Time &time)
 Fixed postfix subtraction by not calling a helper function,
 and by returning a temp variable.
 */
-Time operator--(Time const &time, int n)
+Time operator--(Time &time, int n)
 {
     // Time temp_time{time};
     // return timeSub(temp_time, 1);
