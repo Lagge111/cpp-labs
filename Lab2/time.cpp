@@ -103,7 +103,9 @@ Time operator-(Time const &time, int n)
     return temp_time;
 }
 
-/* One way to fix prefix addition */
+/*
+Fixed prefix addition by not calling a helper function.
+*/
 Time operator++(Time &time)
 {
     // return timeAdd(time, 1);
@@ -126,7 +128,10 @@ Time operator++(Time &time)
     return time;
 }
 
-/* One way to fix postfix addition */
+/*
+Fixed postfix addition by not calling a helper function,
+and by returning a temp variable.
+*/
 Time operator++(Time const &time, int n)
 {
     // Time temp_time{time};
@@ -151,7 +156,9 @@ Time operator++(Time const &time, int n)
     return temp_time;
 }
 
-/* One way to fix prefix subtraction */
+/*
+Fixed prefix subtraction by not calling a helper function.
+*/
 Time operator--(Time &time)
 {
     // return timeSub(time, 1);
@@ -174,7 +181,10 @@ Time operator--(Time &time)
     return time;
 }
 
-/* One way to fix postfix subtraction */
+/*
+Fixed postfix subtraction by not calling a helper function,
+and by returning a temp variable.
+*/
 Time operator--(Time const &time, int n)
 {
     // Time temp_time{time};
@@ -321,7 +331,9 @@ istream &operator>>(istream &is, Time &time)
     return is;
 }
 
-/* Removed helper functions */
+/*
+Removed helper functions since we only use this code in one place.
+*/
 
 /*  Helper functions for adding and subtracting time,
     used in the functions for the operators
