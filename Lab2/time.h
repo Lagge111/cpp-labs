@@ -5,7 +5,10 @@
 
 // TODO: Complementary work needed: What should prefix
 // and postfix return?
-
+/*
+Fixed by returning a reference to the value of the object
+instead of the value itself in the prefix operators.
+*/
 struct Time
 {
     int hour{};
@@ -19,15 +22,15 @@ bool is_am(Time const &time);
 
 std::string to_string(Time const &time, bool twelve_format);
 
-Time operator+(Time const &time, int n);
+Time operator+(Time &time, int n);
 
-Time operator-(Time const &time, int n);
+Time operator-(Time &time, int n);
 
-Time operator++(Time &time);
+Time &operator++(Time &time);
 
 Time operator++(Time const &time, int n);
 
-Time operator--(Time &time);
+Time &operator--(Time &time);
 
 Time operator--(Time const &time, int n);
 
