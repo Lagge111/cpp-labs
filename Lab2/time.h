@@ -1,9 +1,10 @@
-#ifndef TEST_H 
-#define TEST_H 
+#ifndef TEST_H
+#define TEST_H
 
 #include <sstream>
 
-struct Time {
+struct Time
+{
     int hour{};
     int min{};
     int sec{};
@@ -19,11 +20,11 @@ Time operator+(Time const &time, int n);
 
 Time operator-(Time const &time, int n);
 
-Time operator++(Time const &time);
+Time operator++(Time &time);
 
 Time operator++(Time const &time, int n);
 
-Time operator--(Time const &time);
+Time operator--(Time &time);
 
 Time operator--(Time const &time, int n);
 
@@ -39,12 +40,12 @@ bool operator>=(Time const &time1, Time const &time2);
 
 bool operator<=(Time const &time1, Time const &time2);
 
-std::ostream& operator<<(std::ostream &os, Time const &time);
+std::ostream &operator<<(std::ostream &os, Time const &time);
 
-std::istream& operator>>(std::istream &is, Time &time);
+std::istream &operator>>(std::istream &is, Time &time);
 
-Time timeAdd(Time const &time, int n);
+// Time timeAdd(Time const &time, int n);
 
-Time timeSub(Time const &time, int n);
+// Time timeSub(Time const &time, int n);
 
 #endif
