@@ -10,6 +10,10 @@ Fixed by testing bigger values, and by removing unnecessary t2 variable.
 
 // TODO: Complementary work needed: The prefix/postfix operators
 // doesn't work as intended. The test case for those are wrong.
+/*
+Fixed by firsty implementing the prefix/postfix correctly, and
+then adding correct test cases.
+*/
 
 // TODO: Complementary work needed: Should to string should
 // be able to have the format of "02:21:23 am".
@@ -113,26 +117,26 @@ TEST_CASE("Test \"-\" operator")
 TEST_CASE("Test \"++\" operator")
 {
     Time t1{22, 30, 50};
-    t1 = ++t1;
+    ++t1;
     CHECK(to_string(t1, 0) == "22:30:51");
 
     Time t2{22, 30, 50};
-    t2 = t2++;
+    t2++;
     CHECK(to_string(t2, 0) == "22:30:51");
 
     Time t3{23, 59, 59};
-    t3 = t3++;
+    t3++;
     CHECK(to_string(t3, 0) == "00:00:00");
 }
 
 TEST_CASE("Test \"--\" operator")
 {
     Time t1{22, 30, 50};
-    t1 = --t1;
+    --t1;
     CHECK(to_string(t1, 0) == "22:30:49");
 
     Time t2{22, 30, 50};
-    t2 = t2--;
+    t2--;
     CHECK(to_string(t2, 0) == "22:30:49");
 }
 
