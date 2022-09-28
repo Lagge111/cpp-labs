@@ -28,11 +28,11 @@ Time operator-(Time &time, int n);
 
 Time &operator++(Time &time);
 
-Time operator++(Time const &time, int n);
+Time operator++(Time &time, int n);
 
 Time &operator--(Time &time);
 
-Time operator--(Time const &time, int n);
+Time operator--(Time &time, int n);
 
 bool operator<(Time const &time1, Time const &time2);
 
