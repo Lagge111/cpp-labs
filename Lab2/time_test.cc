@@ -12,11 +12,15 @@ Fixed by testing bigger values, and by removing unnecessary t2 variable.
 // doesn't work as intended. The test case for those are wrong.
 /*
 Fixed by firsty implementing the prefix/postfix correctly, and
-then adding correct test cases.
+by adding correct test cases to show that prefix and postfix
+are different.
 */
 
 // TODO: Complementary work needed: Should to string should
 // be able to have the format of "02:21:23 am".
+/*
+Fixed by 
+*/
 
 // TODO: Complementary work needed: All the comparing
 // operators should at least be tested by comparing only
@@ -67,7 +71,7 @@ TEST_CASE("Test to_string()")
     std::string format_24{"14:24:44"};
     REQUIRE(to_string(t1, 0) == format_24);
 
-    std::string format_12{"02:24:44"};
+    std::string format_12{"02:24:44 pm"};
     REQUIRE(to_string(t1, 1) == format_12);
 
     Time t2{12, 00, 00};
@@ -117,27 +121,23 @@ TEST_CASE("Test \"-\" operator")
 TEST_CASE("Test \"++\" operator")
 {
     Time t1{22, 30, 50};
-    ++t1;
+    CHECK(to_string(++t1, 0) == "22:30:51");
     CHECK(to_string(t1, 0) == "22:30:51");
 
-    Time t2{22, 30, 50};
-    t2++;
-    CHECK(to_string(t2, 0) == "22:30:51");
-
-    Time t3{23, 59, 59};
-    t3++;
-    CHECK(to_string(t3, 0) == "00:00:00");
+    Time t2{23, 59, 59};
+    CHECK(to_string(t2++, 0) == "23:59:59");
+    CHECK(to_string(t2, 0) == "00:00:00");
 }
 
 TEST_CASE("Test \"--\" operator")
 {
     Time t1{22, 30, 50};
-    --t1;
+    CHECK(to_string(--t1, 0) == "22:30:49");
     CHECK(to_string(t1, 0) == "22:30:49");
 
-    Time t2{22, 30, 50};
-    t2--;
-    CHECK(to_string(t2, 0) == "22:30:49");
+    Time t2{00, 00, 00};
+    CHECK(to_string(t2--, 0) == "00:00:00");
+    CHECK(to_string(t2, 0) == "23:59:59");
 }
 
 TEST_CASE("Test \"<\" operator")
