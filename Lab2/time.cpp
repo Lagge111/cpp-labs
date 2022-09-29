@@ -5,22 +5,22 @@ using namespace std;
 
 // TODO: Complementary work needed: The post/prefix operators are not correctly implemented.
 /*
-Fixed by correctly implementing postfix/prefix operators.
-*/
+ * Fixed by correctly implementing postfix/prefix operators.
+ */
 
 // TODO: Complementary work needed: Don't take an argument as const & if the
 // first thing you do is make a copy.
 /*
-Fixed by only using const & where necessary according to the complementary
-work comment.
-*/
+ * Fixed by only using const & where necessary according to the complementary
+ * work comment.
+ */
 
 // TODO: Complementary work needed: if your functions only return true or
 // false with one condition then you should change it to return condition or
 // !(condition). For ex: if (t1 < t2) {return false} --> return !(t1 < t2)
 /*
-Fixed by removing unnecessary if-statements and changing the return statements.
-*/
+ * Fixed by removing unnecessary if-statements and changing the return statements.
+ */
 
 // TODO: Complementary work needed: operator>> normally
 // only read until an error occur and the stop. If you choose

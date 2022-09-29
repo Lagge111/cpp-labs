@@ -5,22 +5,22 @@
 // TODO: Complementary work needed: Should test bigger values for
 // operator (+). Also why is t2 there?
 /*
-Fixed by testing bigger values, and by removing unnecessary t2 variable.
-*/
+ * Fixed by testing bigger values, and by removing unnecessary t2 variable.
+ */
 
 // TODO: Complementary work needed: The prefix/postfix operators
 // doesn't work as intended. The test case for those are wrong.
 /*
-Fixed by firsty implementing the prefix/postfix correctly, and
-by adding correct test cases to show that prefix and postfix
-are different.
-*/
+ * Fixed by implementing the prefix/postfix correctly, and
+ * by adding correct test cases to show that prefix and postfix
+ * are different.
+ */
 
 // TODO: Complementary work needed: Should to string should
 // be able to have the format of "02:21:23 am".
 /*
-Fixed by 
-*/
+ * Fixed by appending 'am' or 'pm' to the string in to_string(), depending on the format.
+ */
 
 // TODO: Complementary work needed: All the comparing
 // operators should at least be tested by comparing only
@@ -29,8 +29,8 @@ Fixed by
 // CHECK_FALSE( 10:00:00 > 15:00:00 )
 // here we only compare the hours.
 /*
-Fixed by adding additional test cases to each comparing operator.
-*/
+ * Fixed by adding additional test cases to each comparing operator.
+ */
 
 TEST_CASE("Test is_valid()")
 {

@@ -6,9 +6,10 @@
 // TODO: Complementary work needed: What should prefix
 // and postfix return?
 /*
-Fixed by returning a reference to the value of the object
-instead of the value itself in the prefix operators.
-*/
+ * Fixed by returning a reference to the value of the object
+ * instead of the value itself in the prefix operators.
+ */
+
 struct Time
 {
     int hour{};
