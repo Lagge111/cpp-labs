@@ -5,8 +5,7 @@ using namespace std;
 
 // TODO: Complementary work needed: The post/prefix operators are not correctly implemented.
 /*
-Fixed by correctly implementing postfix/prefix operators,
-by returning temp variables for the postfix versions.
+Fixed by correctly implementing postfix/prefix operators.
 */
 
 // TODO: Complementary work needed: Don't take an argument as const & if the
@@ -142,20 +141,20 @@ Time operator++(Time &time, int n)
     // return timeAdd(temp_time, 1);
 
     Time temp_time{time};
-    temp_time.sec++;
-    if (temp_time.sec >= 60)
+    time.sec++;
+    if (time.sec >= 60)
     {
-        temp_time.sec -= 60;
-        temp_time.min++;
+        time.sec -= 60;
+        time.min++;
     }
-    if (temp_time.min >= 60)
+    if (time.min >= 60)
     {
-        temp_time.min -= 60;
-        temp_time.hour++;
+        time.min -= 60;
+        time.hour++;
     }
-    if (temp_time.hour >= 24)
+    if (time.hour >= 24)
     {
-        temp_time.hour -= 24;
+        time.hour -= 24;
     }
     return temp_time;
 }
@@ -195,20 +194,20 @@ Time operator--(Time &time, int n)
     // return timeSub(temp_time, 1);
 
     Time temp_time{time};
-    temp_time.sec--;
-    if (temp_time.sec < 0)
+    time.sec--;
+    if (time.sec < 0)
     {
-        temp_time.sec += 60;
-        temp_time.min--;
+        time.sec += 60;
+        time.min--;
     }
-    if (temp_time.min < 0)
+    if (time.min < 0)
     {
-        temp_time.min += 60;
-        temp_time.hour--;
+        time.min += 60;
+        time.hour--;
     }
-    if (temp_time.hour < 0)
+    if (time.hour < 0)
     {
-        temp_time.hour += 24;
+        time.hour += 24;
     }
     return temp_time;
 }
