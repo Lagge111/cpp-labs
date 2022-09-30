@@ -51,8 +51,4 @@ std::ostream &operator<<(std::ostream &os, Time const &time);
 
 std::istream &operator>>(std::istream &is, Time &time);
 
-// Time timeAdd(Time const &time, int n);
-
-// Time timeSub(Time const &time, int n);
-
 #endif

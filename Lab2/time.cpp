@@ -57,7 +57,6 @@ string to_string(Time const &time, bool twelve_format)
             pm = true;
         }
     }
-    /* Added append to print 'am' or 'pm' */
     oss << setfill('0')
         << setw(2) << time.hour - (12 * pm) << ":"
         << setw(2) << time.min << ":"
@@ -66,11 +65,12 @@ string to_string(Time const &time, bool twelve_format)
     return oss.str();
 }
 
-/* Removed helper function for addition since we only use it here now */
+/*
+ * Removed helper function for addition since 
+ * we only use this code here now 
+ */
 Time operator+(Time &time, int n)
 {
-    // return timeAdd(time, n);
-
     time.sec += n;
     time.min += (time.sec / 60);
     time.sec = time.sec % 60;
@@ -80,11 +80,12 @@ Time operator+(Time &time, int n)
     return time;
 }
 
-/* Removed helper function for subtraction since we only use it here now */
+/*
+ * Removed helper function for subtraction since
+ * we only use this code here now 
+ */
 Time operator-(Time &time, int n)
 {
-    // return timeSub(time, n);
-
     time.sec -= (n % 60);
     time.min -= ((time.sec + n) / 60) % 60;
     time.hour -= ((time.sec + n) / 60) / 60;
@@ -99,20 +100,15 @@ Time operator-(Time &time, int n)
         time.hour--;
         time.min += 60;
     }
-    while (time.hour < 0)
+    if (time.hour < 0)
     {
         time.hour += 24;
     }
     return time;
 }
 
-/*
-Fixed prefix addition by not calling a helper function.
-*/
 Time &operator++(Time &time)
 {
-    // return timeAdd(time, 1);
-
     time.sec++;
     if (time.sec >= 60)
     {
@@ -131,15 +127,8 @@ Time &operator++(Time &time)
     return time;
 }
 
-/*
-Fixed postfix addition by not calling a helper function,
-and by returning a temp variable.
-*/
 Time operator++(Time &time, int n)
 {
-    // Time temp_time{time};
-    // return timeAdd(temp_time, 1);
-
     Time temp_time{time};
     time.sec++;
     if (time.sec >= 60)
@@ -159,13 +148,8 @@ Time operator++(Time &time, int n)
     return temp_time;
 }
 
-/*
-Fixed prefix subtraction by not calling a helper function.
-*/
 Time &operator--(Time &time)
 {
-    // return timeSub(time, 1);
-
     time.sec--;
     if (time.sec < 0)
     {
@@ -184,15 +168,8 @@ Time &operator--(Time &time)
     return time;
 }
 
-/*
-Fixed postfix subtraction by not calling a helper function,
-and by returning a temp variable.
-*/
 Time operator--(Time &time, int n)
 {
-    // Time temp_time{time};
-    // return timeSub(temp_time, 1);
-
     Time temp_time{time};
     time.sec--;
     if (time.sec < 0)
@@ -266,47 +243,23 @@ bool operator>(Time const &time1, Time const &time2)
     return false;
 }
 
-/* Removed if-statement */
 bool operator==(Time const &time1, Time const &time2)
 {
-    // if (time1 < time2 || time1 > time2)
-    // {
-    //     return false;
-    // }
-    // return true;
     return !(time1 < time2 || time1 > time2);
 }
 
-/* Removed if-statement */
 bool operator!=(Time const &time1, Time const &time2)
 {
-    // if (time1 == time2)
-    // {
-    //     return false;
-    // }
-    // return true;
     return !(time1 == time2);
 }
 
-/* Removed if-statement */
 bool operator>=(Time const &time1, Time const &time2)
 {
-    // if (time1 > time2 || time1 == time2)
-    // {
-    //     return true;
-    // }
-    // return false;
     return (time1 > time2 || time1 == time2);
 }
 
-/* Removed if-statement */
 bool operator<=(Time const &time1, Time const &time2)
 {
-    // if (time1 < time2 || time1 == time2)
-    // {
-    //     return true;
-    // }
-    // return false;
     return (time1 < time2 || time1 == time2);
 }
 
@@ -333,48 +286,3 @@ istream &operator>>(istream &is, Time &time)
     }
     return is;
 }
-
-/*
-Removed helper functions since we only use this code in one place.
-*/
-
-/*  Helper functions for adding and subtracting time,
-    used in the functions for the operators
-    "+", "-", "++" and "--".
-*/
-
-/*Time timeAdd(Time time, int n)
-{
-    // Time time_tmp{time};
-    time.sec += n;
-    time.min += (time.sec / 60);
-    time.sec = time.sec % 60;
-    time.hour += (time.min / 60);
-    time.min = time.min % 60;
-    time.hour = time.hour % 24;
-    return time;
-}*/
-
-/*Time timeSub(Time time, int n)
-{
-    // Time time_tmp{time};
-    time.sec -= (n % 60);
-    time.min -= ((time.sec + n) / 60) % 60;
-    time.hour -= ((time.sec + n) / 60) / 60;
-
-    if (time.sec < 0)
-    {
-        time.min--;
-        time.sec += 60;
-    }
-    if (time.min < 0)
-    {
-        time.hour--;
-        time.min += 60;
-    }
-    while (time.hour < 0)
-    {
-        time.hour += 24;
-    }
-    return time;
-}*/
