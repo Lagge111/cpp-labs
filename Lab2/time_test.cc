@@ -88,12 +88,16 @@ TEST_CASE("Test \"-\" operator")
     CHECK(to_string(t2 - 3603, 0) == "22:59:57");
 
     Time t3{23, 59, 59};
-    // One billion seconds
+    // One billion seconds. 
     CHECK(to_string(t3 - 1000000000, 0) == "22:13:19");
 
     Time t4{12, 40, 50};
     Time t5{12, 40, 50};
     CHECK(to_string(t4 - (3600 * 24), 0) == to_string(t5, 0));
+
+    // The test case specified in the complementary work. 
+    Time t6{0, 0, 0};
+    CHECK(to_string(t6 - 129600, 0) == "12:00:00");
 }
 
 TEST_CASE("Test \"++\" operator")
