@@ -3,11 +3,10 @@
 
 #include <sstream>
 
-// TODO: Complementary work needed: What should prefix
-// and postfix return?
+// TODO: Complementary Work needed: operator+ and -
+// should have const & time.
 /*
- * Fixed by returning a reference to the value of the object
- * instead of the value itself in the prefix operators.
+ * Fixed by adding const & time to operator+ and operator-.
  */
 
 struct Time
@@ -23,9 +22,9 @@ bool is_am(Time const &time);
 
 std::string to_string(Time const &time, bool twelve_format);
 
-Time operator+(Time &time, int n);
+Time operator+(Time const &time, int n);
 
-Time operator-(Time &time, int n);
+Time operator-(Time const &time, int n);
 
 Time &operator++(Time &time);
 

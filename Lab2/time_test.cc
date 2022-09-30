@@ -2,36 +2,10 @@
 #include "time.h"
 #include <string>
 
-// TODO: Complementary work needed: Should test bigger values for
-// operator (+). Also why is t2 there?
+// Comment: When testing + and -, try for really big
+// values.
 /*
- * Fixed by testing bigger values for operator (+), 
- * and by removing unnecessary t2 variable.
- */
-
-// TODO: Complementary work needed: The prefix/postfix operators
-// doesn't work as intended. The test case for those are wrong.
-/*
- * Fixed by implementing the prefix/postfix correctly, and
- * by adding correct test cases to show that prefix and postfix
- * are different.
- */
-
-// TODO: Complementary work needed: Should to string should
-// be able to have the format of "02:21:23 am".
-/*
- * Fixed by appending 'am' or 'pm' to the string in to_string(), 
- * depending on the format.
- */
-
-// TODO: Complementary work needed: All the comparing
-// operators should at least be tested by comparing only
-// hour, min, second.
-// For example:
-// CHECK_FALSE( 10:00:00 > 15:00:00 )
-// here we only compare the hours.
-/*
- * Fixed by adding additional test cases to each comparing operator
+ * Fixed by testing REALLY big values. 
  */
 
 TEST_CASE("Test is_valid()")
@@ -96,8 +70,9 @@ TEST_CASE("Test \"+\" operator")
     CHECK(to_string(t1, 0) == "01:00:02");
 
     Time t2{13, 30, 00};
-    t2 = t2 + 80000;
-    CHECK(to_string(t2, 0) == "11:43:20");
+    // One hundred million seconds. 
+    t2 = t2 + 100000000;
+    CHECK(to_string(t2, 0) == "23:16:40");
 
     Time t3{23, 59, 56};
     t3 = t3 + 5;
@@ -113,7 +88,8 @@ TEST_CASE("Test \"-\" operator")
     CHECK(to_string(t2 - 3603, 0) == "22:59:57");
 
     Time t3{23, 59, 59};
-    CHECK(to_string(t3 - 63, 0) == "23:58:56");
+    // One billion seconds
+    CHECK(to_string(t3 - 1000000000, 0) == "22:13:19");
 
     Time t4{12, 40, 50};
     Time t5{12, 40, 50};

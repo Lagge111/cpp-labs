@@ -3,32 +3,26 @@
 #include <iomanip>
 using namespace std;
 
-// TODO: Complementary work needed: The post/prefix operators are not correctly implemented.
+// TODO: Complementary work needed: The operator-
+// doesn't work for:
+// Time t{0,0,0}
+// t-129600;
+// expects to be "12:00:00" but gets "-12:00:00".
 /*
- * Fixed by correctly implementing postfix/prefix operators.
+ * Fixed by changing to a while loop instead of an if statement
+ * for handling hour < 0.
  */
 
-// TODO: Complementary work needed: Don't take an argument as const & if the
-// first thing you do is make a copy.
+// TODO: Complementary work needed: operator+ and
+// - should return a copy.
 /*
- * Fixed by using 'const &' only where necessary, according to the complementary
- * work comment.
+ * Fixed by making operator + and - return copies.
  */
 
-// TODO: Complementary work needed: if your functions only return true or
-// false with one condition then you should change it to return condition or
-// !(condition). For ex: if (t1 < t2) {return false} --> return !(t1 < t2)
+// TODO: Complementary work needed: operator ++ and --
+// should reuse operator + and -
 /*
- * Fixed by removing unnecessary if-statements and changing the return statements.
- */
-
-// TODO: Complementary work needed: operator>> normally
-// only read until an error occur and the stop. If you choose
-// to implement this in a different way, it is OK as long as you
-// document it (by writing a comment in the header file).
-/*
- * Fixed by also checking the format of the input, and by adding 
- * documentation regarding our implementation in the header file. 
+ * Fixed by reusing operator + and - in operator ++ and --.
  */
 
 bool is_valid(Time const &time)
@@ -73,51 +67,45 @@ string to_string(Time const &time, bool twelve_format)
     return oss.str();
 }
 
-/*
- * Removed helper function for addition since 
- * we only use this code here now 
- */
-Time operator+(Time &time, int n)
+Time operator+(Time const &time, int n)
 {
-    time.sec += n;
-    time.min += (time.sec / 60);
-    time.sec = time.sec % 60;
-    time.hour += (time.min / 60);
-    time.min = time.min % 60;
-    time.hour = time.hour % 24;
-    return time;
+    Time temp{time};
+    temp.sec += n;
+    temp.min += (temp.sec / 60);
+    temp.sec = temp.sec % 60;
+    temp.hour += (temp.min / 60);
+    temp.min = temp.min % 60;
+    temp.hour = temp.hour % 24;
+    return temp;
 }
 
-/*
- * Removed helper function for subtraction since
- * we only use this code here now 
- */
-Time operator-(Time &time, int n)
+Time operator-(Time const &time, int n)
 {
-    time.sec -= (n % 60);
-    time.min -= ((time.sec + n) / 60) % 60;
-    time.hour -= ((time.sec + n) / 60) / 60;
+    Time temp{time};
+    temp.sec -= (n % 60);
+    temp.min -= ((temp.sec + n) / 60) % 60;
+    temp.hour -= ((temp.sec + n) / 60) / 60;
 
-    if (time.sec < 0)
+    if (temp.sec < 0)
     {
-        time.min--;
-        time.sec += 60;
+        temp.min--;
+        temp.sec += 60;
     }
-    if (time.min < 0)
+    if (temp.min < 0)
     {
-        time.hour--;
-        time.min += 60;
+        temp.hour--;
+        temp.min += 60;
     }
-    if (time.hour < 0)
+    while (temp.hour < 0)
     {
-        time.hour += 24;
+        temp.hour += 24;
     }
-    return time;
+    return temp;
 }
 
 Time &operator++(Time &time)
 {
-    time.sec++;
+    time = time + 1;
     if (time.sec >= 60)
     {
         time.sec -= 60;
@@ -138,7 +126,7 @@ Time &operator++(Time &time)
 Time operator++(Time &time, int n)
 {
     Time temp_time{time};
-    time.sec++;
+    time = time + 1;
     if (time.sec >= 60)
     {
         time.sec -= 60;
@@ -158,7 +146,7 @@ Time operator++(Time &time, int n)
 
 Time &operator--(Time &time)
 {
-    time.sec--;
+    time = time - 1;
     if (time.sec < 0)
     {
         time.sec += 60;
@@ -179,7 +167,7 @@ Time &operator--(Time &time)
 Time operator--(Time &time, int n)
 {
     Time temp_time{time};
-    time.sec--;
+    time = time - 1;
     if (time.sec < 0)
     {
         time.sec += 60;
