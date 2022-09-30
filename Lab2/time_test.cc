@@ -5,7 +5,8 @@
 // TODO: Complementary work needed: Should test bigger values for
 // operator (+). Also why is t2 there?
 /*
- * Fixed by testing bigger values, and by removing unnecessary t2 variable.
+ * Fixed by testing bigger values for operator (+), 
+ * and by removing unnecessary t2 variable.
  */
 
 // TODO: Complementary work needed: The prefix/postfix operators
@@ -19,7 +20,8 @@
 // TODO: Complementary work needed: Should to string should
 // be able to have the format of "02:21:23 am".
 /*
- * Fixed by appending 'am' or 'pm' to the string in to_string(), depending on the format.
+ * Fixed by appending 'am' or 'pm' to the string in to_string(), 
+ * depending on the format.
  */
 
 // TODO: Complementary work needed: All the comparing
@@ -29,7 +31,7 @@
 // CHECK_FALSE( 10:00:00 > 15:00:00 )
 // here we only compare the hours.
 /*
- * Fixed by adding additional test cases to each comparing operator.
+ * Fixed by adding additional test cases to each comparing operator
  */
 
 TEST_CASE("Test is_valid()")
@@ -94,12 +96,12 @@ TEST_CASE("Test \"+\" operator")
     CHECK(to_string(t1, 0) == "01:00:02");
 
     Time t2{13, 30, 00};
-    t2 = t2 + 8000;
-    CHECK(to_string(t2, 0) == "15:43:20");
+    t2 = t2 + 80000;
+    CHECK(to_string(t2, 0) == "11:43:20");
 
-    Time t3{12, 30, 50};
+    Time t3{23, 59, 56};
     t3 = t3 + 5;
-    CHECK(to_string(t3, 0) == "12:30:55");
+    CHECK(to_string(t3, 0) == "00:00:01");
 }
 
 TEST_CASE("Test \"-\" operator")
