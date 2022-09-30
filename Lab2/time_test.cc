@@ -290,19 +290,22 @@ TEST_CASE("Test \">>\" operator")
     Time t1{};
     std::istringstream iss{"12:30:50"};
     iss >> t1;
-    CHECK(iss.good());
     CHECK(to_string(t1, 0) == "12:30:50");
 
     Time t2{};
     std::istringstream iss2{"12:30:55"};
     iss2 >> t2;
-    CHECK(iss2.good());
     REQUIRE_FALSE(to_string(t2, 0) == "11:41:50");
 
     Time t3{};
     std::istringstream iss3{"12:80:55"};
     iss3 >> t3;
     CHECK(iss3.fail());
-    REQUIRE_FALSE(to_string(t3, 0) == "11:41:50");
     REQUIRE_FALSE(to_string(t3, 0) == "12:80:55");
+
+    Time t4{};
+    std::istringstream iss4{"12?30:55"};
+    iss4 >> t4;
+    CHECK(iss4.fail());
+    REQUIRE_FALSE(to_string(t4, 0) == "12?30:55");
 }

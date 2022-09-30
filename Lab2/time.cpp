@@ -11,7 +11,7 @@ using namespace std;
 // TODO: Complementary work needed: Don't take an argument as const & if the
 // first thing you do is make a copy.
 /*
- * Fixed by only using const & where necessary according to the complementary
+ * Fixed by using 'const &' only where necessary, according to the complementary
  * work comment.
  */
 
@@ -26,6 +26,10 @@ using namespace std;
 // only read until an error occur and the stop. If you choose
 // to implement this in a different way, it is OK as long as you
 // document it (by writing a comment in the header file).
+/*
+ * Fixed by also checking the format of the input, and by adding 
+ * documentation regarding our implementation in the header file. 
+ */
 
 bool is_valid(Time const &time)
 {
@@ -60,7 +64,11 @@ string to_string(Time const &time, bool twelve_format)
     oss << setfill('0')
         << setw(2) << time.hour - (12 * pm) << ":"
         << setw(2) << time.min << ":"
-        << setw(2) << time.sec << append;
+        << setw(2) << time.sec;
+
+    if (twelve_format) {
+        oss << append;
+    };
 
     return oss.str();
 }
@@ -271,18 +279,16 @@ ostream &operator<<(ostream &os, Time const &time)
 
 istream &operator>>(istream &is, Time &time)
 {
-    char c{};
+    char c1{};
+    char c2{};
     Time temp{};
-    is >> temp.hour >> c >> temp.min >> c >> temp.sec;
-    is.clear();
-    if (is_valid(temp))
-    {
-        time = temp;
-        is.setstate(ios_base::goodbit);
-    }
-    else
-    {
+    is >> temp.hour >> c1 >> temp.min >> c2 >> temp.sec;
+
+    if(!is_valid(temp) || c1 != ':' || c2 != ':') {
         is.setstate(ios_base::failbit);
+    } else {
+        time = temp;
     }
+
     return is;
 }
