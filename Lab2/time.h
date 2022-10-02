@@ -5,7 +5,7 @@
 
 // TODO: Complementary work needed: operator+ and -
 // should have const & time.
-/*
+/**
  * Fixed by adding const & time to operator+ and operator-.
  */
 
@@ -48,7 +48,7 @@ bool operator<=(Time const &time1, Time const &time2);
 
 std::ostream &operator<<(std::ostream &os, Time const &time);
 
-/*
+/**
  * Instead of checking the validity of each read value,
  * we check the validity of the entire time.
  * We read the values to a 'temp' variable to not change
