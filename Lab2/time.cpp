@@ -10,9 +10,9 @@ using namespace std;
 // expects to be "12:00:00" but gets "-12:00:00".
 /**
  * Fixed by calculating hour % 24, and if it is
- * still a negative value, we are making it positive 
- * by adding 24. Could been done with less code through
- * a while-loop, but this solution gives us a
+ * still a negative value, we are making it positive
+ * by adding 24. Could have been solved with less code
+ * through a while loop, but this solution gives us a
  * better time complexity.
  */
 
@@ -90,8 +90,6 @@ Time operator-(Time const &time, int n)
     temp.min -= ((temp.sec + n) / 60) % 60;
     temp.hour -= ((temp.sec + n) / 60) / 60;
 
-    int rest;
-
     if (temp.sec < 0)
     {
         temp.min--;
@@ -105,7 +103,8 @@ Time operator-(Time const &time, int n)
     if (temp.hour < 0)
     {
         temp.hour = temp.hour % 24;
-        if (temp.hour < 0) {
+        if (temp.hour < 0)
+        {
             temp.hour += 24;
         }
     }
