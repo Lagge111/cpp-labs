@@ -98,6 +98,10 @@ TEST_CASE("Test \"-\" operator")
     // The test case specified in the complementary work.
     Time t6{0, 0, 0};
     CHECK(to_string(t6 - 129600, 0) == "12:00:00");
+
+    // Added an additional test case to the updated operator.
+    Time t7{00, 00, 00};
+    CHECK(to_string(t7 - 86400, 0) == "00:00:00");
 }
 
 TEST_CASE("Test \"++\" operator")
