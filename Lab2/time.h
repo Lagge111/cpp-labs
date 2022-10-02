@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-// TODO: Complementary Work needed: operator+ and -
+// TODO: Complementary work needed: operator+ and -
 // should have const & time.
 /*
  * Fixed by adding const & time to operator+ and operator-.
@@ -48,20 +48,20 @@ bool operator<=(Time const &time1, Time const &time2);
 
 std::ostream &operator<<(std::ostream &os, Time const &time);
 
-/* 
+/*
  * Instead of checking the validity of each read value,
- * we check the validity of the entire time. 
+ * we check the validity of the entire time.
  * We read the values to a 'temp' variable to not change
- * the 'time' variable if read the values are incorrect. 
- * By passing the 'temp' variable as a parameter to the 
- * is_valid() function, we check if the actual time is 
- * valid before assigning the value of the 'temp' variable 
+ * the 'time' variable if the read values are incorrect.
+ * By passing the 'temp' variable as a parameter to the
+ * is_valid() function, we check if the actual time is
+ * valid before assigning the value of the 'temp' variable
  * to the 'time' variable. We also check the format of the
- * input, so that we only "accept" colons between hour, 
+ * input, so that we only "accept" colons between hour,
  * min and seconds before assigning the 'temp' variable
  * to the 'time' variable.
  * If the is_valid() function returns false, or if the
- * format is invalid (not colons) we set the fail-flag. 
+ * format is invalid (not colons) we set the fail-flag.
  *
  * With this implementation, we will never assign an
  * incorrect value to the 'time' variable.
