@@ -3,22 +3,18 @@
 #include <iomanip>
 using namespace std;
 
-// TODO: Complementary work: Does the check for the first word
-// need to be inside the loop every time?
-
-// Fixed by reading the first word of the file outside of the loop,
-// to give longest_word and shortest_word values. 
-
-int main() {
+int main()
+{
     int word_count{};
     int char_count{};
     string shortest_word{};
     string longest_word{};
     string current_word{};
-    
+
     ifstream input_file{"data.txt"};
 
-    if (!input_file) {
+    if (!input_file)
+    {
         cerr << "ERROR: Input file not found." << endl;
         return 0;
     }
@@ -28,19 +24,23 @@ int main() {
     word_count++;
     char_count = longest_word.length();
 
-    while (input_file >> current_word) {
+    while (input_file >> current_word)
+    {
         char_count += current_word.length();
         word_count++;
 
-        if (current_word.length() <= shortest_word.length()) {
+        if (current_word.length() <= shortest_word.length())
+        {
             shortest_word = current_word;
-
-        } else if (current_word.length() >= longest_word.length()) {
+        }
+        else if (current_word.length() >= longest_word.length())
+        {
             longest_word = current_word;
         }
     }
 
-    if (word_count == 0) {
+    if (word_count == 0)
+    {
         cerr << "ERROR: Input file is empty." << endl;
         return 0;
     }
@@ -53,5 +53,4 @@ int main() {
     input_file.close();
 
     return 0;
-
 }
