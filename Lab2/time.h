@@ -3,12 +3,6 @@
 
 #include <sstream>
 
-// TODO: Complementary work needed: operator+ and -
-// should have const & time.
-/**
- * Fixed by adding const & time to operator+ and operator-.
- */
-
 struct Time
 {
     int hour{};

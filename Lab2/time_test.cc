@@ -2,12 +2,6 @@
 #include "time.h"
 #include <string>
 
-// Comment: When testing + and -, try for really big
-// values.
-/**
- * Fixed by testing REALLY big values.
- */
-
 TEST_CASE("Test is_valid()")
 {
     Time t1{23, 10, 50};
@@ -95,7 +89,6 @@ TEST_CASE("Test \"-\" operator")
     Time t5{12, 40, 50};
     CHECK(to_string(t4 - (3600 * 24), 0) == to_string(t5, 0));
 
-    // The test case specified in the complementary work.
     Time t6{0, 0, 0};
     CHECK(to_string(t6 - 129600, 0) == "12:00:00");
 }

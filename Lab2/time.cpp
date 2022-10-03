@@ -3,31 +3,6 @@
 #include <iomanip>
 using namespace std;
 
-// TODO: Complementary work needed: The operator-
-// doesn't work for:
-// Time t{0,0,0}
-// t-129600;
-// expects to be "12:00:00" but gets "-12:00:00".
-/**
- * Fixed by calculating hour % 24, and if it is
- * still a negative value, we are making it positive
- * by adding 24. Could have been solved with less code
- * through a while loop, but this solution gives us a
- * better time complexity.
- */
-
-// TODO: Complementary work needed: operator+ and
-// - should return a copy.
-/**
- * Fixed by making operator + and - return copies.
- */
-
-// TODO: Complementary work needed: operator ++ and --
-// should reuse operator + and -
-/**
- * Fixed by reusing operator + and - in operator ++ and --.
- */
-
 bool is_valid(Time const &time)
 {
     return ((time.hour < 24 && time.hour >= 0) &&
