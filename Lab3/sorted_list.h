@@ -1,24 +1,40 @@
 #ifndef SORTED_LIST_H
 #define SORTED_LIST_H
+#include <iostream>
+using namespace std;
 
 class Sorted_List {
 
 private:
-    /* Construct the node inside the list class, according to Stack Overflow */ 
+
     struct Node {
         int data{};
         Node* next{};
     };
-    /*  Can be private since we only use it as a helper function,
-        which means it doesn't have to be accessible to the programmer. 
-     */
     void insert_sort(Node* current_node, Node* temp);
-    /*  Create the first node inside the list class because we have 
-        the node struct inside the class. 
-     */
     Node* first{};
 
 public:
+    //Default constructor
+    Sorted_List() {
+
+    }
+
+    //Destructor
+    ~Sorted_List() {
+
+    }
+
+    //Copy constructor
+    Sorted_List(Sorted_List const& original) {
+        cout << "hej" << endl;
+    }
+
+    //Move constructor
+    Sorted_List(Sorted_List&& other) {
+
+    }
+
     void insert(int const &value);
     bool is_empty() const;
     int getValueAt(int const &index) const; 
@@ -26,10 +42,5 @@ public:
     void print() const;
     void remove(int const &index);
 };
-
-// struct Node {
-//     int data{};
-//     Node* next{};
-// };
 
 #endif

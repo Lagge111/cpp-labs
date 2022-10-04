@@ -25,18 +25,13 @@ using namespace std;
 TEST_CASE( "Create an empty list" ) {
   Sorted_List l{};
   REQUIRE(l.is_empty() == true);
-  l.insert(6);
-  l.insert(2);
-  l.insert(7);
-  //l.insert(1);
-  // l.insert(2);
-  //REQUIRE(l.size() == 3);
-  //l.insert(9);
   //l.insert(7);
   //l.insert(1);
   //l.insert(6);
   l.print();
   l.remove(2);
+  l.print();
+  l.remove(0);
   l.print();
 
   // REQUIRE(l.getValueAt(0) == 1);
@@ -50,6 +45,27 @@ TEST_CASE( "Create an empty list" ) {
 
   // REQUIRE( l.is_empty() == true );
   // REQUIRE( l.size() == 0 );
+}
+
+TEST_CASE( "Insert values" ) {
+  l.insert(60);
+  l.insert(70);
+  l.insert(90);
+  l.insert(50);
+  l.insert(11);
+  l.insert(8);
+  l.insert(1);
+  l.insert(9);
+  REQUIRE(l.size() == 8);
+}
+
+TEST_CASE( "Print values" ) {
+  l.print();
+}
+
+TEST_CASE( "Remove values" ) {
+  l.remove(4);
+  REQUIRE(l.size() == 7);
 }
 
 // It is your job to create new test cases and fully test your Sorted_List class
