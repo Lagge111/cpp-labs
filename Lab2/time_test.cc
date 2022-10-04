@@ -2,12 +2,6 @@
 #include "time.h"
 #include <string>
 
-// Comment: When testing + and -, try for really big
-// values.
-/*
- * Fixed by testing REALLY big values. 
- */
-
 TEST_CASE("Test is_valid()")
 {
     Time t1{23, 10, 50};
@@ -70,7 +64,7 @@ TEST_CASE("Test \"+\" operator")
     CHECK(to_string(t1, 0) == "01:00:02");
 
     Time t2{13, 30, 00};
-    // One hundred million seconds. 
+    // One hundred million seconds.
     t2 = t2 + 100000000;
     CHECK(to_string(t2, 0) == "23:16:40");
 
@@ -88,14 +82,13 @@ TEST_CASE("Test \"-\" operator")
     CHECK(to_string(t2 - 3603, 0) == "22:59:57");
 
     Time t3{23, 59, 59};
-    // One billion seconds. 
+    // One billion seconds.
     CHECK(to_string(t3 - 1000000000, 0) == "22:13:19");
 
     Time t4{12, 40, 50};
     Time t5{12, 40, 50};
     CHECK(to_string(t4 - (3600 * 24), 0) == to_string(t5, 0));
 
-    // The test case specified in the complementary work. 
     Time t6{0, 0, 0};
     CHECK(to_string(t6 - 129600, 0) == "12:00:00");
 }

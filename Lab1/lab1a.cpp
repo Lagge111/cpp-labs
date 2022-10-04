@@ -2,13 +2,8 @@
 #include <iomanip>
 using namespace std;
 
-// TODO: Complementary work: Don't repeat sticky IO manipulators.
-// Every manipulator (except setw) will "stick" until a different
-// manipulator overrides it, so it is unnecessary to repeat them.
-
-// Fixed by only declaring sticky IO manipulators once. 
-
-int main() {
+int main()
+{
 
     int number{};
     double f_number{};

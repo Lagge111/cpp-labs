@@ -3,28 +3,6 @@
 #include <iomanip>
 using namespace std;
 
-// TODO: Complementary work needed: The operator-
-// doesn't work for:
-// Time t{0,0,0}
-// t-129600;
-// expects to be "12:00:00" but gets "-12:00:00".
-/*
- * Fixed by changing to a while loop instead of an if statement
- * for handling hour < 0.
- */
-
-// TODO: Complementary work needed: operator+ and
-// - should return a copy.
-/*
- * Fixed by making operator + and - return copies.
- */
-
-// TODO: Complementary work needed: operator ++ and --
-// should reuse operator + and -
-/*
- * Fixed by reusing operator + and - in operator ++ and --.
- */
-
 bool is_valid(Time const &time)
 {
     return ((time.hour < 24 && time.hour >= 0) &&
@@ -60,7 +38,8 @@ string to_string(Time const &time, bool twelve_format)
         << setw(2) << time.min << ":"
         << setw(2) << time.sec;
 
-    if (twelve_format) {
+    if (twelve_format)
+    {
         oss << append;
     };
 
@@ -96,9 +75,13 @@ Time operator-(Time const &time, int n)
         temp.hour--;
         temp.min += 60;
     }
-    while (temp.hour < 0)
+    if (temp.hour < 0)
     {
-        temp.hour += 24;
+        temp.hour = temp.hour % 24;
+        if (temp.hour < 0)
+        {
+            temp.hour += 24;
+        }
     }
     return temp;
 }
@@ -272,9 +255,12 @@ istream &operator>>(istream &is, Time &time)
     Time temp{};
     is >> temp.hour >> c1 >> temp.min >> c2 >> temp.sec;
 
-    if(!is_valid(temp) || c1 != ':' || c2 != ':') {
+    if (!is_valid(temp) || c1 != ':' || c2 != ':')
+    {
         is.setstate(ios_base::failbit);
-    } else {
+    }
+    else
+    {
         time = temp;
     }
 
