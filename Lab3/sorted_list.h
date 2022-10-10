@@ -17,56 +17,38 @@ private:
     // Node *copy(Node const *n);
 
 public:
-    // Default constructor
+    // Default constructor - default due to the presens of other constructors
     Sorted_List() = default;
 
     // Destructor
     ~Sorted_List();
 
+<<<<<<< HEAD
     // Copy constructur
     Sorted_List(Sorted_List const &original);
 
+=======
+>>>>>>> 28734e66fec518b305b220b86e7dc44395ac9249
     // Move constructor
-    Sorted_List(Sorted_List &&other);
+    Sorted_List(Sorted_List &&original);
 
-    // Copy assignment operator
-    Sorted_List &operator=(Sorted_List const &other);
+    // Copy oonstructor
+    Sorted_List(Sorted_List const &original);
 
-    // Move assignment operator
-    Sorted_List &operator=(Sorted_List &&other);
+    // Copy operator
+    Sorted_List &operator=(Sorted_List const &original);
 
-    /*
-        //Destructor
-        ~Sorted_List() {
-            Node* current = first;
-            Node* next;
+    // Move operator
+    Sorted_List &operator=(Sorted_List &&original);
 
-            while (current != NULL) {
-                next = current->next;
-                delete current;
-                current = next;
-            }
-
-            cout << "destructor executed" << endl;
-        }
-
-        //Copy constructor
-        Sorted_List(Sorted_List const& original) {
-            cout << "hej" << endl;
-        }
-
-        //Move constructor
-        Sorted_List(Sorted_List&& other) {
-
-        }*/
-
-    void insert(int const &value);
+    void insert(int const &data);
     bool is_empty() const;
     int getValueAt(int const &index) const;
     int size() const;
     void print() const;
     void remove(int const &index);
     void clear_list();
+    string list_string();
 };
 
 #endif

@@ -3,15 +3,24 @@
 
 using namespace std;
 
-// Move constructor
-Sorted_List::Sorted_List(Sorted_List &&other) : first{other.first}
+Sorted_List::~Sorted_List()
 {
-    other.first = nullptr;
+    clear_list();
 }
 
 // Copy constructor
 Sorted_List::Sorted_List(Sorted_List const &original)
 {
+<<<<<<< HEAD
+=======
+    *this = original;
+    cout << "copy constructor reached" << endl; // test-kommentar
+}
+
+// Copy operator
+Sorted_List &Sorted_List::operator=(Sorted_List const &original)
+{
+>>>>>>> 28734e66fec518b305b220b86e7dc44395ac9249
     if (original.first != nullptr)
     {
         Node *temp{original.first};
@@ -24,39 +33,25 @@ Sorted_List::Sorted_List(Sorted_List const &original)
             new_node = new_node->next;
             temp = temp->next;
         }
+        cout << "Copy operator reached" << endl; // test-kommentar
     }
-}
-
-// Destructor
-Sorted_List::~Sorted_List()
-{
-    while (!is_empty())
-    {
-        remove(0);
-    }
-}
-
-// Copy assignment operator
-Sorted_List &Sorted_List::operator=(Sorted_List const &other)
-{
-    Sorted_List tmp{other};
-    std::swap(first, tmp.first);
     return *this;
 }
 
-// Move assignment operator
-Sorted_List &Sorted_List::operator=(Sorted_List &&other)
+// Move operator
+Sorted_List &Sorted_List::operator=(Sorted_List &&original)
 {
     clear_list();
-    first = other.first;
-    other.first = nullptr;
+    *this = original;
+    original.clear_list();
+    cout << "Move operator reached" << endl; // test-kommentar
     return *this;
 }
 
 // Clear list of nodes
 void Sorted_List::clear_list()
 {
-    while (first != nullptr)
+    while (!is_empty())
     {
         remove(0);
     }
@@ -159,7 +154,7 @@ int Sorted_List::getValueAt(int const &index) const
     if (!is_empty())
     {
         Node *tmp = first;
-        for (int i{size()}; i > (index + 1); --i)
+        for (int i{0}; i < index; ++i)
         {
             tmp = tmp->next;
         }
@@ -183,4 +178,21 @@ int Sorted_List::size() const
 bool Sorted_List::is_empty() const
 {
     return first == nullptr;
+}
+
+string Sorted_List::list_string()
+{
+    if (is_empty())
+    {
+        return "empty";
+    }
+    else
+    {
+        string s;
+        for (int i{0}; i < size(); ++i)
+        {
+            s = s.append(to_string(getValueAt(i)));
+        }
+        return s;
+    }
 }
