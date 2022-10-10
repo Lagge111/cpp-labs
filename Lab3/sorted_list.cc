@@ -9,61 +9,48 @@ Sorted_List::~Sorted_List() {
     }
 }
 
-// Move constructor
-    Sorted_List::Sorted_List(Sorted_List &&other)
-{
-    other.first = nullptr;
-}
-
-// Copy constructor
-Sorted_List::Sorted_List(Sorted_List const &other)
-{
-    if (other.first != nullptr)
-    {
-        Node *temp{other.first};
-        Node *new_node{new Node{temp->data, nullptr}};
-        first = new_node;
-        temp = temp->next;
-        while (temp != nullptr)
-        {
-            new_node->next = new Node{temp->data, nullptr};
-            new_node = new_node->next;
-            temp = temp->next;
-        }
-    }
-}
-
-
-void Sorted_List::insert(int const &data) {
-    
-    Node* new_node{new Node{data, nullptr}};
-}
-
-
-
-/*// Copy assignment operator
-Sorted_List &Sorted_List::operator=(Sorted_List const &other)
-{
-    Sorted_List tmp{other};
-    std::swap(first, tmp.first);
-    return *this;
-}
-
-// Move assignment operator
-Sorted_List &Sorted_List::operator=(Sorted_List &&other)
+/*// Move constructor
+    Sorted_List::Sorted_List(Sorted_List &&original)
 {
     clear_list();
-    first = other.first;
-    other.first = nullptr;
-    return *this;
+    
 }*/
+
+// Copy constructor
+Sorted_List::Sorted_List(Sorted_List const &original)
+{
+    *this = original;
+}
+
+    //Copy operator
+    Sorted_List& Sorted_List::operator=(Sorted_List const& original) {
+        if (original.first != nullptr) {
+            Node *temp{original.first};
+            Node *new_node{new Node{temp->data, nullptr}};
+            first = new_node;
+            temp = temp->next;
+            while (temp != nullptr)
+                {
+                    new_node->next = new Node{temp->data, nullptr};
+                    new_node = new_node->next;
+                    temp = temp->next;
+                }
+            return *this;
+        }
+    }
+
+    //Move operator
+    Sorted_List& Sorted_List::operator=(Sorted_List&& original) {
+
+    }
+
 
 // Clear list of nodes
 void Sorted_List::clear_list()
 {
-    while (first != nullptr)
+    while (!is_empty())
     {
-        remove(first->data);
+        remove(0);
     }
 }
 

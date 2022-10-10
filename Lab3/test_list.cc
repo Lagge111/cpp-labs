@@ -44,8 +44,34 @@ TEST_CASE("Insert and remove values")
   l.remove(3);
   REQUIRE(l.size() == 7);
   l.~Sorted_List();
-  l.print();
+  // l.print();
 
+}
+
+
+TEST_CASE("Test copy constructor")
+{
+  Sorted_List l1{};
+
+  l1.insert(60);
+  l1.insert(70);
+  cout << "Skapar l1 med värden 60 och 70" << endl;
+  cout << "Skapar l2 genom copy constructor l1" << endl;
+  
+  Sorted_List l2{l1};
+  cout << "l2: ";
+  l2.print();
+  cout << "l1: ";
+  l1.print();
+
+  l1.clear_list();
+
+  cout << "---" << endl;
+  cout << "Kör clear list l1" << endl;
+  cout << "l2: ";
+  l2.print();
+  cout << "l1: ";
+  l1.print();
 }
 
 // It is your job to create new test cases and fully test your Sorted_List class

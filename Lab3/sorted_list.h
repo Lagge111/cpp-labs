@@ -24,12 +24,18 @@ public:
     ~Sorted_List();
 
     //Move constructor
-    Sorted_List(Sorted_List&& other);
+    Sorted_List(Sorted_List&& original);
 
-    Sorted_List(Sorted_List const &other);
+    //Copy oonstructor
+    Sorted_List(Sorted_List const &original);
 
+    //Copy operator
+    Sorted_List& operator=(Sorted_List const& original);
 
-    void insert(int const &value);
+    //Move operator
+    Sorted_List& operator=(Sorted_List&& original);
+
+    void insert(int const &data);
     bool is_empty() const;
     int getValueAt(int const &index) const;
     int size() const;
