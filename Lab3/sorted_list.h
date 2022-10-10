@@ -14,7 +14,7 @@ private:
     };
     void insert_sort(Node *current_node, Node *temp);
     Node *first{};
-    Node *copy(Node const *n);
+    // Node *copy(Node const *n);
 
 public:
     // Default constructor
@@ -24,7 +24,7 @@ public:
     ~Sorted_List();
 
     // Copy constructur
-    Sorted_List(Sorted_List const &other);
+    Sorted_List(Sorted_List const &original);
 
     // Move constructor
     Sorted_List(Sorted_List &&other);

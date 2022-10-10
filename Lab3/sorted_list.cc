@@ -10,11 +10,11 @@ Sorted_List::Sorted_List(Sorted_List &&other) : first{other.first}
 }
 
 // Copy constructor
-Sorted_List::Sorted_List(Sorted_List const &other)
+Sorted_List::Sorted_List(Sorted_List const &original)
 {
-    if (other.first != nullptr)
+    if (original.first != nullptr)
     {
-        Node *temp{other.first};
+        Node *temp{original.first};
         Node *new_node{new Node{temp->data, nullptr}};
         first = new_node;
         temp = temp->next;
@@ -58,7 +58,7 @@ void Sorted_List::clear_list()
 {
     while (first != nullptr)
     {
-        remove(first->data);
+        remove(0);
     }
 }
 
