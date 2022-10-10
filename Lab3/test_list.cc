@@ -40,6 +40,9 @@ TEST_CASE( "Insert and remove values" ) {
   REQUIRE(l.size() == 8);
   l.remove(3);
   REQUIRE(l.size() == 7);
+  l.~Sorted_List();
+  l.print();
+
 }
 
 

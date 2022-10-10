@@ -15,24 +15,11 @@ private:
     Node* first{};
 
 public:
-    /*//Default constructor
-    Sorted_List() {
-
-    }
+    //Default constructor - default due to the presens of other constructors
+    Sorted_List() = default;
 
     //Destructor
-    ~Sorted_List() {
-        Node* current = first;
-        Node* next;
-
-        while (current != NULL) {
-            next = current->next;
-            delete current;
-            current = next;
-        }
-
-        cout << "destructor executed" << endl;
-    }
+    ~Sorted_List();
 
     //Copy constructor
     Sorted_List(Sorted_List const& original) {
@@ -42,7 +29,7 @@ public:
     //Move constructor
     Sorted_List(Sorted_List&& other) {
 
-    }*/
+    }
 
     void insert(int const &value);
     bool is_empty() const;

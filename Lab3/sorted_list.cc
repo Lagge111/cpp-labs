@@ -3,6 +3,36 @@
 
 using namespace std;
 
+
+
+Sorted_List::~Sorted_List() {
+    int i{0};
+
+    while (!is_empty()) {
+        i = i + 1;
+        cout << i << endl;
+        delete first;
+    }
+       /* Node* current = first;
+        Node* next;
+        int i{0};
+
+        while (current != NULL) {
+            i = i + 1;
+            next = current->next;
+            delete current;
+            current = next;
+            cout << i << endl;
+        }*/
+
+}
+
+/*Sorted_List::Sorted_List(Sorted_List const& original) {
+
+}*/
+
+
+
 void Sorted_List::insert(int const &data) {
     
     Node* new_node{new Node{data, nullptr}};
@@ -78,6 +108,7 @@ int Sorted_List::getValueAt(int const &index) const {
         }
         return tmp->data;
     }
+    return 0;
 }
 
 int Sorted_List::size() const {
