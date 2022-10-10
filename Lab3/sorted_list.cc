@@ -6,25 +6,9 @@ using namespace std;
 
 
 Sorted_List::~Sorted_List() {
-    int i{0};
-
     while (!is_empty()) {
-        i = i + 1;
-        cout << i << endl;
-        delete first;
+        remove(0);
     }
-       /* Node* current = first;
-        Node* next;
-        int i{0};
-
-        while (current != NULL) {
-            i = i + 1;
-            next = current->next;
-            delete current;
-            current = next;
-            cout << i << endl;
-        }*/
-
 }
 
 /*Sorted_List::Sorted_List(Sorted_List const& original) {
@@ -66,6 +50,7 @@ void Sorted_List::insert_sort(Node* current_node, Node* new_node) {
 void Sorted_List::remove(int const &index) {
     Node* current = first;
     
+
     if (index == 0) {
         first = current->next;
         delete current;
