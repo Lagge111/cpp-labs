@@ -158,8 +158,7 @@ string Sorted_List::print_test() const
     ostringstream oss;
     while (current->next != nullptr)
     {
-        oss << current->data;
-        oss << ", ";
+        oss << current->data << ", ";
         current = current->next;
     }
     oss << current->data;
