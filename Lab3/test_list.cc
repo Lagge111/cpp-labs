@@ -95,16 +95,4 @@ TEST_CASE("Test copy assignment operator")
   REQUIRE_FALSE(l1.list_string() == l2.list_string());
 }
 
-TEST_CASE("Test copy constructor")
-{
-  Sorted_List l1{};
-
-  l1.insert(60);
-  l1.insert(70);
-
-  Sorted_List l2{l1};
-  l2.print();
-  // getValueAt is wrong, works in reverse order.
-  REQUIRE(l2.getValueAt(0) == 70);
-}
 // It is your job to create new test cases and fully test your Sorted_List class
