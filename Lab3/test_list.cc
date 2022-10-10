@@ -30,38 +30,6 @@ TEST_CASE("Test create an empty list")
 
 TEST_CASE("Test size")
 {
-<<<<<<< HEAD
-  Sorted_List l1{};
-  l1.insert(60);
-  l1.insert(70);
-  REQUIRE(l1.size() == 2);
-  l1.insert(90);
-  l1.insert(50);
-  l1.insert(11);
-  l1.insert(8);
-  l1.insert(1);
-  l1.insert(9);
-  REQUIRE(l1.size() == 8);
-  l1.print();
-  l1.remove(3);
-  REQUIRE(l1.size() == 7);
-  l1.print();
-
-  Sorted_List l2{l1};
-  l2.print();
-  l2.remove(0);
-  l2.print();
-  l1.clear_list();
-  REQUIRE(l1.is_empty() == true);
-
-  Sorted_List list_move{};
-  list_move = std::move(l2);
-  REQUIRE(l2.is_empty() == true);
-  REQUIRE(list_move.is_empty() == false);
-  list_move.print();
-  l2.print();
-  l1.print();
-=======
   Sorted_List l{};
   l.insert(60);
   l.insert(70);
@@ -125,7 +93,6 @@ TEST_CASE("Test copy assignment operator")
   REQUIRE(l1.list_string() == l2.list_string());
   l1.clear_list();
   REQUIRE_FALSE(l1.list_string() == l2.list_string());
->>>>>>> 28734e66fec518b305b220b86e7dc44395ac9249
 }
 
 TEST_CASE("Test copy constructor")

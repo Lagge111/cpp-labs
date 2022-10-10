@@ -11,8 +11,6 @@ Sorted_List::~Sorted_List()
 // Copy constructor
 Sorted_List::Sorted_List(Sorted_List const &original)
 {
-<<<<<<< HEAD
-=======
     *this = original;
     cout << "copy constructor reached" << endl; // test-kommentar
 }
@@ -20,7 +18,6 @@ Sorted_List::Sorted_List(Sorted_List const &original)
 // Copy operator
 Sorted_List &Sorted_List::operator=(Sorted_List const &original)
 {
->>>>>>> 28734e66fec518b305b220b86e7dc44395ac9249
     if (original.first != nullptr)
     {
         Node *temp{original.first};

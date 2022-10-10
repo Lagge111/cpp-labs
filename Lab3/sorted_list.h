@@ -23,12 +23,6 @@ public:
     // Destructor
     ~Sorted_List();
 
-<<<<<<< HEAD
-    // Copy constructur
-    Sorted_List(Sorted_List const &original);
-
-=======
->>>>>>> 28734e66fec518b305b220b86e7dc44395ac9249
     // Move constructor
     Sorted_List(Sorted_List &&original);
 
