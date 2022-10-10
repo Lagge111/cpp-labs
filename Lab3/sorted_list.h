@@ -17,23 +17,23 @@ private:
     Node *copy(Node const *n);
 
 public:
-    //Default constructor - default due to the presens of other constructors
+    // Default constructor - default due to the presens of other constructors
     Sorted_List() = default;
 
-    //Destructor
+    // Destructor
     ~Sorted_List();
 
-    //Move constructor
-    Sorted_List(Sorted_List&& original);
+    // Move constructor
+    Sorted_List(Sorted_List &&original);
 
-    //Copy oonstructor
+    // Copy oonstructor
     Sorted_List(Sorted_List const &original);
 
-    //Copy operator
-    Sorted_List& operator=(Sorted_List const& original);
+    // Copy operator
+    Sorted_List &operator=(Sorted_List const &original);
 
-    //Move operator
-    Sorted_List& operator=(Sorted_List&& original);
+    // Move operator
+    Sorted_List &operator=(Sorted_List &&original);
 
     void insert(int const &data);
     bool is_empty() const;
@@ -42,6 +42,7 @@ public:
     void print() const;
     void remove(int const &index);
     void clear_list();
+    string list_string();
 };
 
 #endif

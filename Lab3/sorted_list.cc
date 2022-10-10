@@ -3,47 +3,47 @@
 
 using namespace std;
 
-Sorted_List::~Sorted_List() {
-    while (!is_empty()) {
-        remove(0);
-    }
-}
-
-/*// Move constructor
-    Sorted_List::Sorted_List(Sorted_List &&original)
+Sorted_List::~Sorted_List()
 {
     clear_list();
-    
-}*/
+}
 
 // Copy constructor
 Sorted_List::Sorted_List(Sorted_List const &original)
 {
     *this = original;
+    cout << "copy constructor reached" << endl; // test-kommentar
 }
 
-    //Copy operator
-    Sorted_List& Sorted_List::operator=(Sorted_List const& original) {
-        if (original.first != nullptr) {
-            Node *temp{original.first};
-            Node *new_node{new Node{temp->data, nullptr}};
-            first = new_node;
+// Copy operator
+Sorted_List &Sorted_List::operator=(Sorted_List const &original)
+{
+    if (original.first != nullptr)
+    {
+        Node *temp{original.first};
+        Node *new_node{new Node{temp->data, nullptr}};
+        first = new_node;
+        temp = temp->next;
+        while (temp != nullptr)
+        {
+            new_node->next = new Node{temp->data, nullptr};
+            new_node = new_node->next;
             temp = temp->next;
-            while (temp != nullptr)
-                {
-                    new_node->next = new Node{temp->data, nullptr};
-                    new_node = new_node->next;
-                    temp = temp->next;
-                }
-            return *this;
         }
+        cout << "Copy operator reached" << endl; // test-kommentar
     }
+    return *this;
+}
 
-    //Move operator
-    Sorted_List& Sorted_List::operator=(Sorted_List&& original) {
-
-    }
-
+// Move operator
+Sorted_List &Sorted_List::operator=(Sorted_List &&original)
+{
+    clear_list();
+    *this = original;
+    original.clear_list();
+    cout << "Move operator reached" << endl; // test-kommentar
+    return *this;
+}
 
 // Clear list of nodes
 void Sorted_List::clear_list()
@@ -95,11 +95,12 @@ void Sorted_List::insert_sort(Node *current_node, Node *new_node)
     }
 }
 
-void Sorted_List::remove(int const &index) {
-    Node* current = first;
-    
+void Sorted_List::remove(int const &index)
+{
+    Node *current = first;
 
-    if (index == 0) {
+    if (index == 0)
+    {
         first = current->next;
         delete current;
     }
@@ -150,7 +151,7 @@ int Sorted_List::getValueAt(int const &index) const
     if (!is_empty())
     {
         Node *tmp = first;
-        for (int i{size()}; i > (index + 1); --i)
+        for (int i{0}; i < index; ++i)
         {
             tmp = tmp->next;
         }
@@ -174,4 +175,21 @@ int Sorted_List::size() const
 bool Sorted_List::is_empty() const
 {
     return first == nullptr;
+}
+
+string Sorted_List::list_string()
+{
+    if (is_empty())
+    {
+        return "empty";
+    }
+    else
+    {
+        string s;
+        for (int i{0}; i < size(); ++i)
+        {
+            s = s.append(to_string(getValueAt(i)));
+        }
+        return s;
+    }
 }
