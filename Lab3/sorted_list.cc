@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "sorted_list.h"
 
 using namespace std;
@@ -144,6 +145,25 @@ void Sorted_List::print() const
     {
         cout << "The list is empty." << endl;
     }
+}
+
+// Change name if we use this.
+string Sorted_List::print_test() const
+{
+    if (is_empty())
+    {
+        return "";
+    }
+    Node *current = first;
+    ostringstream oss;
+    while (current->next != nullptr)
+    {
+        oss << current->data;
+        oss << ", ";
+        current = current->next;
+    }
+    oss << current->data;
+    return oss.str();
 }
 
 int Sorted_List::getValueAt(int const &index) const

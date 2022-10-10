@@ -40,6 +40,7 @@ public:
     int getValueAt(int const &index) const;
     int size() const;
     void print() const;
+    std::string print_test() const;
     void remove(int const &index);
     void clear_list();
     string list_string();
