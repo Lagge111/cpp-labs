@@ -22,15 +22,18 @@ using namespace std;
 // Test cases
 //=======================================================================
 
-TEST_CASE( "Create an empty list" ) {
+TEST_CASE("Create an empty list")
+{
   Sorted_List l{};
   REQUIRE(l.is_empty() == true);
 }
 
-TEST_CASE( "Insert and remove values" ) {
+TEST_CASE("Insert and remove values")
+{
   Sorted_List l{};
   l.insert(60);
   l.insert(70);
+  REQUIRE(l.size() == 2);
   l.insert(90);
   l.insert(50);
   l.insert(11);
@@ -44,6 +47,5 @@ TEST_CASE( "Insert and remove values" ) {
   l.print();
 
 }
-
 
 // It is your job to create new test cases and fully test your Sorted_List class

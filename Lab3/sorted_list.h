@@ -3,16 +3,18 @@
 #include <iostream>
 using namespace std;
 
-class Sorted_List {
+class Sorted_List
+{
 
 private:
-
-    struct Node {
+    struct Node
+    {
         int data{};
-        Node* next{};
+        Node *next{};
     };
-    void insert_sort(Node* current_node, Node* temp);
-    Node* first{};
+    void insert_sort(Node *current_node, Node *temp);
+    Node *first{};
+    Node *copy(Node const *n);
 
 public:
     //Default constructor - default due to the presens of other constructors
@@ -21,22 +23,19 @@ public:
     //Destructor
     ~Sorted_List();
 
-    //Copy constructor
-    Sorted_List(Sorted_List const& original) {
-        cout << "hej" << endl;
-    }
-
     //Move constructor
-    Sorted_List(Sorted_List&& other) {
+    Sorted_List(Sorted_List&& other);
 
-    }
+    Sorted_List(Sorted_List const &other);
+
 
     void insert(int const &value);
     bool is_empty() const;
-    int getValueAt(int const &index) const; 
+    int getValueAt(int const &index) const;
     int size() const;
     void print() const;
     void remove(int const &index);
+    void clear_list();
 };
 
 #endif
