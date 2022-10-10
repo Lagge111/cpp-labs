@@ -38,10 +38,8 @@ TEST_CASE( "Insert and remove values" ) {
   l.insert(1);
   l.insert(9);
   REQUIRE(l.size() == 8);
-  l.print();
   l.remove(3);
   REQUIRE(l.size() == 7);
-  l.print();
 }
 
 
