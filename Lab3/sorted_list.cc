@@ -4,16 +4,21 @@
 
 using namespace std;
 
+// Sorted_List destructor
 Sorted_List::~Sorted_List()
 {
     clear_list();
+}
+
+Sorted_List::Sorted_List(Sorted_List &&original)
+{
+    *this = move(original);
 }
 
 // Copy constructor
 Sorted_List::Sorted_List(Sorted_List const &original)
 {
     *this = original;
-    cout << "copy constructor reached" << endl; // test-kommentar
 }
 
 // Copy operator
@@ -31,7 +36,6 @@ Sorted_List &Sorted_List::operator=(Sorted_List const &original)
             new_node = new_node->next;
             temp = temp->next;
         }
-        cout << "Copy operator reached" << endl; // test-kommentar
     }
     return *this;
 }
@@ -42,7 +46,6 @@ Sorted_List &Sorted_List::operator=(Sorted_List &&original)
     clear_list();
     *this = original;
     original.clear_list();
-    cout << "Move operator reached" << endl; // test-kommentar
     return *this;
 }
 
@@ -98,7 +101,7 @@ void Sorted_List::insert_sort(Node *current_node, Node *new_node)
 
 void Sorted_List::remove(int const &index)
 {
-    Node *current = first;
+    Node *current{first};
 
     if (index == 0)
     {
@@ -107,7 +110,7 @@ void Sorted_List::remove(int const &index)
     }
     else
     {
-        Node *last = first;
+        Node *last{first};
         for (int i{0}; i < size(); ++i)
         {
             if (i == index)
@@ -125,44 +128,27 @@ void Sorted_List::remove(int const &index)
     }
 }
 
-void Sorted_List::print() const
+string Sorted_List::print()
 {
-    if (!is_empty())
-    {
-        Node *tmp = first;
-        for (int i{0}; i < size(); ++i)
-        {
-            cout << tmp->data;
-            if (i != size() - 1)
-            {
-                cout << " -> ";
-            }
-            tmp = tmp->next;
-        }
-        cout << endl;
-    }
-    else
-    {
-        cout << "The list is empty." << endl;
-    }
-}
+    string str{};
 
-// Change name if we use this.
-string Sorted_List::print_test() const
-{
     if (is_empty())
     {
         return "";
     }
-    Node *current = first;
-    ostringstream oss;
-    while (current->next != nullptr)
-    {
-        oss << current->data << ", ";
-        current = current->next;
-    }
-    oss << current->data;
-    return oss.str();
+
+    recursive_print(first, str);
+    return str;
+}
+
+void Sorted_List::recursive_print(Node* current, string &str)
+{
+    str.append(to_string(current->data));
+    if (current->next == nullptr) {
+        return;
+    } 
+    str.append(" -> ");
+    recursive_print(current->next, str);
 }
 
 int Sorted_List::getValueAt(int const &index) const
@@ -181,7 +167,7 @@ int Sorted_List::getValueAt(int const &index) const
 
 int Sorted_List::size() const
 {
-    Node *tmp = first;
+    Node *tmp{first};
     int size{0};
     while (tmp != nullptr)
     {
@@ -194,21 +180,4 @@ int Sorted_List::size() const
 bool Sorted_List::is_empty() const
 {
     return first == nullptr;
-}
-
-string Sorted_List::list_string()
-{
-    if (is_empty())
-    {
-        return "empty";
-    }
-    else
-    {
-        string s;
-        for (int i{0}; i < size(); ++i)
-        {
-            s = s.append(to_string(getValueAt(i)));
-        }
-        return s;
-    }
 }

@@ -42,16 +42,7 @@ TEST_CASE("Test print")
   l1.insert(10);
   l1.insert(30);
   l1.insert(2);
-  REQUIRE(l1.print_test() == "2, 10, 30");
-}
-
-TEST_CASE("Test make list as string")
-{
-  Sorted_List l{};
-  l.insert(1);
-  l.insert(3);
-  l.insert(0);
-  REQUIRE(l.list_string() == "013");
+  REQUIRE(l1.print() == "2 -> 10 -> 30");
 }
 
 TEST_CASE("Test get and then remove at certain index")
@@ -61,10 +52,8 @@ TEST_CASE("Test get and then remove at certain index")
   l.insert(10);
   l.insert(30);
   l.insert(20);
-  REQUIRE(l.list_string() == "10203040");
   REQUIRE(l.getValueAt(1) == 20);
   l.remove(1);
-  REQUIRE(l.list_string() == "103040");
 }
 
 TEST_CASE("Test copy constructor")
@@ -73,9 +62,9 @@ TEST_CASE("Test copy constructor")
   l1.insert(60);
   l1.insert(70);
   Sorted_List l2{l1};
-  REQUIRE(l1.list_string() == l2.list_string());
+  REQUIRE(l1.print() == l2.print());
   l1.clear_list();
-  REQUIRE_FALSE(l1.list_string() == l2.list_string());
+  REQUIRE_FALSE(l1.print() == l2.print());
 }
 
 TEST_CASE("Test move constructor / move operator?")
@@ -87,9 +76,22 @@ TEST_CASE("Test move constructor / move operator?")
   Sorted_List l2{};
   l2 = move(l1);
 
-  REQUIRE(l2.list_string() == "40250300");
+  REQUIRE(l2.print() == "40 -> 250 -> 300");
   REQUIRE(l1.is_empty());
-  REQUIRE_FALSE(l1.list_string() == l2.list_string());
+  REQUIRE_FALSE(l1.print() == l2.print());
+}
+
+TEST_CASE("Test move constructor / move operator?b dfbdfg")
+{
+  Sorted_List l1{};
+  l1.insert(300);
+  l1.insert(40);
+  l1.insert(250);
+  Sorted_List l2{move(l1)};
+
+  REQUIRE(l2.print() == "40 -> 250 -> 300");
+  REQUIRE(l1.is_empty());
+  REQUIRE_FALSE(l1.print() == l2.print());
 }
 
 TEST_CASE("Test copy assignment operator")
@@ -99,9 +101,9 @@ TEST_CASE("Test copy assignment operator")
   l1.insert(2393);
   Sorted_List l2;
   l2 = l1;
-  REQUIRE(l1.list_string() == l2.list_string());
+  REQUIRE(l1.print() == l2.print());
   l1.clear_list();
-  REQUIRE_FALSE(l1.list_string() == l2.list_string());
+  REQUIRE_FALSE(l1.print() == l2.print());
 }
 
 // It is your job to create new test cases and fully test your Sorted_List class
