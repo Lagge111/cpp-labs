@@ -63,15 +63,18 @@ void Sorted_List::insert(int const &data)
 
     Node *new_node{new Node{data, nullptr}};
 
+    //if empty
     if (first == nullptr)
     {
         first = new_node;
     }
+    //if new_node data is lower than the first node data, assign the new_node as first
     else if (data < first->data)
     {
         new_node->next = first;
         first = new_node;
     }
+    //find correct position
     else
     {
         insert_sort(first, new_node);
@@ -80,19 +83,25 @@ void Sorted_List::insert(int const &data)
 
 void Sorted_List::insert_sort(Node *current_node, Node *new_node)
 {
+    //if the current_node is the last, connect the new_node as the last node in list
     if (current_node->next == nullptr)
     {
         current_node->next = new_node;
         new_node->next = nullptr;
         return;
     }
+    
     Node *next_node{current_node->next};
+    //if the upcoming nodes data is higher, then should new_node be between current and currents next
+    //current_node -> new_node -> next_node
+    //can't use next_node = new_node, because then we cant use the "primary" next_node for new_node->next = next_node
     if (new_node->data <= next_node->data)
     {
         current_node->next = new_node;
         new_node->next = next_node;
         return;
     }
+    //keep searching
     else
     {
         insert_sort(next_node, new_node);
