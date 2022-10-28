@@ -112,6 +112,7 @@ void Sorted_List::remove(int const &index)
 {
     Node *current{first};
 
+    //if the we are removing first, delete and replace it with second node as first
     if (index == 0)
     {
         first = current->next;
@@ -119,18 +120,20 @@ void Sorted_List::remove(int const &index)
     }
     else
     {
-        Node *last{first};
+        Node*previous{first};
         for (int i{0}; i < size(); ++i)
         {
+            //if correct index, connect the previous and the next together, then remove current
+            //previous -> [deleted current] -> current.next
             if (i == index)
             {
-                last->next = current->next;
+                previous->next = current->next;
                 delete current;
                 break;
             }
             else
             {
-                last = current;
+                previous = current;
                 current = current->next;
             }
         }
