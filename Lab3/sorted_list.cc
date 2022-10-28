@@ -24,17 +24,23 @@ Sorted_List::Sorted_List(Sorted_List const &original)
 // Copy operator
 Sorted_List &Sorted_List::operator=(Sorted_List const &original)
 {
-    if (original.first != nullptr)
+   if (original.first != nullptr)
     {
-        Node *temp{original.first};
-        Node *new_node{new Node{temp->data, nullptr}};
-        first = new_node;
-        temp = temp->next;
-        while (temp != nullptr)
+        // *original_node points at the value from the original list, so we can "get" the value
+        // *copied_node points at a new node which acts as a copy, with values from the "getter" original_node
+        Node *original_node{original.first};
+        Node *copied_node{new Node{original_node->data, nullptr}};
+        
+        //copy lists first node gets the first value from the original list
+        //we change the original_node to the next one in the original list, even if its NULL
+        first = copied_node;
+        original_node = original_node->next;
+
+        while (original_node != nullptr)
         {
-            new_node->next = new Node{temp->data, nullptr};
-            new_node = new_node->next;
-            temp = temp->next;
+            copied_node->next = new Node{original_node->data, nullptr};
+            copied_node = copied_node->next;
+            original_node = original_node->next;
         }
     }
     return *this;
