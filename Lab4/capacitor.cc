@@ -1,4 +1,4 @@
-// Capacitor
+// Capacitor component
 
 #include "Capacitor.h"
 

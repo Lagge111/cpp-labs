@@ -1,4 +1,4 @@
-// Resistor
+// Resistor component
 
 #include "Resistor.h"
 
