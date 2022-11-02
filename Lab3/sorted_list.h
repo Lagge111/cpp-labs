@@ -1,7 +1,6 @@
 #ifndef SORTED_LIST_H
 #define SORTED_LIST_H
 #include <iostream>
-using namespace std;
 
 class Sorted_List
 {
@@ -16,7 +15,7 @@ private:
     // Recursive helper function for insert
     void insert_sort(Node *current_node, Node *temp);
     // Recursive helper function for print
-    void recursive_print(Node *current, string &str);
+    void recursive_print(Node *current, std::string &str);
 
 public:
     // Default constructor
@@ -41,10 +40,10 @@ public:
     bool is_empty() const;
     int getValueAt(int const &index) const;
     int size() const;
-    string print();
+    std::string print();
     void remove(int const &index);
     void clear_list();
-    string list_string();
+    std::string list_string();
 };
 
 #endif
