@@ -22,7 +22,7 @@ using namespace std;
 // Test cases
 //=======================================================================
 
-TEST_CASE("Test create an empty list")
+TEST_CASE("Test creating an empty list")
 {
   Sorted_List l{};
   REQUIRE(l.is_empty() == true);
@@ -45,7 +45,7 @@ TEST_CASE("Test print")
   REQUIRE(l1.print() == "2 -> 10 -> 30");
 }
 
-TEST_CASE("Test get and then remove at certain index")
+TEST_CASE("Test getValueAt and then remove at certain index")
 {
   Sorted_List l{};
   l.insert(40);
@@ -54,6 +54,8 @@ TEST_CASE("Test get and then remove at certain index")
   l.insert(20);
   REQUIRE(l.getValueAt(1) == 20);
   l.remove(1);
+  REQUIRE(l.size() == 3);
+  REQUIRE(l.print() == "10 -> 30 -> 40");
 }
 
 TEST_CASE("Test copy constructor")
@@ -64,10 +66,11 @@ TEST_CASE("Test copy constructor")
   Sorted_List l2{l1};
   REQUIRE(l1.print() == l2.print());
   l1.clear_list();
+  REQUIRE(l1.size() == 0);
   REQUIRE_FALSE(l1.print() == l2.print());
 }
 
-TEST_CASE("Test move constructor / move operator?")
+TEST_CASE("Test move assignment operator")
 {
   Sorted_List l1{};
   l1.insert(300);
@@ -75,20 +78,18 @@ TEST_CASE("Test move constructor / move operator?")
   l1.insert(250);
   Sorted_List l2{};
   l2 = move(l1);
-
   REQUIRE(l2.print() == "40 -> 250 -> 300");
   REQUIRE(l1.is_empty());
   REQUIRE_FALSE(l1.print() == l2.print());
 }
 
-TEST_CASE("Test move constructor / move operator?b dfbdfg")
+TEST_CASE("Test move constructor")
 {
   Sorted_List l1{};
   l1.insert(300);
   l1.insert(40);
   l1.insert(250);
   Sorted_List l2{move(l1)};
-
   REQUIRE(l2.print() == "40 -> 250 -> 300");
   REQUIRE(l1.is_empty());
   REQUIRE_FALSE(l1.print() == l2.print());
@@ -103,7 +104,6 @@ TEST_CASE("Test copy assignment operator")
   l2 = l1;
   REQUIRE(l1.print() == l2.print());
   l1.clear_list();
+  REQUIRE(l1.size() == 0);
   REQUIRE_FALSE(l1.print() == l2.print());
 }
-
-// It is your job to create new test cases and fully test your Sorted_List class
