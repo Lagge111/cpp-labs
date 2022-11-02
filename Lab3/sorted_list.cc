@@ -22,7 +22,7 @@ Sorted_List::Sorted_List(Sorted_List const &original)
     *this = original;
 }
 
-// Copy operator
+// Copy assignment operator
 Sorted_List &Sorted_List::operator=(Sorted_List const &original)
 {
     if (original.first != nullptr)
@@ -47,7 +47,7 @@ Sorted_List &Sorted_List::operator=(Sorted_List const &original)
     return *this;
 }
 
-// Move operator
+// Move assignment operator
 Sorted_List &Sorted_List::operator=(Sorted_List &&original)
 {
     clear_list();
