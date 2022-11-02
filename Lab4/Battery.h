@@ -9,6 +9,7 @@ class Battery : public Component
 {
 public:
 private:
+    
 };
 
 #endif
