@@ -22,27 +22,88 @@ using namespace std;
 // Test cases
 //=======================================================================
 
-TEST_CASE( "Create an empty list" ) {
+TEST_CASE("Test creating an empty list")
+{
   Sorted_List l{};
   REQUIRE(l.is_empty() == true);
 }
 
-TEST_CASE( "Insert and remove values" ) {
+TEST_CASE("Test size")
+{
   Sorted_List l{};
   l.insert(60);
   l.insert(70);
-  l.insert(90);
-  l.insert(50);
-  l.insert(11);
-  l.insert(8);
-  l.insert(1);
-  l.insert(9);
-  REQUIRE(l.size() == 8);
-  l.print();
-  l.remove(3);
-  REQUIRE(l.size() == 7);
-  l.print();
+  REQUIRE(l.size() == 2);
 }
 
+TEST_CASE("Test print")
+{
+  Sorted_List l1{};
+  l1.insert(10);
+  l1.insert(30);
+  l1.insert(2);
+  REQUIRE(l1.print() == "2 -> 10 -> 30");
+}
 
-// It is your job to create new test cases and fully test your Sorted_List class
+TEST_CASE("Test getValueAt and then remove at certain index")
+{
+  Sorted_List l{};
+  l.insert(40);
+  l.insert(10);
+  l.insert(30);
+  l.insert(20);
+  REQUIRE(l.getValueAt(1) == 20);
+  l.remove(1);
+  REQUIRE(l.size() == 3);
+  REQUIRE(l.print() == "10 -> 30 -> 40");
+}
+
+TEST_CASE("Test copy constructor")
+{
+  Sorted_List l1{};
+  l1.insert(60);
+  l1.insert(70);
+  Sorted_List l2{l1};
+  REQUIRE(l1.print() == l2.print());
+  l1.clear_list();
+  REQUIRE(l1.size() == 0);
+  REQUIRE_FALSE(l1.print() == l2.print());
+}
+
+TEST_CASE("Test move assignment operator")
+{
+  Sorted_List l1{};
+  l1.insert(300);
+  l1.insert(40);
+  l1.insert(250);
+  Sorted_List l2{};
+  l2 = move(l1);
+  REQUIRE(l2.print() == "40 -> 250 -> 300");
+  REQUIRE(l1.is_empty());
+  REQUIRE_FALSE(l1.print() == l2.print());
+}
+
+TEST_CASE("Test move constructor")
+{
+  Sorted_List l1{};
+  l1.insert(300);
+  l1.insert(40);
+  l1.insert(250);
+  Sorted_List l2{move(l1)};
+  REQUIRE(l2.print() == "40 -> 250 -> 300");
+  REQUIRE(l1.is_empty());
+  REQUIRE_FALSE(l1.print() == l2.print());
+}
+
+TEST_CASE("Test copy assignment operator")
+{
+  Sorted_List l1{};
+  l1.insert(5000);
+  l1.insert(2393);
+  Sorted_List l2;
+  l2 = l1;
+  REQUIRE(l1.print() == l2.print());
+  l1.clear_list();
+  REQUIRE(l1.size() == 0);
+  REQUIRE_FALSE(l1.print() == l2.print());
+}

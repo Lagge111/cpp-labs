@@ -3,53 +3,48 @@
 #include <iostream>
 using namespace std;
 
-class Sorted_List {
+class Sorted_List
+{
 
 private:
-
-    struct Node {
+    struct Node
+    {
         int data{};
-        Node* next{};
+        Node *next{};
     };
-    void insert_sort(Node* current_node, Node* temp);
-    Node* first{};
+    Node *first{};
+    // Recursive helper function for insert
+    void insert_sort(Node *current_node, Node *temp);
+    // Recursive helper function for print
+    void recursive_print(Node *current, string &str);
 
 public:
-    /*//Default constructor
-    Sorted_List() {
+    // Default constructor
+    Sorted_List() = default;
 
-    }
+    // Desctructor
+    ~Sorted_List();
 
-    //Destructor
-    ~Sorted_List() {
-        Node* current = first;
-        Node* next;
+    // Move constructor
+    Sorted_List(Sorted_List &&original);
 
-        while (current != NULL) {
-            next = current->next;
-            delete current;
-            current = next;
-        }
+    // Copy constructor
+    Sorted_List(Sorted_List const &original);
 
-        cout << "destructor executed" << endl;
-    }
+    // Copy operator
+    Sorted_List &operator=(Sorted_List const &original);
 
-    //Copy constructor
-    Sorted_List(Sorted_List const& original) {
-        cout << "hej" << endl;
-    }
+    // Move operator
+    Sorted_List &operator=(Sorted_List &&original);
 
-    //Move constructor
-    Sorted_List(Sorted_List&& other) {
-
-    }*/
-
-    void insert(int const &value);
+    void insert(int const &data);
     bool is_empty() const;
-    int getValueAt(int const &index) const; 
+    int getValueAt(int const &index) const;
     int size() const;
-    void print() const;
+    string print();
     void remove(int const &index);
+    void clear_list();
+    string list_string();
 };
 
 #endif
