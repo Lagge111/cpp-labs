@@ -14,7 +14,6 @@
 // (Must be in only one place!)
 #include "catch.hpp"
 #include "sorted_list.h"
-#include <random>
 #include <iostream>
 using namespace std;
 
