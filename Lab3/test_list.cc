@@ -28,21 +28,26 @@ TEST_CASE("Test creating an empty list")
   REQUIRE(l.is_empty() == true);
 }
 
-TEST_CASE("Test size")
+TEST_CASE("Test insert and size")
 {
   Sorted_List l{};
   l.insert(60);
   l.insert(70);
-  REQUIRE(l.size() == 2);
+  l.insert(4);
+  l.insert(24);
+  l.insert(-5);
+  REQUIRE(l.size() == 5);
 }
 
 TEST_CASE("Test print")
 {
   Sorted_List l1{};
   l1.insert(10);
+  l1.insert(-23);
   l1.insert(30);
+  l1.insert(0);
   l1.insert(2);
-  REQUIRE(l1.print() == "2 -> 10 -> 30");
+  REQUIRE(l1.print() == "-23 -> 0 -> 2 -> 10 -> 30");
 }
 
 TEST_CASE("Test getValueAt and then remove at certain index")
