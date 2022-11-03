@@ -11,9 +11,7 @@ private:
         Node *next{};
     };
     Node *first{};
-    // Recursive helper function for insert
     void insert_sort(Node *current_node, Node *temp);
-    // Recursive helper function for print
     void recursive_print(Node *current, std::string &str);
 
 public:
@@ -40,6 +38,7 @@ public:
     int getValueAt(int const &index) const;
     int size() const;
     std::string print();
+    // Removes at certain index
     void remove(int const &index);
     void clear_list();
     std::string list_string();
