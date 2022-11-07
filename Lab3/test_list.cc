@@ -19,7 +19,7 @@ using namespace std;
 // TODO: Complementary work needed: Test cases insufficient, when testing move and
 // copy assignment you should also test when both lists have content.
 /**
- * Fixed by adding additional tests for copy and move assignment operator.
+ * Fixed by adding additional tests for copy and move assignment operators.
  */
 
 //=======================================================================
