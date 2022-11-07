@@ -16,6 +16,12 @@
 #include "sorted_list.h"
 using namespace std;
 
+// TODO: Complementary work needed: Test cases insufficient, when testing move and
+// copy assignment you should also test when both lists have content.
+/**
+ * Fixed by adding additional tests for copy and move assignment operator.
+ */
+
 //=======================================================================
 // Test cases
 //=======================================================================
@@ -84,6 +90,15 @@ TEST_CASE("Test move assignment operator")
   REQUIRE(l2.print() == "40 -> 250 -> 300");
   REQUIRE(l1.is_empty());
   REQUIRE_FALSE(l1.print() == l2.print());
+
+  l1.insert(10);
+  l1.insert(9);
+  l1.insert(35);
+  REQUIRE(l1.print() == "9 -> 10 -> 35");
+  // Both lists have content. l1 == "9 -> 10 -> 35" and l2 == "40 -> 250 -> 300"
+  l2 = move(l1);
+  REQUIRE(l2.print() == "9 -> 10 -> 35");
+  REQUIRE(l1.is_empty());
 }
 
 TEST_CASE("Test move constructor")
@@ -109,4 +124,12 @@ TEST_CASE("Test copy assignment operator")
   l1.clear_list();
   REQUIRE(l1.size() == 0);
   REQUIRE_FALSE(l1.print() == l2.print());
+
+  l1.insert(10);
+  l1.insert(9);
+  l1.insert(35);
+  // Both lists have content. l1 == "9 -> 10 -> 35" and l2 == "2393 -> 5000"
+  l2 = l1;
+  REQUIRE(l2.print() == "9 -> 10 -> 35");
+  REQUIRE(l1.print() == l2.print());
 }
