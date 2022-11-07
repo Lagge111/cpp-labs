@@ -4,4 +4,16 @@
 
 using namespace std;
 
-// Ohm's law: V = A * O
+Component::Component() 
+{
+
+}
+
+string getName()
+{
+    return name;
+}
+Component::~Component()
+{
+    
+}
