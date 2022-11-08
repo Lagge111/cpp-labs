@@ -14,8 +14,9 @@ public:
     double getVoltage();
 
 private:
-    double current{current};
-    double resistance{resistance};
+    double current;
+    double resistance;
+    double voltage;
     double calc2(double movedCharge);
 };
 

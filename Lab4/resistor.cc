@@ -10,7 +10,6 @@ Resistor::Resistor(string const _name, double const _restistance, Connection *co
 
 double Resistor::getVoltage()
 {
-    // voltage is not declared in this scope
     return voltage;
 }
 
@@ -28,9 +27,9 @@ void Resistor::update(double timeStep)
     }
 }
 
-double calc2(double movedCharge)
+double Resistor::calc2(double movedCharge)
 {
-    // resistance and timeStep are not declared in this scope
+    // timeStep is undefined since it's a parameter in update()
     return ((movedCharge / resistance) * timeStep);
 }
 
