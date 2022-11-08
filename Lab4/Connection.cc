@@ -4,20 +4,18 @@ using namespace std;
 
 Connection::Connection()
 {
-
 }
 
-Connection::double setVoltage(double v) 
+double Connection::setVoltage(double v)
 {
     voltage = v;
 }
 
-Connection::double getVoltage()
+double Connection::getVoltage()
 {
     return voltage;
 }
 
 Connection::~Connection()
 {
-
 }

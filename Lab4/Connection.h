@@ -8,8 +8,9 @@ public:
     ~Connection();
     double setVoltage(double v);
     double getVoltage();
+
 private:
     double voltage;
-}
+};
 
 #endif

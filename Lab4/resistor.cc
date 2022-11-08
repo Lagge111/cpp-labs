@@ -5,31 +5,36 @@
 
 using namespace std;
 
-Resistor::Resistor(std::string _name, double const _restistance, Connection* const _left, Connection* const _right) : Component
+Resistor::Resistor(string const _name, double const _restistance, Connection *const _left, Connection *const _right) : Component()
 {
-
 }
 
-double getVoltage()
+double Resistor::getVoltage()
 {
+    // voltage is not declared in this scope
     return voltage;
 }
 
-void Resistor update(double timeStep)
+void Resistor::update(double timeStep)
 {
-    double movedCharge{abs(left->getVoltage() - right.getVoltage())}; 
-    if (left->getVoltage() > right->getVoltage()) {
+    // left and right are not declared in this scope
+    double movedCharge{abs(left->getVoltage() - right.getVoltage())};
+    if (left->getVoltage() > right->getVoltage())
+    {
         left->setVoltage(calc2(movedCharge));
-    } else {
+    }
+    else
+    {
         right->setVoltage(calc2(movedCharge));
     }
 }
 
-double calc2(double movedCharge) {
-    return (movedCharge / resistance) * timeStep
+double calc2(double movedCharge)
+{
+    // resistance and timeStep are not declared in this scope
+    return ((movedCharge / resistance) * timeStep);
 }
 
-~Resistor()
+Resistor::~Resistor()
 {
-
 }
