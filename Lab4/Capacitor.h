@@ -1,4 +1,3 @@
-// Capacitor h file
 
 #ifndef CAPACITOR_H
 #define CAPACITOR_H

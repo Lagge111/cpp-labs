@@ -1,4 +1,3 @@
-// Main class which creates the circuits.
 
 #include <iostream>
 #include <string>
@@ -21,7 +20,7 @@ int outputRows{};
 double timeStep{};
 double voltage{};
 
-// Main method
+// Main method. We should probably try-catch the command line arguments
 int main(int argc, char **argv)
 {
     iterations = stoi(argv[0]);

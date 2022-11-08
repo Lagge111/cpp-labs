@@ -1,4 +1,3 @@
-// Component h file
 
 // Weird fucking error with #ifndef COMPONENT_H.
 // The error doesn't show up in the terminal when running the code,

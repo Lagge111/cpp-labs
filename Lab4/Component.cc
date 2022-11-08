@@ -1,4 +1,3 @@
-// Component
 
 #include "Component.h"
 #include <string>

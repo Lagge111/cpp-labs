@@ -1,4 +1,3 @@
-// Battery h file
 
 #ifndef BATTERY_H
 #define BATTERY_H

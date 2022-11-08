@@ -1,4 +1,3 @@
-// Resistor h file
 
 #ifndef RESISTOR_H
 #define RESISTOR_H
