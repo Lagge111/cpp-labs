@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Resistor::Resistor(string const _name, double const _restistance, Connection *const _left, Connection *const _right) : Component()
+Resistor::Resistor(string const name, double const resistance, Connection *const left, Connection *const right) : Component()
 {
 }
 
@@ -17,22 +17,22 @@ double Resistor::getVoltage()
 
 void Resistor::update(double timeStep)
 {
-    // left and right are undefined
-    double movedCharge{abs(left->getVoltage() - right.getVoltage())};
+    Connection *left{left};
+    Connection *right{right};
+    double LV = left->getVoltage();
+    double RV = right->getVoltage();
+    double resistance{resistance};
+
+    double movedCharge{abs(LV - RV)};
+
     if (left->getVoltage() > right->getVoltage())
     {
-        left->setVoltage(calc2(movedCharge));
+        left->setVoltage(((movedCharge / resistance) * timeStep));
     }
     else
     {
-        right->setVoltage(calc2(movedCharge));
+        right->setVoltage(((movedCharge / resistance) * timeStep));
     }
-}
-
-double calc2(double movedCharge)
-{
-    // resistance and timeStep are undefined
-    return ((movedCharge / resistance) * timeStep);
 }
 
 Resistor::~Resistor()

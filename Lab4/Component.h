@@ -13,7 +13,7 @@ class Component
 public:
     Component();
     ~Component();
-    std::string getName();
+    std::string name;
 
 private:
 };

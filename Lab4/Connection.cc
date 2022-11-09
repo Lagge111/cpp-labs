@@ -6,7 +6,7 @@ Connection::Connection()
 {
 }
 
-double Connection::setVoltage(double v)
+void Connection::setVoltage(double v)
 {
     voltage = v;
 }

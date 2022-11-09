@@ -9,12 +9,6 @@ Component::Component()
 {
 }
 
-string getName()
-{
-    // name is undefined
-    return name;
-}
-
 Component::~Component()
 {
 }
