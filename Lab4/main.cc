@@ -15,6 +15,7 @@ using namespace std;
 void circuit_1(int const iterations, int const outputRows, double const timeStep, double const voltage);
 void circuit_2();
 void circuit_3();
+void deallocate_components(std::vector<Component *> v);
 
 int iterations{};
 int outputRows{};
@@ -49,7 +50,7 @@ void circuit_1(int const iterations, int const outputRows, double const timeStep
     Simulation simulation{};
     cout << "Circuit_1 - 4" << endl;
     simulation.simulate(net, iterations, outputRows, timeStep);
-    // deallocate_components(net);
+    deallocate_components(net);
 }
 
 // Method for creating circuit 2 from the example.
@@ -60,4 +61,12 @@ void circuit_2()
 // Method for creating circuit 3 from the example.
 void circuit_3()
 {
+}
+
+void deallocate_components(std::vector<Component *> v)
+{
+    for (Component *elements : v)
+    {
+        delete elements;
+    }
 }

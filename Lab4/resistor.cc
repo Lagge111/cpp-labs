@@ -2,11 +2,15 @@
 
 #include "Resistor.h"
 #include "Component.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-Resistor::Resistor(string const name, double const resistance, Connection *const left, Connection *const right) : Component()
+Resistor::Resistor(string const name, int const resistance, Connection *const left, Connection *const right)
+    : Component(name, left, right), resistance{resistance}
 {
+    cout << "Resistor created: " << name << endl;
 }
 
 double Resistor::getVoltage()
@@ -21,7 +25,6 @@ void Resistor::update(double timeStep)
     Connection *right{right};
     double LV = left->getVoltage();
     double RV = right->getVoltage();
-    double resistance{resistance};
 
     double movedCharge{abs(LV - RV)};
 

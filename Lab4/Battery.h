@@ -4,22 +4,24 @@
 #define BATTERY_H
 
 #include "Component.h"
-#include "Connection.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class Battery : public Component
 {
 public:
     // Constructor
-    Battery(std::string const _name, double const _voltage, Connection *const _left, Connection *const _right);
+    Battery(string const name, double const voltage, Connection *const left, Connection *const right);
     // Desctructor
     ~Battery();
     double getVoltage();
+    string name{name};
 
 private:
-    void setLeft();
     double current = 0;
-    double voltage;
-    Connection *left = left;
+    double const voltage;
 };
 
 #endif

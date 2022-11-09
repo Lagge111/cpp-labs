@@ -5,14 +5,19 @@
 
 #include "Component.h"
 #include "Connection.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class Resistor : public Component
 {
 public:
-    Resistor(std::string name, double const resistance, Connection *const left, Connection *const right);
+    Resistor(string name, int const resistance, Connection *const left, Connection *const right);
     ~Resistor();
     void update(double timeStep);
     double getVoltage();
+    string name{name};
 
 private:
     double voltage;

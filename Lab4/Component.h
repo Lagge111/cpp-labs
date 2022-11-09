@@ -6,16 +6,22 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include "Connection.h"
+#include <iostream>
 #include <string>
+
+using namespace std;
 
 class Component
 {
 public:
-    Component();
+    Component(string const name, Connection *const left, Connection *const right);
     ~Component();
-    std::string name;
+    string name;
 
-private:
+protected:
+    Connection *left;
+    Connection *right;
 };
 
 #endif
