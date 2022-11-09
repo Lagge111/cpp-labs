@@ -11,13 +11,13 @@ Resistor::Resistor(string const _name, double const _restistance, Connection *co
 
 double Resistor::getVoltage()
 {
-    // voltage is not declared in this scope
+    // voltage is undefined
     return voltage;
 }
 
 void Resistor::update(double timeStep)
 {
-    // left and right are not declared in this scope
+    // left and right are undefined
     double movedCharge{abs(left->getVoltage() - right.getVoltage())};
     if (left->getVoltage() > right->getVoltage())
     {
@@ -31,7 +31,7 @@ void Resistor::update(double timeStep)
 
 double calc2(double movedCharge)
 {
-    // resistance and timeStep are not declared in this scope
+    // resistance and timeStep are undefined
     return ((movedCharge / resistance) * timeStep);
 }
 

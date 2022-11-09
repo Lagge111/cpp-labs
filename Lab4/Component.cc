@@ -11,7 +11,7 @@ Component::Component()
 
 string getName()
 {
-    // name is not declared. Should probably be included in the constructor
+    // name is undefined
     return name;
 }
 
