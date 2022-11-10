@@ -16,13 +16,14 @@ Battery::Battery(string const name, double const voltage, Connection *const left
 
 void Battery::update(double const timeStep)
 {
-    // Do something
+    left->setVoltage(voltage);
+    right->setVoltage(0);
 }
 
-double Battery::getVoltage()
-{
-    return voltage;
-}
+// double Battery::getVoltage()
+// {
+//     return voltage;
+// }
 
 double Battery::getCurrent()
 {
