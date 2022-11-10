@@ -69,13 +69,13 @@ void circuit_3()
 {
 }
 
-void deallocate_components(std::vector<Component *> v)
+void deallocate_components(std::vector<Component *> net)
 {
-    for (Component *elements : v)
+    for (Component *elements : net)
     {
         cout << "Deleting element: " << elements << endl;
         delete elements;
     }
     // Pre-defined function for vectors 
-    v.clear();
+    net.clear();
 }
