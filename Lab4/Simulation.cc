@@ -17,8 +17,6 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
     for (int i{0}; i < size; ++i)
     {
         cout << setw(12) << net.at(i)->getName();
-        // cout << "Simulation/simulate/loop" << endl;
-        // cout << "Component name: " << net.at(i)->name << endl;
     }
     cout << endl;
     cout << left;
@@ -32,7 +30,7 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
     for (int i{1}; i <= iterations; ++i) {
         for (Component* c : net) {
             // This will work once update is implemented correctly
-            // This gives "bus error" as of now
+            // This gives "bus error" as of now. Good luck fixing it. 
             //c->update(timeStep);
         }
         if ((i % iterations / outputRows) == 0) {
@@ -40,7 +38,6 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 
             for (Component* c : net) {
                 cout << setw(6) << "3.00" << "4.30" << "  ";
-                // This will work once getVoltage and getCurrent are implemented
                 cout << setw(6) << c->getVoltage() << c->getCurrent() << "  ";
             }
             cout << endl;
