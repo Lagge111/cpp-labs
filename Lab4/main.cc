@@ -23,6 +23,7 @@ int main(int argc, char **argv)
     cout << "Main" << endl;
     if (argc == 5) {
         try {
+            // Declared variables locally as it didn't fucking work otherwise
             int iterations{stoi(argv[1])};
             int outputRows{stoi(argv[2])};
             double timeStep{stod(argv[3])};
