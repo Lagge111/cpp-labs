@@ -31,8 +31,9 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 
     for (int i{1}; i <= iterations; ++i) {
         for (Component* c : net) {
-            // This will work once update is implemented
-            // c->update(timeStep);
+            // This will work once update is implemented correctly
+            // This gives "bus error" as of now
+            //c->update(timeStep);
         }
         if ((i % iterations / outputRows) == 0) {
             cout << fixed << setprecision(2) << setw(6) << "";
@@ -40,7 +41,7 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
             for (Component* c : net) {
                 cout << setw(6) << "3.00" << "4.30" << "  ";
                 // This will work once getVoltage and getCurrent are implemented
-                // cout << setw(6) << c->getVoltage() << c->getCurrent() << "  ";
+                cout << setw(6) << c->getVoltage() << c->getCurrent() << "  ";
             }
             cout << endl;
         }
