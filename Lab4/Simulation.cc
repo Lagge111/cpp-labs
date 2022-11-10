@@ -16,13 +16,13 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
     int size{static_cast<int>(net.size())};
     for (int i{0}; i < size; ++i)
     {
-        cout << setw(12) << net.at(i)->getName();
+        cout << setw(11) << net.at(i)->getName();
     }
     cout << endl;
     cout << left;
-    cout << setw(5) << "";
+    cout << setw(0) << "";
     for (int i{0}; i < size; ++i) {
-        cout << "Volt   Curr ";
+        cout << "Volt   Curr  ";
     }
 
     cout << endl;
@@ -34,11 +34,11 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
             //c->update(timeStep);
         }
         if ((i % iterations / outputRows) == 0) {
-            cout << fixed << setprecision(2) << setw(6) << "";
+            cout << fixed << setprecision(2) << setw(0) << "";
 
             for (Component* c : net) {
-                cout << setw(6) << "3.00" << "4.30" << "  ";
-                cout << setw(6) << c->getVoltage() << c->getCurrent() << "  ";
+                //cout << setw(6) << "3.00" << "4.30" << "  ";
+                cout << setw(7) << c->getVoltage() << c->getCurrent() << "  ";
             }
             cout << endl;
         }

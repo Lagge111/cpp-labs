@@ -7,7 +7,6 @@
 #define COMPONENT_H
 
 #include "Connection.h"
-#include <iostream>
 #include <string>
 
 class Component

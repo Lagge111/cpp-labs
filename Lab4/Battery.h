@@ -4,7 +4,6 @@
 #define BATTERY_H
 
 #include "Component.h"
-#include <iostream>
 #include <string>
 
 class Battery : public Component
