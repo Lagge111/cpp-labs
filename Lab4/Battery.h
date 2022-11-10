@@ -7,17 +7,15 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 class Battery : public Component
 {
 public:
     // Constructor
-    Battery(string const name, double const voltage, Connection *const left, Connection *const right);
+    Battery(std::string const name, double const voltage, Connection *const left, Connection *const right);
     // Desctructor
     ~Battery();
     double getVoltage();
-    string name{name};
+    std::string name{name};
 
 private:
     double current = 0;

@@ -9,9 +9,9 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 {
     cout << "Simulation/simulate" << endl;
     int size{static_cast<int>(net.size())};
-    for (int i{1}; i < 3; ++i)
+    for (int i{1}; i < size; ++i)
     {
         cout << "Simulation/simulate/loop" << endl;
-        cout << net.at(i)->name;
+        cout << "Component name: " << net.at(i)->name << endl;
     }
 }

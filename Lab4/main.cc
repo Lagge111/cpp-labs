@@ -30,7 +30,6 @@ int main(int argc, char **argv)
     outputRows = stoi(argv[2]);
     timeStep = stod(argv[3]);
     voltage = stod(argv[4]);
-
     circuit_1(iterations, outputRows, timeStep, voltage);
 }
 
