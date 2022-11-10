@@ -12,7 +12,7 @@ Simulation::Simulation()
 
 void Simulation::simulate(vector<Component *> const net, int const iterations, int const outputRows, double const timeStep)
 {
-    cout << "Simulation/simulate" << endl;
+    cout << "Executing simulation: " << endl;
     int size{static_cast<int>(net.size())};
     for (int i{0}; i < size; ++i)
     {
