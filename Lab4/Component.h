@@ -10,14 +10,13 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 class Component
 {
 public:
-    Component(string const name, Connection *const left, Connection *const right);
+    Component(std::string const name, Connection *const left, Connection *const right);
     ~Component();
-    string name;
+    std::string name;
+    virtual void update(double const timeStep);
 
 protected:
     Connection *left;

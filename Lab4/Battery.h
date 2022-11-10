@@ -16,6 +16,7 @@ public:
     ~Battery();
     double getVoltage();
     std::string name{name};
+    void update(double const timeStep) override;
 
 private:
     double current = 0;

@@ -10,6 +10,10 @@ Component::Component(string const name, Connection *const left, Connection *cons
 {
 }
 
+void Component::update(double const timeStep)
+{
+}
+
 Component::~Component()
 {
 }
