@@ -17,20 +17,26 @@ void circuit_2();
 void circuit_3();
 void deallocate_components(std::vector<Component *> v);
 
-int iterations{};
-int outputRows{};
-double timeStep{};
-double voltage{};
-
 // Main method
 int main(int argc, char **argv)
 {
     cout << "Main" << endl;
-    iterations = stoi(argv[1]);
-    outputRows = stoi(argv[2]);
-    timeStep = stod(argv[3]);
-    voltage = stod(argv[4]);
-    circuit_1(iterations, outputRows, timeStep, voltage);
+    if (argc == 5) {
+        try {
+            int iterations{stoi(argv[1])};
+            int outputRows{stoi(argv[2])};
+            double timeStep{stod(argv[3])};
+            double voltage{stod(argv[4])};
+
+            circuit_1(iterations, outputRows, timeStep, voltage);
+
+        } catch (invalid_argument& e) {
+            cout << "Invalid type of arguments. Should be int int double double." << endl;
+        }
+    } else {
+        cout << "Invalid number of arguments." << endl;
+        return 1;
+    }
 }
 
 // Method for creating circuit 1 from the example.
@@ -66,6 +72,8 @@ void deallocate_components(std::vector<Component *> v)
 {
     for (Component *elements : v)
     {
+        cout << "Deleting element: " << elements << endl;
         delete elements;
     }
+    v.clear();
 }
