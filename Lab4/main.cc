@@ -75,5 +75,6 @@ void deallocate_components(std::vector<Component *> v)
         cout << "Deleting element: " << elements << endl;
         delete elements;
     }
+    // Pre-defined function for vectors 
     v.clear();
 }

@@ -17,7 +17,6 @@ public:
     ~Resistor();
     void update(double timeStep);
     double getVoltage();
-    string name{name};
 
 private:
     double voltage;

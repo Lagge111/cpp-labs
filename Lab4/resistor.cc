@@ -10,7 +10,7 @@ using namespace std;
 Resistor::Resistor(string const name, int const resistance, Connection *const left, Connection *const right)
     : Component(name, left, right), resistance{resistance}
 {
-    cout << "Resistor created: " << name << endl;
+    cout << "Resistor created: " << getName() << endl;
 }
 
 double Resistor::getVoltage()

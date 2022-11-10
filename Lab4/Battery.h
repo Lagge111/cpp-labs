@@ -10,13 +10,10 @@
 class Battery : public Component
 {
 public:
-    // Constructor
     Battery(std::string const name, double const voltage, Connection *const left, Connection *const right);
-    // Desctructor
-    ~Battery();
     double getVoltage();
-    std::string name{name};
     void update(double const timeStep) override;
+    ~Battery();
 
 private:
     double current = 0;
