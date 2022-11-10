@@ -17,7 +17,7 @@ public:
     ~Resistor();
     void update(double timeStep);
     double getVoltage();
-
+    double getCurrent();
 private:
     double voltage;
     int resistance;

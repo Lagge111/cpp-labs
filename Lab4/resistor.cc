@@ -38,6 +38,11 @@ void Resistor::update(double timeStep)
     }
 }
 
+double Resistor::getCurrent()
+{
+    return (getVoltage() / resistance);
+}
+
 Resistor::~Resistor()
 {
 }

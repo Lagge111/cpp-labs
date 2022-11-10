@@ -24,6 +24,11 @@ double Battery::getVoltage()
     return voltage;
 }
 
+double Battery::getCurrent()
+{
+    return 0;
+}
+
 Battery::~Battery()
 {
 }
