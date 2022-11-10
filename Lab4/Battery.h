@@ -12,7 +12,7 @@ class Battery : public Component
 public:
     Battery(std::string const name, double const voltage, Connection *const left, Connection *const right);
     double getVoltage();
-    double getCurrent();
+    double getCurrent() override;
     void update(double const timeStep) override;
     ~Battery();
 

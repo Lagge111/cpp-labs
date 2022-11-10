@@ -15,14 +15,14 @@ class Component
 public:
     Component(std::string const name, Connection *const left, Connection *const right);
     ~Component();
-    std::string name;
     virtual void update(double const timeStep);
     double getVoltage();
-    double getCurrent();
+    virtual double getCurrent();
     std::string getName();
 protected:
     Connection *left;
     Connection *right;
+    std::string name;
 };
 
 #endif

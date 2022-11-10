@@ -16,7 +16,7 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
     int size{static_cast<int>(net.size())};
     for (int i{0}; i < size; ++i)
     {
-        cout << setw(12) << net.at(i)->name;
+        cout << setw(12) << net.at(i)->getName();
         // cout << "Simulation/simulate/loop" << endl;
         // cout << "Component name: " << net.at(i)->name << endl;
     }
