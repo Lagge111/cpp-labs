@@ -15,7 +15,7 @@ using namespace std;
 void circuit_1(int const iterations, int const outputRows, double const timeStep, double const voltage);
 void circuit_2();
 void circuit_3();
-void deallocate_components(std::vector<Component *> v);
+void deallocate_components(vector<Component *> v);
 
 // Main method
 int main(int argc, char **argv)
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
             circuit_1(iterations, outputRows, timeStep, voltage);
 
         } catch (invalid_argument& e) {
-            cout << "Invalid type of arguments. Should be int int double double." << endl;
+            cout << "Invalid argument type. Arguments should follow the format 'int int double double'." << endl;
         }
     } else {
         cout << "Invalid number of arguments." << endl;
@@ -71,10 +71,10 @@ void circuit_3()
 
 void deallocate_components(std::vector<Component *> net)
 {
-    for (Component *elements : net)
+    for (Component *element : net)
     {
-        cout << "Deleting element: " << elements << endl;
-        delete elements;
+        cout << "Deleting element: " << element << endl;
+        delete element;
     }
     // Pre-defined function for vectors 
     net.clear();
