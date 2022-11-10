@@ -17,7 +17,9 @@ public:
     ~Component();
     std::string name;
     virtual void update(double const timeStep);
-
+    double getVoltage();
+    double getCurrent();
+    std::string getName();
 protected:
     Connection *left;
     Connection *right;

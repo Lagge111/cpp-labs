@@ -14,6 +14,20 @@ void Component::update(double const timeStep)
 {
 }
 
+double Component::getVoltage()
+{
+    // Return some abs function, difference between left and right
+}
+
+double Component::getCurrent()
+{
+}
+
+string Component::getName()
+{
+    return name;
+}
+
 Component::~Component()
 {
 }
