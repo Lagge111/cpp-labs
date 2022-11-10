@@ -8,8 +8,6 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 class Resistor : public Component
 {
 public:
