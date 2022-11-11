@@ -8,6 +8,9 @@
 class Capacitor : public Component
 {
 public:
+    Capacitor();
+    double getCurrent() override;
+    ~Capacitor();
 private:
 };
 

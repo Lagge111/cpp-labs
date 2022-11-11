@@ -33,9 +33,7 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
         }
         if ((i % (iterations / outputRows)) == 0) {
             cout << fixed << setprecision(2) << setw(0) << "";
-
             for (Component* c : net) {
-                // getVoltage and getCurrent has no values. Output is 0
                 cout << setw(6) << c->getVoltage() << c->getCurrent() << "  ";
             }
             cout << endl;

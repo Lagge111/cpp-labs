@@ -16,12 +16,12 @@ void Component::update(double const timeStep)
 
 double Component::getVoltage()
 {
-    // Return some abs function, difference between left and right
-    //return abs(left->getVoltage() - right->getVoltage());
+    return abs(left->getVoltage() - right->getVoltage());
 }
 
 double Component::getCurrent()
 {
+    return 0;
 }
 
 string Component::getName()

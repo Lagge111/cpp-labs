@@ -13,32 +13,24 @@ Resistor::Resistor(string const name, int const resistance, Connection *const le
     cout << "Resistor created: " << getName() << endl;
 }
 
-double Resistor::getVoltage()
-{
-    // voltage is undefined
-    return voltage;
-}
+// double Resistor::getVoltage()
+// {
+//     // voltage is undefined
+//     return voltage;
+// }
 
 void Resistor::update(double timeStep)
 {
-    // Connection *left{left};
-    // Connection *right{right};
-    double LV = left->getVoltage();
-    double RV = right->getVoltage();
+    double voltageMoved{(getVoltage() / resistance) * timeStep};
 
-    
-    
-    double movedCharge{abs(LV - RV)};
-    if (left->getVoltage() > right->getVoltage())
-    {
-        left->setVoltage(((movedCharge / resistance) * timeStep));
-    }
-    else
-    {
-        right->setVoltage(((movedCharge / resistance) * timeStep));
-    }
+    if(left->getVoltage() < right->getVoltage()){
+        left->setVoltage(left->getVoltage() + voltageMoved);
+        right->setVoltage(right->getVoltage() - voltageMoved);
 
-    
+    }else{
+        right->setVoltage(right->getVoltage() + voltageMoved);
+        left->setVoltage(left->getVoltage() - voltageMoved);
+    }
 }
 
 double Resistor::getCurrent()

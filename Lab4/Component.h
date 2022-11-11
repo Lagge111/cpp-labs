@@ -12,7 +12,7 @@ public:
     Component(std::string const name, Connection *const left, Connection *const right);
     ~Component();
     virtual void update(double const timeStep);
-    virtual double getVoltage();
+    double getVoltage();
     virtual double getCurrent();
     std::string getName();
 protected:
