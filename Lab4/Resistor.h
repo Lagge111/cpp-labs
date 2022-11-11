@@ -1,23 +1,22 @@
-
 #ifndef RESISTOR_H
 #define RESISTOR_H
 
 #include "Component.h"
 #include "Connection.h"
+#include <string>
 
 class Resistor : public Component
 {
 public:
-    Resistor(std::string _name, double const _resistance, Connection *const _left, Connection *const _right);
+    Resistor(std::string name, double const resistance, Connection *const left, Connection *const right);
     ~Resistor();
-    void update(double timeStep);
-    double getVoltage();
+    void update(double const timeStep) override;
+    // double getVoltage() override;
+    double getCurrent() override;
 
 private:
-    double current;
-    double resistance;
     double voltage;
-    double calc2(double movedCharge);
+    double resistance;
 };
 
 #endif

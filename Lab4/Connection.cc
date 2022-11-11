@@ -1,13 +1,11 @@
 
 #include "Connection.h"
 
-using namespace std;
-
 Connection::Connection()
 {
 }
 
-double Connection::setVoltage(double v)
+void Connection::setVoltage(double const v)
 {
     voltage = v;
 }

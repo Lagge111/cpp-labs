@@ -1,24 +1,21 @@
-
 #ifndef BATTERY_H
 #define BATTERY_H
 
 #include "Component.h"
-#include "Connection.h"
+#include <string>
 
 class Battery : public Component
 {
 public:
-    // Constructor
-    Battery(std::string const _name, double const _voltage, Connection *const _left, Connection *const _right);
-    // Desctructor
+    Battery(std::string const name, double const voltage, Connection *const left, Connection *const right);
+    // double getVoltage() override;
+    double getCurrent() override;
+    void update(double const timeStep) override;
     ~Battery();
-    double getVoltage();
 
 private:
-    void setLeft();
     double current = 0;
-    double voltage;
-    Connection *left = left;
+    double const voltage;
 };
 
 #endif
