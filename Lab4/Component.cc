@@ -1,5 +1,3 @@
-// Component
-
 #include "Component.h"
 #include "Connection.h"
 #include <string>

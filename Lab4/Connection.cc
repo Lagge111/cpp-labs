@@ -4,7 +4,7 @@ Connection::Connection()
 {
 }
 
-void Connection::setVoltage(double v)
+void Connection::setVoltage(double const v)
 {
     voltage = v;
 }

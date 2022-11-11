@@ -6,7 +6,7 @@ class Connection
 public:
     Connection();
     ~Connection();
-    void setVoltage(double v);
+    void setVoltage(double const v);
     double getVoltage();
 
 private:

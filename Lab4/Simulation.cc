@@ -12,11 +12,11 @@ Simulation::Simulation()
 
 void Simulation::simulate(vector<Component *> const net, int const iterations, int const outputRows, double const timeStep)
 {
-    cout << "Executing simulation: " << endl;
     int size{static_cast<int>(net.size())};
+    cout << endl;
     for (int i{0}; i < size; ++i)
     {
-        cout << setw(10) << net.at(i)->getName();
+        cout << setw(12) << net.at(i)->getName();
     }
     cout << endl;
     cout << left;
@@ -27,11 +27,11 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 
     cout << endl;
 
-    for (int i{1}; i <= iterations; ++i) {
+    for (int i{0}; i <= iterations; ++i) {
         for (Component* c : net) {
             c->update(timeStep);
         }
-        if ((i % (iterations / outputRows)) == 0) {
+        if (((i % (iterations / outputRows)) == 0) && (i != 0)) {
             cout << fixed << setprecision(2) << setw(0) << "";
             for (Component* c : net) {
                 cout << setw(6) << c->getVoltage() << c->getCurrent() << "  ";

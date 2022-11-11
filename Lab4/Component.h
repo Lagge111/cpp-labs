@@ -1,5 +1,3 @@
-// Component h file
-
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
@@ -10,11 +8,11 @@ class Component
 {
 public:
     Component(std::string const name, Connection *const left, Connection *const right);
-    ~Component();
     virtual void update(double const timeStep);
     double getVoltage();
     virtual double getCurrent();
     std::string getName();
+    ~Component();
 protected:
     Connection *left;
     Connection *right;

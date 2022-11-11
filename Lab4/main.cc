@@ -1,5 +1,3 @@
-// Main class which creates the circuits.
-
 #include <iostream>
 #include <string>
 
@@ -7,30 +5,29 @@
 #include "Component.h"
 #include "Battery.h"
 #include "Resistor.h"
+#include "Capacitor.h"
 #include "Simulation.h"
 
 using namespace std;
 
-// Declaring the methods so that they can be used in the main method.
 void circuit_1(int const iterations, int const outputRows, double const timeStep, double const voltage);
-void circuit_2();
-void circuit_3();
+void circuit_2(int const iterations, int const outputRows, double const timeStep, double const voltage);
+void circuit_3(int const iterations, int const outputRows, double const timeStep, double const voltage);
 void deallocate_components(vector<Component *> v);
 
-// Main method
 int main(int argc, char **argv)
 {
     if (argc == 5) {
         try {
-            // Declared variables locally as it didn't fucking work otherwise
             int iterations{stoi(argv[1])};
             int outputRows{stoi(argv[2])};
             double timeStep{stod(argv[3])};
             double voltage{stod(argv[4])};
 
             circuit_1(iterations, outputRows, timeStep, voltage);
+            circuit_2(iterations, outputRows, timeStep, voltage);
+            circuit_3(iterations, outputRows, timeStep, voltage);
 
-        // Pre-defined exception for command line arguments
         } catch (invalid_argument& e) {
             cout << "Invalid argument type. Arguments should follow the format 'int int double double'." << endl;
         }
@@ -40,11 +37,10 @@ int main(int argc, char **argv)
     }
 }
 
-// Method for creating circuit 1 from the example.
 void circuit_1(int const iterations, int const outputRows, double const timeStep, double const voltage)
 {
     Connection p, n, r124, r23;
-    vector<Component *> net;
+    vector<Component*> net;
     net.push_back(new Battery("Bat", voltage, &p, &n));
     net.push_back(new Resistor("R1", 6, &p, &r124));
     net.push_back(new Resistor("R2", 4, &r124, &r23));
@@ -55,23 +51,41 @@ void circuit_1(int const iterations, int const outputRows, double const timeStep
     deallocate_components(net);
 }
 
-// Method for creating circuit 2 from the example.
-void circuit_2()
+void circuit_2(int const iterations, int const outputRows, double const timeStep, double const voltage)
 {
+    Connection p, n, l, r;
+    vector<Component*> net;
+    net.push_back(new Battery("Bat", voltage, &p, &n));
+    net.push_back(new Resistor("R1", 150, &p, &l));
+    net.push_back(new Resistor("R2", 50, &p, &r));
+    net.push_back(new Resistor("R3", 100, &l, &r));
+    net.push_back(new Resistor("R4", 300, &l, &n));
+    net.push_back(new Resistor("R5", 250, &r, &n));
+    Simulation simulation{};
+    simulation.simulate(net, iterations, outputRows, timeStep);
+    deallocate_components(net);
 }
 
-// Method for creating circuit 3 from the example.
-void circuit_3()
+void circuit_3(int const iterations, int const outputRows, double const timeStep, double const voltage)
 {
+    Connection p, n, l, r;
+    vector<Component*> net;
+    net.push_back(new Battery("Bat", voltage, &p, &n));
+    net.push_back(new Resistor("R1", 150, &p, &l));
+    net.push_back(new Resistor("R2", 50, &p, &r));
+    net.push_back(new Capacitor("C3", 1.0, &l, &r));
+    net.push_back(new Resistor("R4", 300, &l, &n));
+    net.push_back(new Capacitor("C5", 0.75, &r, &n));
+    Simulation simulation{};
+    simulation.simulate(net, iterations, outputRows, timeStep);
+    deallocate_components(net);
 }
 
 void deallocate_components(std::vector<Component *> net)
 {
     for (Component *element : net)
     {
-        cout << "Deleting element: " << element << endl;
         delete element;
     }
-    // Pre-defined function for vectors 
     net.clear();
 }
