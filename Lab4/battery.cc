@@ -20,10 +20,10 @@ void Battery::update(double const timeStep)
     right->setVoltage(0);
 }
 
-// double Battery::getVoltage()
-// {
-//     return voltage;
-// }
+double Battery::getVoltage()
+{
+    return voltage;
+}
 
 double Battery::getCurrent()
 {

@@ -21,13 +21,14 @@ double Resistor::getVoltage()
 
 void Resistor::update(double timeStep)
 {
-    Connection *left{left};
-    Connection *right{right};
+    // Connection *left{left};
+    // Connection *right{right};
     double LV = left->getVoltage();
     double RV = right->getVoltage();
 
+    
+    
     double movedCharge{abs(LV - RV)};
-
     if (left->getVoltage() > right->getVoltage())
     {
         left->setVoltage(((movedCharge / resistance) * timeStep));
@@ -36,6 +37,8 @@ void Resistor::update(double timeStep)
     {
         right->setVoltage(((movedCharge / resistance) * timeStep));
     }
+
+    
 }
 
 double Resistor::getCurrent()
