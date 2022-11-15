@@ -9,13 +9,14 @@
 class Capacitor : public Component
 {
 public:
-    Capacitor(std::string const name, double const capacitance, Connection* const left, Connection* const right);
+    Capacitor(std::string const name, double const capacitance, Connection *const left, Connection *const right);
     void update(double const timeStep) override;
     double getCurrent() override;
     ~Capacitor();
+
 private:
-    double capacitance;
-    double storedVoltage;
+    double const capacitance;
+    double storedCharge;
 };
 
 #endif
