@@ -15,26 +15,25 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 {
     int size{static_cast<int>(net.size())};
     cout << endl;
-    // for (int i{0}; i < size; ++i)
-    // {
-    //     cout << setw(11) << net.at(i)->getName();
-    // }
+    cout << " ";
+
     for (Component *element : net)
     {
-        cout << setw(12) << element->getName();
+        cout << setw(12) << element->getName() << " ";
     }
+
     cout << endl;
-    cout << left;
     cout << " ";
+
     for (int i{0}; i < size; ++i)
     {
         cout << setw(6) << "Volt";
-        cout << setw(7) << "Curr";
+        cout << setw(7) << "Curr ";
     }
 
     cout << endl;
 
-    for (int i{0}; i <= iterations; ++i)
+    for (int i{1}; i <= iterations; ++i)
     {
         for (Component *c : net)
         {
