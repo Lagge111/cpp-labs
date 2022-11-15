@@ -3,25 +3,21 @@
 
 using namespace std;
 
-// Sorted_List destructor
 Sorted_List::~Sorted_List()
 {
     clear_list();
 }
 
-// Move constructor
 Sorted_List::Sorted_List(Sorted_List &&original)
 {
     *this = move(original);
 }
 
-// Copy constructor
 Sorted_List::Sorted_List(Sorted_List const &original)
 {
     *this = original;
 }
 
-// Copy assignment operator
 Sorted_List &Sorted_List::operator=(Sorted_List const &original)
 {
     if (original.first != nullptr)
@@ -42,7 +38,6 @@ Sorted_List &Sorted_List::operator=(Sorted_List const &original)
     return *this;
 }
 
-// Move assignment operator
 Sorted_List &Sorted_List::operator=(Sorted_List &&original)
 {
     *this = original;
@@ -50,7 +45,6 @@ Sorted_List &Sorted_List::operator=(Sorted_List &&original)
     return *this;
 }
 
-// Clear list of nodes
 void Sorted_List::clear_list()
 {
     while (!is_empty())

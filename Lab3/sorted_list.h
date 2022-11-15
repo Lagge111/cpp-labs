@@ -15,22 +15,12 @@ private:
     void recursive_print(Node *current, std::string &str);
 
 public:
-    // Default constructor
     Sorted_List() = default;
-
-    // Desctructor
     ~Sorted_List();
-
-    // Move constructor
     Sorted_List(Sorted_List &&original);
-
-    // Copy constructor
     Sorted_List(Sorted_List const &original);
 
-    // Copy operator
     Sorted_List &operator=(Sorted_List const &original);
-
-    // Move operator
     Sorted_List &operator=(Sorted_List &&original);
 
     void insert(int const &data);
@@ -38,7 +28,6 @@ public:
     int getValueAt(int const &index) const;
     int size() const;
     std::string print();
-    // Removes at certain index
     void remove(int const &index);
     void clear_list();
     std::string list_string();
