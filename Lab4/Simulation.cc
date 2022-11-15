@@ -1,8 +1,6 @@
 
 #include <iostream>
-#include <string>
 #include <iomanip>
-
 #include "Simulation.h"
 
 using namespace std;
@@ -33,13 +31,13 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 
     cout << endl;
 
-    for (int i{1}; i <= iterations; ++i)
+    for (int i{1}; i <= iterations; i++)
     {
         for (Component *c : net)
         {
             c->update(timeStep);
         }
-        if (((i % (iterations / outputRows)) == 0) && (i != 0))
+        if (i % (iterations / outputRows) == 0)
         {
             cout << fixed << setprecision(2);
             for (Component *c : net)
