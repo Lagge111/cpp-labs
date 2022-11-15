@@ -1,8 +1,6 @@
 
 #include "Capacitor.h"
 #include "Component.h"
-// To test values
-#include <iostream>
 
 using namespace std;
 
