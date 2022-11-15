@@ -13,7 +13,6 @@ public:
     ~Simulation();
 
 private:
-    std::vector<Component *> net;
 };
 
 #endif
