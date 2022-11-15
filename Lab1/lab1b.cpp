@@ -65,6 +65,5 @@ int main()
         cout << setw(12) << current_price << setw(17) << tax << setw(21) << tax + current_price << endl;
         current_price = (first_price + (stride * i));
     }
-
     return 0;
 }
