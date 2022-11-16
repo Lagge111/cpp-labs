@@ -1,6 +1,5 @@
 #include "Resistor.h"
 #include "Component.h"
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -9,12 +8,6 @@ Resistor::Resistor(string const name, double const resistance, Connection *const
     : Component(name, left, right), resistance{resistance}
 {
 }
-
-// double Resistor::getVoltage()
-// {
-//     // voltage is undefined
-//     return voltage;
-// }
 
 void Resistor::update(double const timeStep)
 {

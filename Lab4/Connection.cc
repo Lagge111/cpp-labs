@@ -1,4 +1,3 @@
-
 #include "Connection.h"
 
 Connection::Connection() : voltage{0}

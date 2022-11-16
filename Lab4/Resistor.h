@@ -11,7 +11,6 @@ public:
     Resistor(std::string name, double const resistance, Connection *const left, Connection *const right);
     ~Resistor();
     void update(double const timeStep) override;
-    // double getVoltage() override;
     double getCurrent() override;
 
 private:

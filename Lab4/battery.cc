@@ -1,12 +1,10 @@
 #include "Battery.h"
 #include "Component.h"
-#include <iostream>
-#include <string>
 
 using namespace std;
 
 Battery::Battery(string const name, double const voltage, Connection *const left, Connection *const right)
-    : Component(name, left, right), voltage{voltage}
+    : Component(name, left, right), voltage{voltage}, current{current}
 {
 }
 
@@ -16,14 +14,9 @@ void Battery::update(double const timeStep)
     right->setVoltage(0);
 }
 
-// double Battery::getVoltage()
-// {
-//     return voltage;
-// }
-
 double Battery::getCurrent()
 {
-    return 0;
+    return current;
 }
 
 Battery::~Battery()

@@ -1,7 +1,6 @@
-
+#include "Simulation.h"
 #include <iostream>
 #include <iomanip>
-#include "Simulation.h"
 
 using namespace std;
 
@@ -9,21 +8,22 @@ Simulation::Simulation()
 {
 }
 
-void Simulation::simulate(vector<Component *> const net, int const iterations, int const outputRows, double const timeStep)
+void Simulation::simulate(vector<Component *> const circuit, int const iterations, int const outputRows, double const timeStep)
 {
-    int size{static_cast<int>(net.size())};
-    cout << endl;
-    cout << " ";
+    cout << fixed << setprecision(2) << endl
+         << " ";
 
-    for (Component *element : net)
+    /* Print the name of each component */
+    for (Component *component : circuit)
     {
-        cout << setw(12) << element->getName() << " ";
+        cout << setw(12) << component->getName() << " ";
     }
 
-    cout << endl;
-    cout << " ";
+    cout << endl
+         << " ";
 
-    for (int i{0}; i < size; ++i)
+    /* Print the voltage and current header for each component */
+    for (Component *component : circuit)
     {
         cout << setw(6) << "Volt";
         cout << setw(7) << "Curr ";
@@ -31,19 +31,19 @@ void Simulation::simulate(vector<Component *> const net, int const iterations, i
 
     cout << endl;
 
-    for (int i{1}; i <= iterations; i++)
+    /* Print the voltage and current for each component, for each printed iteration */
+    for (int i{1}; i <= iterations; ++i)
     {
-        for (Component *c : net)
+        for (Component *component : circuit)
         {
-            c->update(timeStep);
+            component->update(timeStep);
         }
         if (i % (iterations / outputRows) == 0)
         {
-            cout << fixed << setprecision(2);
-            for (Component *c : net)
+            for (Component *component : circuit)
             {
-                cout << setw(7) << c->getVoltage();
-                cout << setw(6) << c->getCurrent();
+                cout << setw(7) << component->getVoltage();
+                cout << setw(6) << component->getCurrent();
             }
             cout << endl;
         }
