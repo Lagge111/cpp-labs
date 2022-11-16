@@ -5,26 +5,34 @@
 using namespace std;
 
 Capacitor::Capacitor(string const name, double const capacitance, Connection *const left, Connection *const right)
-    : Component(name, left, right), capacitance{capacitance}, storedCharge{0}
+    : Component(name, left, right), capacitance{capacitance}, storedCharge{0}, current{0}
 {
 }
 
 void Capacitor::update(double const timeStep)
 {
-    double voltageDiff{abs(left->getVoltage() - right->getVoltage())};
-    double movedCharge{(voltageDiff - storedCharge) * capacitance * (timeStep)};
-    int direction{((left->getVoltage() <= right->getVoltage()) ? 1 : -1)};
-
-    left->setVoltage(left->getVoltage() + (direction * movedCharge));
-    right->setVoltage(right->getVoltage() - (direction * movedCharge));
+    double movedCharge{((abs(left->getVoltage() - right->getVoltage())) - storedCharge) * capacitance * timeStep};
     storedCharge += movedCharge;
+
+    if (left->getVoltage() < right->getVoltage())
+        changeVoltage(left, right, movedCharge);
+    else
+        changeVoltage(right, left, movedCharge);
+
+    current = capacitance * (getVoltage() - storedCharge);
 }
 
 double Capacitor::getCurrent()
 {
-    return (capacitance * (getVoltage() - storedCharge));
+    return current;
 }
 
 Capacitor::~Capacitor()
 {
+}
+
+void Capacitor::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
+{
+    lowest->setVoltage(lowest->getVoltage() + movedCharge);
+    highest->setVoltage(highest->getVoltage() - movedCharge);
 }
