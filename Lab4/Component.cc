@@ -28,6 +28,8 @@ string Component::getName()
 
 void Component::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
 {
+    lowest->setVoltage(lowest->getVoltage() + movedCharge);
+    highest->setVoltage(highest->getVoltage() - movedCharge);
 }
 
 Component::~Component()

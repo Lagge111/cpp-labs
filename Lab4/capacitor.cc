@@ -26,12 +26,6 @@ double Capacitor::getCurrent()
     return current;
 }
 
-void Capacitor::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
-{
-    lowest->setVoltage(lowest->getVoltage() + movedCharge);
-    highest->setVoltage(highest->getVoltage() - movedCharge);
-}
-
 Capacitor::~Capacitor()
 {
 }

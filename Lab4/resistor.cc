@@ -26,12 +26,6 @@ double Resistor::getCurrent()
     return current;
 }
 
-void Resistor::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
-{
-    lowest->setVoltage(lowest->getVoltage() + movedCharge);
-    highest->setVoltage(highest->getVoltage() - movedCharge);
-}
-
 Resistor::~Resistor()
 {
 }
