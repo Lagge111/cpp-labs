@@ -26,6 +26,10 @@ string Component::getName()
     return name;
 }
 
+void Component::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
+{
+}
+
 Component::~Component()
 {
 }
