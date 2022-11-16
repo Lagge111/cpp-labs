@@ -1,12 +1,11 @@
-#include <iostream>
-#include <string>
-
 #include "Connection.h"
 #include "Component.h"
 #include "Battery.h"
 #include "Resistor.h"
 #include "Capacitor.h"
 #include "Simulation.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -32,12 +31,12 @@ int main(int argc, char **argv)
         }
         catch (invalid_argument &e)
         {
-            cout << "Invalid argument type. Arguments should follow the format 'int int double double'." << endl;
+            cout << "Invalid argument(s). Arguments should follow the format 'int' (iterations) 'int' (printed lines) 'double' (time step) 'double' (voltage)." << endl;
         }
     }
     else
     {
-        cout << "Invalid number of arguments." << endl;
+        cout << "Invalid number of arguments. Please include four (4) arguments." << endl;
         return 1;
     }
 }
@@ -45,52 +44,52 @@ int main(int argc, char **argv)
 void circuit_1(int const iterations, int const outputRows, double const timeStep, double const voltage)
 {
     Connection p, n, r124, r23;
-    vector<Component *> net;
-    net.push_back(new Battery("Bat", voltage, &p, &n));
-    net.push_back(new Resistor("R1", 6, &p, &r124));
-    net.push_back(new Resistor("R2", 4, &r124, &r23));
-    net.push_back(new Resistor("R3", 8, &r23, &n));
-    net.push_back(new Resistor("R4", 12, &r124, &n));
+    vector<Component *> circuit;
+    circuit.push_back(new Battery("Bat", voltage, &p, &n));
+    circuit.push_back(new Resistor("R1", 6, &p, &r124));
+    circuit.push_back(new Resistor("R2", 4, &r124, &r23));
+    circuit.push_back(new Resistor("R3", 8, &r23, &n));
+    circuit.push_back(new Resistor("R4", 12, &r124, &n));
     Simulation simulation{};
-    simulation.simulate(net, iterations, outputRows, timeStep);
-    deallocate_components(net);
+    simulation.simulate(circuit, iterations, outputRows, timeStep);
+    deallocate_components(circuit);
 }
 
 void circuit_2(int const iterations, int const outputRows, double const timeStep, double const voltage)
 {
     Connection p, n, l, r;
-    vector<Component *> net;
-    net.push_back(new Battery("Bat", voltage, &p, &n));
-    net.push_back(new Resistor("R1", 150, &p, &l));
-    net.push_back(new Resistor("R2", 50, &p, &r));
-    net.push_back(new Resistor("R3", 100, &l, &r));
-    net.push_back(new Resistor("R4", 300, &l, &n));
-    net.push_back(new Resistor("R5", 250, &r, &n));
+    vector<Component *> circuit;
+    circuit.push_back(new Battery("Bat", voltage, &p, &n));
+    circuit.push_back(new Resistor("R1", 150, &p, &l));
+    circuit.push_back(new Resistor("R2", 50, &p, &r));
+    circuit.push_back(new Resistor("R3", 100, &l, &r));
+    circuit.push_back(new Resistor("R4", 300, &l, &n));
+    circuit.push_back(new Resistor("R5", 250, &r, &n));
     Simulation simulation{};
-    simulation.simulate(net, iterations, outputRows, timeStep);
-    deallocate_components(net);
+    simulation.simulate(circuit, iterations, outputRows, timeStep);
+    deallocate_components(circuit);
 }
 
 void circuit_3(int const iterations, int const outputRows, double const timeStep, double const voltage)
 {
     Connection p, n, l, r;
-    vector<Component *> net;
-    net.push_back(new Battery("Bat", voltage, &p, &n));
-    net.push_back(new Resistor("R1", 150, &p, &l));
-    net.push_back(new Resistor("R2", 50, &p, &r));
-    net.push_back(new Capacitor("C3", 1.0, &l, &r));
-    net.push_back(new Resistor("R4", 300, &l, &n));
-    net.push_back(new Capacitor("C5", 0.75, &r, &n));
+    vector<Component *> circuit;
+    circuit.push_back(new Battery("Bat", voltage, &p, &n));
+    circuit.push_back(new Resistor("R1", 150, &p, &l));
+    circuit.push_back(new Resistor("R2", 50, &p, &r));
+    circuit.push_back(new Capacitor("C3", 1.0, &l, &r));
+    circuit.push_back(new Resistor("R4", 300, &l, &n));
+    circuit.push_back(new Capacitor("C5", 0.75, &r, &n));
     Simulation simulation{};
-    simulation.simulate(net, iterations, outputRows, timeStep);
-    deallocate_components(net);
+    simulation.simulate(circuit, iterations, outputRows, timeStep);
+    deallocate_components(circuit);
 }
 
-void deallocate_components(std::vector<Component *> net)
+void deallocate_components(vector<Component *> circuit)
 {
-    for (Component *element : net)
+    for (Component *component : circuit)
     {
-        delete element;
+        delete component;
     }
-    net.clear();
+    circuit.clear();
 }

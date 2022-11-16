@@ -11,12 +11,13 @@ public:
     Resistor(std::string name, double const resistance, Connection *const left, Connection *const right);
     ~Resistor();
     void update(double const timeStep) override;
-    // double getVoltage() override;
+    void changeVoltage(Connection *lowest, Connection *highest, double movedCharge);
     double getCurrent() override;
 
 private:
     double voltage;
     double resistance;
+    double current;
 };
 
 #endif

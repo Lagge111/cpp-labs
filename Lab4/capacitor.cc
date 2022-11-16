@@ -1,37 +1,36 @@
-
 #include "Capacitor.h"
 #include "Component.h"
 
 using namespace std;
 
-Capacitor::Capacitor(string const name, double const capacitance, Connection* const left, Connection* const right) 
-: Component(name, left, right), capacitance{capacitance}, storedVoltage{storedVoltage}
+Capacitor::Capacitor(string const name, double const capacitance, Connection *const left, Connection *const right)
+    : Component(name, left, right), capacitance{capacitance}, storedCharge{0}, current{0}
 {
 }
 
 void Capacitor::update(double const timeStep)
 {
-    //double voltageMoved{(getVoltage() / resistance) * timeStep};
+    double movedCharge{((abs(left->getVoltage() - right->getVoltage())) - storedCharge) * capacitance * timeStep};
+    storedCharge += movedCharge;
 
-    if (left->getVoltage() < right->getVoltage()) {
-        storedVoltage = (capacitance * (right->getVoltage() - left->getVoltage()) * timeStep);
+    if (left->getVoltage() < right->getVoltage())
+        changeVoltage(left, right, movedCharge);
+    else
+        changeVoltage(right, left, movedCharge);
 
-        // left->setVoltage(left->getVoltage() + voltageMoved);
-        // right->setVoltage(right->getVoltage() - voltageMoved);
-
-    } else {
-        storedVoltage = (capacitance * (left->getVoltage() - right->getVoltage()) * timeStep);
-
-        // right->setVoltage(right->getVoltage() + voltageMoved);
-        // left->setVoltage(left->getVoltage() - voltageMoved);
-    }
+    current = capacitance * (getVoltage() - storedCharge);
 }
 
 double Capacitor::getCurrent()
 {
-    return 0;
+    return current;
 }
 
+void Capacitor::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
+{
+    lowest->setVoltage(lowest->getVoltage() + movedCharge);
+    highest->setVoltage(highest->getVoltage() - movedCharge);
+}
 
 Capacitor::~Capacitor()
 {

@@ -1,6 +1,5 @@
 #include "Component.h"
 #include "Connection.h"
-#include <string>
 
 using namespace std;
 
