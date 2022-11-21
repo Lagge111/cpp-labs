@@ -14,9 +14,9 @@ void Capacitor::update(double const timeStep)
     storedCharge += movedCharge;
 
     if (left->getVoltage() < right->getVoltage())
-        changeVoltage(left, right, movedCharge);
+        moveVoltage(left, right, movedCharge);
     else
-        changeVoltage(right, left, movedCharge);
+        moveVoltage(right, left, movedCharge);
 
     current = capacitance * (getVoltage() - storedCharge);
 }

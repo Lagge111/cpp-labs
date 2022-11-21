@@ -12,7 +12,7 @@ public:
     double getVoltage();
     virtual double getCurrent();
     std::string getName();
-    void changeVoltage(Connection *lowest, Connection *highest, double movedCharge);
+    void moveVoltage(Connection *lowest, Connection *highest, double movedCharge);
     ~Component();
 
 protected:

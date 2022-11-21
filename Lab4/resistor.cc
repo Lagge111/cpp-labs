@@ -14,9 +14,9 @@ void Resistor::update(double const timeStep)
     double movedCharge{(getVoltage() / resistance) * timeStep};
 
     if (left->getVoltage() < right->getVoltage())
-        changeVoltage(left, right, movedCharge);
+        moveVoltage(left, right, movedCharge);
     else
-        changeVoltage(right, left, movedCharge);
+        moveVoltage(right, left, movedCharge);
 
     current = getVoltage() / resistance;
 }

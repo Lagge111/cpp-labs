@@ -26,7 +26,7 @@ string Component::getName()
     return name;
 }
 
-void Component::changeVoltage(Connection *lowest, Connection *highest, double movedCharge)
+void Component::moveVoltage(Connection *lowest, Connection *highest, double movedCharge)
 {
     lowest->setVoltage(lowest->getVoltage() + movedCharge);
     highest->setVoltage(highest->getVoltage() - movedCharge);
