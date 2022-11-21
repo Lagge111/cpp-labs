@@ -14,7 +14,7 @@ void Battery::update(double const timeStep)
     right->setVoltage(0);
 }
 
-double Battery::getCurrent()
+double Battery::getCurrent() const
 {
     return current;
 }

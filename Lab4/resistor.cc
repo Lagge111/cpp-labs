@@ -21,7 +21,7 @@ void Resistor::update(double const timeStep)
     current = getVoltage() / resistance;
 }
 
-double Resistor::getCurrent()
+double Resistor::getCurrent() const
 {
     return current;
 }

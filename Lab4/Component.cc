@@ -11,17 +11,17 @@ void Component::update(double const timeStep)
 {
 }
 
-double Component::getVoltage()
+double Component::getVoltage() const
 {
     return abs(left->getVoltage() - right->getVoltage());
 }
 
-double Component::getCurrent()
+double Component::getCurrent() const
 {
     return 0;
 }
 
-string Component::getName()
+string Component::getName() const
 {
     return name;
 }

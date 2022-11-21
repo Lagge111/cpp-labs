@@ -9,9 +9,9 @@ class Component
 public:
     Component(std::string const name, Connection *const left, Connection *const right);
     virtual void update(double const timeStep);
-    double getVoltage();
-    virtual double getCurrent();
-    std::string getName();
+    double getVoltage() const;
+    virtual double getCurrent() const;
+    std::string getName() const;
     void moveVoltage(Connection *lowest, Connection *highest, double movedCharge);
     ~Component();
 

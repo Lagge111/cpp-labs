@@ -21,7 +21,7 @@ void Capacitor::update(double const timeStep)
     current = capacitance * (getVoltage() - storedCharge);
 }
 
-double Capacitor::getCurrent()
+double Capacitor::getCurrent() const
 {
     return current;
 }
