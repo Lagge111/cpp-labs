@@ -206,11 +206,16 @@ void substitute(vector<string> text, string parameter)
     print(text);
 }
 
+// Only removes the first three "hej" from the vector, then stops removing. No idea why.
 void remove(vector<string> text, string parameter)
 {
+    int steps{0};
     for (string word : text) {
         if (word == parameter) {
-            
+            text.erase(text.begin()+steps);
         }
+        steps++;
     }
+    cout << "After remove: " << endl;
+    print(text);
 }
