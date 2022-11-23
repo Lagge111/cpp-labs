@@ -220,6 +220,9 @@ void remove(vector<string> text, string parameter)
         if (word == parameter) {
             text.erase(text.begin()+steps);
             cout << "Remove index " << steps << endl;
+            // Tried to decrease 'steps' here to account for the vector
+            // becoming smaller after the remove. Didn't work at all. 
+            --steps;
         }
         ++steps;
     }
