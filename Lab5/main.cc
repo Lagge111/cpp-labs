@@ -67,10 +67,11 @@ int main(int argc, char **argv)
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
     cout << "ŕead text file" << endl;
 
+    cout << "print text file: " << endl;
+
     for (string word : text) {
         cout << word << " ";
     }
-    cout << "print text file" << endl;
 
     // Find first occurance of '=' character in arguments vector
     // 'find()' returns the index where '=' is found. Not sure what to do with this now.
@@ -90,7 +91,7 @@ int main(int argc, char **argv)
             }
         }
     }
-
+    cout << endl;
     cout << flag << endl;
     cout << parameter << endl;
     cout << "something" << endl;
@@ -206,16 +207,22 @@ void substitute(vector<string> text, string parameter)
     print(text);
 }
 
-// Only removes the first three "hej" from the vector, then stops removing. No idea why.
+// Only removes some of the "hej"s from the vector, then stops removing.
+// The issue is probably that the vector gets shorter every time we remove an element, 
+// which means that we try to remove at the wrong index each time after the first remove. 
 void remove(vector<string> text, string parameter)
 {
     int steps{0};
+    cout << "Print text before removing: " << endl;
+    print(text);
+    cout << endl;
     for (string word : text) {
         if (word == parameter) {
             text.erase(text.begin()+steps);
+            cout << "Remove index " << steps << endl;
         }
-        steps++;
+        ++steps;
     }
-    cout << "After remove: " << endl;
+    cout << "Print text after remove: " << endl;
     print(text);
 }
