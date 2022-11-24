@@ -11,12 +11,12 @@ Resistor::Resistor(string const name, double const resistance, Connection *const
 
 void Resistor::update(double const timeStep)
 {
-    double movedCharge{(getVoltage() / resistance) * timeStep};
+    double voltageToBeMoved{(getVoltage() / resistance) * timeStep};
 
     if (left->getVoltage() < right->getVoltage())
-        moveVoltage(left, right, movedCharge);
+        moveVoltage(left, right, voltageToBeMoved);
     else
-        moveVoltage(right, left, movedCharge);
+        moveVoltage(right, left, voltageToBeMoved);
 
     current = getVoltage() / resistance;
 }

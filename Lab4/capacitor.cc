@@ -10,13 +10,13 @@ Capacitor::Capacitor(string const name, double const capacitance, Connection *co
 
 void Capacitor::update(double const timeStep)
 {
-    double movedCharge{((abs(left->getVoltage() - right->getVoltage())) - storedCharge) * capacitance * timeStep};
-    storedCharge += movedCharge;
+    double voltageToBeMoved{((abs(left->getVoltage() - right->getVoltage())) - storedCharge) * capacitance * timeStep};
+    storedCharge += voltageToBeMoved;
 
     if (left->getVoltage() < right->getVoltage())
-        moveVoltage(left, right, movedCharge);
+        moveVoltage(left, right, voltageToBeMoved);
     else
-        moveVoltage(right, left, movedCharge);
+        moveVoltage(right, left, voltageToBeMoved);
 
     current = capacitance * (getVoltage() - storedCharge);
 }

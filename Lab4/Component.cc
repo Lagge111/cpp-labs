@@ -26,10 +26,10 @@ string Component::getName() const
     return name;
 }
 
-void Component::moveVoltage(Connection *lowest, Connection *highest, double movedCharge)
+void Component::moveVoltage(Connection *lowest, Connection *highest, double voltageToBeMoved)
 {
-    lowest->setVoltage(lowest->getVoltage() + movedCharge);
-    highest->setVoltage(highest->getVoltage() - movedCharge);
+    lowest->setVoltage(lowest->getVoltage() + voltageToBeMoved);
+    highest->setVoltage(highest->getVoltage() - voltageToBeMoved);
 }
 
 Component::~Component()
