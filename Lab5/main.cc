@@ -137,7 +137,7 @@ void frequency(vector<string> text)
         A.push_back(it);
     }
 
-    sort(A.begin(), A.end(), cmp);
+    sort(A.begin(), A.end(), cmp); // add cmp as a lambda function here
 
     for (auto& it : A) {
         cout << it.first << ' ' << it.second << endl;
@@ -173,7 +173,7 @@ void table(vector<string> text) {
         A.push_back(it);
     }
 
-    sort(A.begin(), A.end(), cmp2);
+    sort(A.begin(), A.end(), cmp2); // add cmp2 as a lambda function here
 
     for (auto& it : A) {
         cout << it.first << ' ' << it.second << endl;
