@@ -30,8 +30,8 @@
 
 using namespace std;
 
-ifstream infile{};
 vector<string> arguments{};
+ifstream infile{};
 void print(vector<string> text);
 void frequency(vector<string> text);
 bool cmp(pair<string, int>& a, pair<string, int>&b);
@@ -39,6 +39,7 @@ bool cmp2(pair<string, int>& a, pair<string, int>&b);
 void table(vector<string> text);
 void substitute(vector<string> text, string parameter);
 void remove(vector<string> text, string parameter);
+void count_words(vector<string> &text, map<string, int> &results);
 
 int main(int argc, char **argv)
 {
@@ -50,31 +51,22 @@ int main(int argc, char **argv)
 
     // Open the file in the first command line argument.
     infile.open(argv[1]);
-    cout << "open the file" << endl;
 
     // Add remaining arguments to a vector.
     if (argc > 2) {
         arguments.push_back(argv[2]);
-        // for (int i{2}; i <= argc; ++i)
-        // {
-        //     arguments.push_back(argv[i]);
-        //     cout << argv[i];
-        // };
     }
-    cout << "add to arguments vector" << endl;
+
+    // for_each(argv[2], argv[argc - 1], [&arguments](string argument) {
+    //     arguments.push_back(argument);
+    // });
 
     // Read all words from the file into a vector.
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
-    cout << "ŕead text file" << endl;
-
-    cout << "print text file: " << endl;
 
     for (string word : text) {
         cout << word << " ";
     }
-
-    // Find first occurance of '=' character in arguments vector
-    // 'find()' returns the index where '=' is found. Not sure what to do with this now.
 
     string flag{};
     string parameter{};
@@ -107,6 +99,7 @@ int main(int argc, char **argv)
     } else if (flag == "--remove") {
         remove(text, parameter);
     }
+    cout << endl;
 }
 
 void print(vector<string> text)
@@ -118,64 +111,56 @@ void print(vector<string> text)
 
 void frequency(vector<string> text) 
 {
-    int temp;
     map<string, int> results;
-    for (string word : text) {
-        if (results.count(word) > 0) {
-            temp = results[word];
-            ++temp;
-            results[word] = temp;
-        } else {
-            results.insert({word, 1});
-        }
-    }
+
+    count_words(text, results);
 
     // sort
-    vector<pair<string, int> > A;
+    vector<pair<string, int> > sorted_list;
 
     for (auto& it : results) {
-        A.push_back(it);
+        sorted_list.push_back(it);
     }
 
-    sort(A.begin(), A.end(), cmp); // add cmp as a lambda function here
+    sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right) {
+        return left.second > right.second;
+    });
 
-    for (auto& it : A) {
+    for (auto& it : sorted_list) {
         cout << it.first << ' ' << it.second << endl;
     }
-
-
 }
-
-bool cmp(pair<string, int>& a, pair<string, int>&b) {
-    return a.second > b.second;
-}
-
-bool cmp2(pair<string, int>& a, pair<string, int>&b) {
-    return a.first < b.first;
-}   
-
-void table(vector<string> text) {
-    int temp;
-    map<string, int> results;
-    for (string word : text) {
-        if (results.count(word) > 0) {
-            temp = results[word];
-            ++temp;
-            results[word] = temp;
+  
+void count_words(vector<string> &text, map<string, int> &results) {
+for_each(text.begin(), text.end(), [&results](string word)
+    {
+        if(results.count(word)) { 
+            results[word]++;
         } else {
             results.insert({word, 1});
         }
-    }
+        //results.count(word) ? results[word]++ : results.insert({word, 1});
+    });
+}
 
-    vector<pair<string, int> > A;
 
-    for (auto& it : results) {
-        A.push_back(it);
-    }
+void table(vector<string> text) {
+    map<string, int> results;
 
-    sort(A.begin(), A.end(), cmp2); // add cmp2 as a lambda function here
+    //hur många gånger ett ord förekommer
+    count_words(text, results);
 
-    for (auto& it : A) {
+    vector<pair<string, int> > sorted_list;
+
+    for_each(results.begin(), results.end(), [&sorted_list](auto& word) {
+        sorted_list.push_back(word);
+    });
+
+    sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right) {
+        return left.first < right.first;
+    });
+
+    for (auto& it : sorted_list) {
         cout << it.first << ' ' << it.second << endl;
     }
 }
@@ -195,37 +180,13 @@ void substitute(vector<string> text, string parameter)
             new_word.push_back(c);
         }
     }
-    cout << old_word << endl;
-    cout << new_word << endl;
 
-    for (int i{0}; i < text.size(); ++i ) {
-        if (text[i] == old_word) {
-            text [i] = new_word;
-        } 
-    }
+    std::replace(text.begin(), text.end(), old_word, new_word);
 
     print(text);
 }
 
-// Only removes some of the "hej"s from the vector, then stops removing.
-// The issue is probably that the vector gets shorter every time we remove an element, 
-// which means that we try to remove at the wrong index each time after the first remove. 
 void remove(vector<string> text, string parameter)
 {
-    int steps{0};
-    cout << "Print text before removing: " << endl;
-    print(text);
-    cout << endl;
-    for (string word : text) {
-        if (word == parameter) {
-            text.erase(text.begin()+steps);
-            cout << "Remove index " << steps << endl;
-            // Tried to decrease 'steps' here to account for the vector
-            // becoming smaller after the remove. Didn't work at all. 
-            --steps;
-        }
-        ++steps;
-    }
-    cout << "Print text after remove: " << endl;
-    print(text);
+    text.erase(std::remove(text.begin(), text.end(), parameter), text.end());
 }
