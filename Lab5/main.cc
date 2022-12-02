@@ -22,6 +22,7 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <iterator>
@@ -34,8 +35,8 @@ vector<string> arguments{};
 ifstream infile{};
 void print(vector<string> text);
 void frequency(vector<string> text);
-bool cmp(pair<string, int>& a, pair<string, int>&b);
-bool cmp2(pair<string, int>& a, pair<string, int>&b);
+bool cmp(pair<string, int> &a, pair<string, int> &b);
+bool cmp2(pair<string, int> &a, pair<string, int> &b);
 void table(vector<string> text);
 void substitute(vector<string> text, string parameter);
 void remove(vector<string> text, string parameter);
@@ -43,9 +44,10 @@ void count_words(vector<string> &text, map<string, int> &results);
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
+    if (argc < 3)
     {
-        cout << "Too few arguments." << endl;
+        cout << "Invalid number of arguments. Enter arguments in the format: ./a.out [file_name] [flag]" << endl;
+        cout << "List of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
         return 1;
     }
 
@@ -53,32 +55,37 @@ int main(int argc, char **argv)
     infile.open(argv[1]);
 
     // Add remaining arguments to a vector.
-    if (argc > 2) {
+    if (argc > 2)
+    {
         arguments.push_back(argv[2]);
     }
 
-    // for_each(argv[2], argv[argc - 1], [&arguments](string argument) {
-    //     arguments.push_back(argument);
-    // });
+    // for_each(argv[2], argv[argc - 1], [&](auto argument)
+    //          { arguments.push_back(&argument); });
 
     // Read all words from the file into a vector.
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
-    for (string word : text) {
-        cout << word << " ";
-    }
+    print(text);
 
     string flag{};
     string parameter{};
     bool reached{false};
-    
-    if (argc > 2) {
-        for (char c : arguments[0]) {
-            if (c == '=') {
+
+    if (argc > 2)
+    {
+        for (char c : arguments[0])
+        {
+            if (c == '=')
+            {
                 reached = true;
-            } else if (!reached) {
+            }
+            else if (!reached)
+            {
                 flag.push_back(c);
-            } else {
+            }
+            else
+            {
                 parameter.push_back(c);
             }
         }
@@ -86,82 +93,88 @@ int main(int argc, char **argv)
     cout << endl;
     cout << flag << endl;
     cout << parameter << endl;
-    cout << "something" << endl;
 
-    if (flag == "--print") {
+    if (flag == "--print")
+    {
         print(text);
-    } else if (flag == "--frequency") {
+    }
+    else if (flag == "--frequency")
+    {
         frequency(text);
-    } else if (flag == "--table") {
+    }
+    else if (flag == "--table")
+    {
         table(text);
-    } else if (flag == "--substitute") {
+    }
+    else if (flag == "--substitute")
+    {
         substitute(text, parameter);
-    } else if (flag == "--remove") {
+    }
+    else if (flag == "--remove")
+    {
         remove(text, parameter);
     }
     cout << endl;
 }
 
+// Prints all words in the text vector
 void print(vector<string> text)
 {
-    for (string word : text) {
-        cout << word << " ";
+    for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
+    {
+        cout << *it << " ";
     }
 }
 
-void frequency(vector<string> text) 
+void frequency(vector<string> text)
 {
     map<string, int> results;
-
+    vector<pair<string, int>> sorted_list;
     count_words(text, results);
 
-    // sort
-    vector<pair<string, int> > sorted_list;
-
-    for (auto& it : results) {
-        sorted_list.push_back(it);
-    }
-
-    sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right) {
-        return left.second > right.second;
-    });
-
-    for (auto& it : sorted_list) {
-        cout << it.first << ' ' << it.second << endl;
-    }
-}
-  
-void count_words(vector<string> &text, map<string, int> &results) {
-for_each(text.begin(), text.end(), [&results](string word)
+    // Adds the results to the sorted_list
+    for (map<string, int>::iterator it{results.begin()}; it != results.end(); ++it)
     {
-        if(results.count(word)) { 
-            results[word]++;
-        } else {
-            results.insert({word, 1});
-        }
-        //results.count(word) ? results[word]++ : results.insert({word, 1});
-    });
+        sorted_list.push_back(*it);
+    }
+
+    // Sorts the sorted_list by frequency
+    sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right)
+         { return left.second > right.second; });
+
+    // Iterator for printing the frequency
+    for (vector<pair<string, int>>::iterator it{sorted_list.begin()}; it != sorted_list.end(); ++it)
+    {
+        cout << setw(11) << it->first << " " << it->second << endl;
+    }
 }
 
+// Counts frequency of words by adding them to a map, [word, count]
+void count_words(vector<string> &text, map<string, int> &results)
+{
+    for_each(text.begin(), text.end(), [&results](string word)
+             { results[word]++; });
+}
 
-void table(vector<string> text) {
+void table(vector<string> text)
+{
     map<string, int> results;
-
-    //hur många gånger ett ord förekommer
+    vector<pair<string, int>> sorted_list;
     count_words(text, results);
 
-    vector<pair<string, int> > sorted_list;
+    // Adds the results calculated in count_words to the sorted_list
+    for_each(results.begin(), results.end(), [&sorted_list](auto &word)
+             { sorted_list.push_back(word); });
 
-    for_each(results.begin(), results.end(), [&sorted_list](auto& word) {
-        sorted_list.push_back(word);
-    });
+    // Sorts the sorted_list in alphabetical order
+    sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right)
+         { return left.first < right.first; });
 
-    sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right) {
-        return left.first < right.first;
-    });
-
-    for (auto& it : sorted_list) {
-        cout << it.first << ' ' << it.second << endl;
+    // Iterator for printing the table
+    // Formatting is wrong
+    for (vector<pair<string, int>>::iterator it{sorted_list.begin()}; it != sorted_list.end(); ++it)
+    {
+        cout << it->first << " " << it->second << endl;
     }
 }
 
@@ -171,15 +184,16 @@ void substitute(vector<string> text, string parameter)
     string new_word{};
     bool reached{false};
 
-    for (char c : parameter) {
-        if (c == '+') {
-            reached = true;
-        } else if (!reached) {
-            old_word.push_back(c);
-        } else {
-            new_word.push_back(c);
-        }
-    }
+    // Separates the old word and the new word from the parameter
+    for_each(parameter.begin(), parameter.end(), [&reached, &old_word, &new_word](char c)
+             {
+                if (c == '+') {
+                    reached = true;
+                } else if (!reached) {
+                    old_word.push_back(c);
+                } else {
+                    new_word.push_back(c);
+                } });
 
     std::replace(text.begin(), text.end(), old_word, new_word);
 
