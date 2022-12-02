@@ -100,7 +100,7 @@ int main(int argc, char **argv)
         {"--table", &table},
     };
 
-    // Declaring an 'int i' to access the right index is probably not optimal, but i works.
+    // Declaring an 'int i' to access the right index is probably not optimal, but it works.
     int i{0};
     for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
     {
