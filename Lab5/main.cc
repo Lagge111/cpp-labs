@@ -31,7 +31,6 @@
 
 using namespace std;
 
-vector<string> arguments{};
 ifstream infile{};
 void print(vector<string> text);
 void frequency(vector<string> text);
@@ -54,14 +53,8 @@ int main(int argc, char **argv)
     // Open the file in the first command line argument.
     infile.open(argv[1]);
 
-    // Add remaining arguments to a vector.
-    if (argc > 2)
-    {
-        arguments.push_back(argv[2]);
-    }
-
-    // for_each(argv[2], argv[argc - 1], [&](auto argument)
-    //          { arguments.push_back(&argument); });
+    // Add the remaining arguments to a vector
+    vector<string> arguments(argv + 2, argv + argc);
 
     // Read all words from the file into a vector.
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
