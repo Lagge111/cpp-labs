@@ -8,7 +8,7 @@ Battery::Battery(string const name, double const voltage, Connection *const left
 {
 }
 
-void Battery::update(double const timeStep)
+void Battery::update(double const /* timeStep */)
 {
     left->setVoltage(voltage);
     right->setVoltage(0);

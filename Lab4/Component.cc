@@ -7,7 +7,7 @@ Component::Component(string const name, Connection *const left, Connection *cons
 {
 }
 
-void Component::update(double const timeStep)
+void Component::update(double const /* timeStep */)
 {
 }
 
@@ -32,6 +32,7 @@ void Component::moveVoltage(Connection *lowest, Connection *highest, double move
     highest->setVoltage(highest->getVoltage() - movedCharge);
 }
 
-Component::~Component()
-{
-}
+// This cannot be used since we set destructor to default in Component.h (???)
+// Component::~Component()
+// {
+// }
