@@ -31,14 +31,13 @@
 
 using namespace std;
 
-ifstream infile{};
 void print(vector<string> text);
 void frequency(vector<string> text);
 bool cmp(pair<string, int> &a, pair<string, int> &b);
 bool cmp2(pair<string, int> &a, pair<string, int> &b);
 void table(vector<string> text);
 void substitute(vector<string> text, string parameter);
-void remove(vector<string> text, string parameter);
+void remove_word(vector<string> text, string parameter);
 void count_words(vector<string> &text, map<string, int> &results);
 
 int main(int argc, char **argv)
@@ -50,23 +49,27 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    // Open the file in the first command line argument.
+    /* Open the specified file */
+    ifstream infile{};
     infile.open(argv[1]);
 
-    // Add the remaining arguments to a vector
+    /* Place remaining arguments into a vector */
     vector<string> arguments(argv + 2, argv + argc);
 
-    // Read all words from the file into a vector.
+    /* Read words from the file into a vector */
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
-    print(text);
+    // print(text);
 
+    /* Split arguments into flag and parameter */
     string flag{};
     string parameter{};
     bool reached{false};
 
-    if (argc > 2)
+    if (arguments.size() > 0)
     {
+        // This should not work when you input multiple flags, since it only iterates
+        // through the first argument in arguments. But it just works for some reason.
         for (char c : arguments[0])
         {
             if (c == '=')
@@ -83,34 +86,66 @@ int main(int argc, char **argv)
             }
         }
     }
-    cout << endl;
-    cout << flag << endl;
-    cout << parameter << endl;
 
-    if (flag == "--print")
+    // Added a map with the argument as a key and the corresponding function as a value.
+    // The issue is that we can't seem to add substitute and remove to this map
+    // since they take in another parameter, and from what I have found, all functions
+    // in the map have to take in the same number of parameters and parameter type.
+    // This could be solved by adding the second parameter to all the functions, and only
+    // use them in substitute and remove. However, that is probably not the best solution
+    // since it would leave us with unused variables which results in compiling warnings.
+    map<string, void (*)(vector<string>)> func_map = {
+        {"--print", &print},
+        {"--frequency", &frequency},
+        {"--table", &table},
+    };
+
+    // Declaring an 'int i' to access the right index is probably not optimal, but i works.
+    int i{0};
+    for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
     {
-        print(text);
+        if (func_map.find(arguments[i]) != func_map.end())
+        {
+            func_map[arguments[i]](text);
+            cout << endl;
+        }
+        else
+        {
+            cout << "No function with that name. Fuck you." << endl;
+        }
+        ++i;
     }
-    else if (flag == "--frequency")
-    {
-        frequency(text);
-    }
-    else if (flag == "--table")
-    {
-        table(text);
-    }
-    else if (flag == "--substitute")
-    {
-        substitute(text, parameter);
-    }
-    else if (flag == "--remove")
-    {
-        remove(text, parameter);
-    }
+
+    /* Old version of what's happening above */
+    /* Perform the operation that the flag corresponds to */
+    // if (flag == "--print")
+    // {
+    //     print(text);
+    // }
+    // else if (flag == "--frequency")
+    // {
+    //     frequency(text);
+    // }
+    // else if (flag == "--table")
+    // {
+    //     table(text);
+    // }
+    // else if (flag == "--substitute")
+    // {
+    //     substitute(text, parameter);
+    // }
+    // else if (flag == "--remove")
+    // {
+    //     remove_word(text, parameter);
+    // }
     cout << endl;
 }
 
-// Prints all words in the text vector
+/**
+ * @brief Prints all the words in the text vector.
+ *
+ * @param text The vector containing the words from the file.
+ */
 void print(vector<string> text)
 {
     for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
@@ -119,6 +154,11 @@ void print(vector<string> text)
     }
 }
 
+/**
+ * @brief Prints a frequency table where the words are sorted in decreasing order on the number of occurences.
+ *
+ * @param text The vector containing the words from the file.
+ */
 void frequency(vector<string> text)
 {
     map<string, int> results;
@@ -142,13 +182,23 @@ void frequency(vector<string> text)
     }
 }
 
-// Counts frequency of words by adding them to a map, [word, count]
+/**
+ * @brief Counts the frequency of each word in the text vector.
+ *
+ * @param text The vector containing the words from the file.
+ * @param results The map used for pairing a word with its frequency.
+ */
 void count_words(vector<string> &text, map<string, int> &results)
 {
     for_each(text.begin(), text.end(), [&results](string word)
              { results[word]++; });
 }
 
+/**
+ * @brief Prints a frequency table where the words are sorted in lexicographical order.
+ *
+ * @param text The vector containing the words from the file.
+ */
 void table(vector<string> text)
 {
     map<string, int> results;
@@ -159,7 +209,7 @@ void table(vector<string> text)
     for_each(results.begin(), results.end(), [&sorted_list](auto &word)
              { sorted_list.push_back(word); });
 
-    // Sorts the sorted_list in alphabetical order
+    // Sorts the sorted_list in lexicographical order
     sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right)
          { return left.first < right.first; });
 
@@ -171,6 +221,12 @@ void table(vector<string> text)
     }
 }
 
+/**
+ * @brief Replaces all occurences of a selected word in the text vector with a new selected word.
+ *
+ * @param text The vector containing the words from the file.
+ * @param parameter The parameter containing the word to replace and the word to replace it with.
+ */
 void substitute(vector<string> text, string parameter)
 {
     string old_word{};
@@ -188,12 +244,25 @@ void substitute(vector<string> text, string parameter)
                     new_word.push_back(c);
                 } });
 
-    std::replace(text.begin(), text.end(), old_word, new_word);
+    /* This should work, but doesn't for some reason */
+    // for_each(parameter.begin(), parameter.end(), [&reached, &old_word, &new_word](char c)
+    //          { c == '+'   ? reached = true
+    //            : !reached ? old_word.push_back(c)
+    //                       : new_word.push_back(c); });
+
+    replace(text.begin(), text.end(), old_word, new_word);
 
     print(text);
 }
 
-void remove(vector<string> text, string parameter)
+/**
+ * @brief Removes all occurences of a selected word.
+ *
+ * @param text The vector containing the words from the file.
+ * @param parameter The parameter containing the word to remove.
+ */
+void remove_word(vector<string> text, string parameter)
 {
-    text.erase(std::remove(text.begin(), text.end(), parameter), text.end());
+    text.erase(remove(text.begin(), text.end(), parameter), text.end());
+    print(text);
 }
