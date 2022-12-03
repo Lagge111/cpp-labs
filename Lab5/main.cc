@@ -59,44 +59,19 @@ int main(int argc, char **argv)
     /* Read words from the file into a vector */
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
-    // print(text);
-
     /* Split arguments into flag and parameter */
-
-    bool reached{false};
     map<string, string> flags_and_parameters;
 
     if (arguments.size() > 0)
     {
-        // This should not work when you input multiple flags, since it only iterates
-        // through the first argument in arguments. But it just works for some reason.
         for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
         {
-            string s = *it;
-            std::vector<char> chars;
-            std::copy(s.begin(), s.end(), std::back_inserter(chars));
+            string argument = *it;
 
-            reached = false;
-            string flag{""};
-            string parameter{""};
-
-            for (vector<char>::iterator it{chars.begin()}; it != chars.end(); ++it)
-            {
-
-                if (*it == '=')
-                {
-                    reached = true;
-                }
-                else if (!reached)
-                {
-                    flag.push_back(*it);
-                }
-                else
-                {
-                    parameter.push_back(*it);
-                }
-            }
-            flags_and_parameters.insert({flag, parameter});
+            if (argument.find("="))
+                flags_and_parameters.insert({argument.substr(0, argument.find("=")), argument.substr(argument.find("=") + 1)});
+            else
+                flags_and_parameters.insert({argument, ""});
         }
     }
 
@@ -137,48 +112,6 @@ int main(int argc, char **argv)
             cout << "No function with that name. Fuck you." << endl;
         }
     }
-    // int i{0};
-    //  for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
-    //{
-    //      if (func_map.find(arguments[i]) != func_map.end())
-    //      {
-    //          func_map[arguments[i]](text);
-    //          cout << endl;
-    //      }
-    //      else if (parameter_map.find(arguments[i]) != parameter_map.end())
-    //      {
-    //          parameter_map[arguments[i]](text, parameter);
-    //      }
-    //      else
-    //      {
-    //          cout << "No function with that name. Fuck you." << endl;
-    //      }
-    //      ++i;
-    //  }
-
-    /* Old version of what's happening above */
-    /* Perform the operation that the flag corresponds to */
-    // if (flag == "--print")
-    // {
-    //     print(text);
-    // }
-    // else if (flag == "--frequency")
-    // {
-    //     frequency(text);
-    // }
-    // else if (flag == "--table")
-    // {
-    //     table(text);
-    // }
-    // else if (flag == "--substitute")
-    // {
-    //     substitute(text, parameter);
-    // }
-    // else if (flag == "--remove")
-    // {
-    //     remove_word(text, parameter);
-    // }
-    cout << endl;
 }
 
 /**
@@ -306,3 +239,46 @@ void remove_word(vector<string> text, string parameter)
     text.erase(remove(text.begin(), text.end(), parameter), text.end());
     print(text);
 }
+
+// int i{0};
+//  for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
+//{
+//      if (func_map.find(arguments[i]) != func_map.end())
+//      {
+//          func_map[arguments[i]](text);
+//          cout << endl;
+//      }
+//      else if (parameter_map.find(arguments[i]) != parameter_map.end())
+//      {
+//          parameter_map[arguments[i]](text, parameter);
+//      }
+//      else
+//      {
+//          cout << "No function with that name. Fuck you." << endl;
+//      }
+//      ++i;
+//  }
+
+/* Old version of what's happening above */
+/* Perform the operation that the flag corresponds to */
+// if (flag == "--print")
+// {
+//     print(text);
+// }
+// else if (flag == "--frequency")
+// {
+//     frequency(text);
+// }
+// else if (flag == "--table")
+// {
+//     table(text);
+// }
+// else if (flag == "--substitute")
+// {
+//     substitute(text, parameter);
+// }
+// else if (flag == "--remove")
+// {
+//     remove_word(text, parameter);
+// }
+// cout << endl;
