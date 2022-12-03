@@ -62,28 +62,35 @@ int main(int argc, char **argv)
     // print(text);
 
     /* Split arguments into flag and parameter */
-    string flag{};
-    string parameter{};
+
     bool reached{false};
+    map<string, string> flags_and_parameters;
 
     if (arguments.size() > 0)
     {
         // This should not work when you input multiple flags, since it only iterates
         // through the first argument in arguments. But it just works for some reason.
-        for (char c : arguments[0])
+        for (string s : arguments)
         {
-            if (c == '=')
+            reached = false;
+            string flag{""};
+            string parameter{""};
+            for (char c : s)
             {
-                reached = true;
+                if (c == '=')
+                {
+                    reached = true;
+                }
+                else if (!reached)
+                {
+                    flag.push_back(c);
+                }
+                else
+                {
+                    parameter.push_back(c);
+                }
             }
-            else if (!reached)
-            {
-                flag.push_back(c);
-            }
-            else
-            {
-                parameter.push_back(c);
-            }
+            flags_and_parameters.insert({flag, parameter});
         }
     }
 
@@ -100,21 +107,48 @@ int main(int argc, char **argv)
         {"--table", &table},
     };
 
+    map<string, void (*)(vector<string>, string)> parameter_map = {
+        {"--remove", &remove_word},
+        {"--substitute", &substitute},
+    };
+
     // Declaring an 'int i' to access the right index is probably not optimal, but it works.
-    int i{0};
-    for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
+
+    for (map<string, string>::iterator it{flags_and_parameters.begin()}; it != flags_and_parameters.end(); ++it)
     {
-        if (func_map.find(arguments[i]) != func_map.end())
+        string flag = it->first;
+        if (func_map.find(flag) != func_map.end())
         {
-            func_map[arguments[i]](text);
+            func_map[flag](text);
             cout << endl;
+        }
+        else if (parameter_map.find(flag) != parameter_map.end())
+        {
+            parameter_map[flag](text, it->second);
         }
         else
         {
             cout << "No function with that name. Fuck you." << endl;
         }
-        ++i;
     }
+    // int i{0};
+    //  for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
+    //{
+    //      if (func_map.find(arguments[i]) != func_map.end())
+    //      {
+    //          func_map[arguments[i]](text);
+    //          cout << endl;
+    //      }
+    //      else if (parameter_map.find(arguments[i]) != parameter_map.end())
+    //      {
+    //          parameter_map[arguments[i]](text, parameter);
+    //      }
+    //      else
+    //      {
+    //          cout << "No function with that name. Fuck you." << endl;
+    //      }
+    //      ++i;
+    //  }
 
     /* Old version of what's happening above */
     /* Perform the operation that the flag corresponds to */
