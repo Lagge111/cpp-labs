@@ -70,24 +70,30 @@ int main(int argc, char **argv)
     {
         // This should not work when you input multiple flags, since it only iterates
         // through the first argument in arguments. But it just works for some reason.
-        for (string s : arguments)
+        for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
         {
+            string s = *it;
+            std::vector<char> chars;
+            std::copy(s.begin(), s.end(), std::back_inserter(chars));
+
             reached = false;
             string flag{""};
             string parameter{""};
-            for (char c : s)
+
+            for (vector<char>::iterator it{chars.begin()}; it != chars.end(); ++it)
             {
-                if (c == '=')
+
+                if (*it == '=')
                 {
                     reached = true;
                 }
                 else if (!reached)
                 {
-                    flag.push_back(c);
+                    flag.push_back(*it);
                 }
                 else
                 {
-                    parameter.push_back(c);
+                    parameter.push_back(*it);
                 }
             }
             flags_and_parameters.insert({flag, parameter});
