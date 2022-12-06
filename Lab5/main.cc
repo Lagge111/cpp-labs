@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     if (argc < 3)
     {
         cout << "Invalid number of arguments. Enter arguments in the format: ./a.out [file_name] [flag]" << endl;
-        cout << "List of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
+        // cout << "List of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
         return 1;
     }
 
@@ -60,56 +60,55 @@ int main(int argc, char **argv)
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
     /* Split arguments into flag and parameter */
-    map<string, string> flags_and_parameters;
+    map<string, string> flags_and_parameters{};
 
     if (arguments.size() > 0)
     {
         for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
         {
-            string argument = *it;
+            string argument{*it};
 
             if (argument.find("="))
+            {
                 flags_and_parameters.insert({argument.substr(0, argument.find("=")), argument.substr(argument.find("=") + 1)});
+            }
             else
+            {
                 flags_and_parameters.insert({argument, ""});
+            }
         }
     }
 
-    // Added a map with the argument as a key and the corresponding function as a value.
-    // The issue is that we can't seem to add substitute and remove to this map
-    // since they take in another parameter, and from what I have found, all functions
-    // in the map have to take in the same number of parameters and parameter type.
-    // This could be solved by adding the second parameter to all the functions, and only
-    // use them in substitute and remove. However, that is probably not the best solution
-    // since it would leave us with unused variables which results in compiling warnings.
+    /* Add flags and corresponding functions to map */
     map<string, void (*)(vector<string>)> func_map = {
         {"--print", &print},
         {"--frequency", &frequency},
         {"--table", &table},
     };
 
-    map<string, void (*)(vector<string>, string)> parameter_map = {
+    map<string, void (*)(vector<string>, string)> param_func_map = {
         {"--remove", &remove_word},
         {"--substitute", &substitute},
     };
 
-    // Declaring an 'int i' to access the right index is probably not optimal, but it works.
-
-    for (map<string, string>::iterator it{flags_and_parameters.begin()}; it != flags_and_parameters.end(); ++it)
+    /* Call the function corresponding to the input flag */
+    for (map<string, string>::reverse_iterator it{flags_and_parameters.rbegin()}; it != flags_and_parameters.rend(); ++it)
     {
         string flag = it->first;
         if (func_map.find(flag) != func_map.end())
         {
+            cout << "func_map: " << flag << endl;
             func_map[flag](text);
             cout << endl;
         }
-        else if (parameter_map.find(flag) != parameter_map.end())
+        else if (param_func_map.find(flag) != param_func_map.end())
         {
-            parameter_map[flag](text, it->second);
+            cout << "param_func_map: " << flag << " " << it->second << endl;
+            param_func_map[flag](text, it->second);
         }
         else
         {
-            cout << "No function with that name. Fuck you." << endl;
+            cout << "Invalid flag.\nList of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
         }
     }
 }
@@ -121,6 +120,7 @@ int main(int argc, char **argv)
  */
 void print(vector<string> text)
 {
+    cout << "i print" << endl;
     for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
     {
         cout << *it << " ";
@@ -202,6 +202,7 @@ void table(vector<string> text)
  */
 void substitute(vector<string> text, string parameter)
 {
+    cout << "i substitute med parameter: " << parameter << endl;
     string old_word{};
     string new_word{};
     bool reached{false};
@@ -224,8 +225,6 @@ void substitute(vector<string> text, string parameter)
     //                       : new_word.push_back(c); });
 
     replace(text.begin(), text.end(), old_word, new_word);
-
-    print(text);
 }
 
 /**
@@ -237,48 +236,4 @@ void substitute(vector<string> text, string parameter)
 void remove_word(vector<string> text, string parameter)
 {
     text.erase(remove(text.begin(), text.end(), parameter), text.end());
-    print(text);
 }
-
-// int i{0};
-//  for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
-//{
-//      if (func_map.find(arguments[i]) != func_map.end())
-//      {
-//          func_map[arguments[i]](text);
-//          cout << endl;
-//      }
-//      else if (parameter_map.find(arguments[i]) != parameter_map.end())
-//      {
-//          parameter_map[arguments[i]](text, parameter);
-//      }
-//      else
-//      {
-//          cout << "No function with that name. Fuck you." << endl;
-//      }
-//      ++i;
-//  }
-
-/* Old version of what's happening above */
-/* Perform the operation that the flag corresponds to */
-// if (flag == "--print")
-// {
-//     print(text);
-// }
-// else if (flag == "--frequency")
-// {
-//     frequency(text);
-// }
-// else if (flag == "--table")
-// {
-//     table(text);
-// }
-// else if (flag == "--substitute")
-// {
-//     substitute(text, parameter);
-// }
-// else if (flag == "--remove")
-// {
-//     remove_word(text, parameter);
-// }
-// cout << endl;
