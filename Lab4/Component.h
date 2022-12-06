@@ -11,7 +11,6 @@
 // and are virtual shoukd be declared pure virtual
 /**
  * Fixed by assigning pure virtual to update in Component.
- * NOTE: getVoltage can potentially also be pure virtual.
  */
 
 // TODO: Complementary work needed: Your destructor is empty, should therefore
