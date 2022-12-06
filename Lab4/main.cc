@@ -20,7 +20,7 @@ using namespace std;
 // TODO: Complementary work needed: You never catch your error in your catch
 // block
 /**
- * Fixed by catching the error.
+ * Fixed by catching the error (?).
  */
 
 // TODO: Complementary work needed: Compiling your code with the
