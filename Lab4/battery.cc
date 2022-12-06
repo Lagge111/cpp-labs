@@ -4,7 +4,7 @@
 using namespace std;
 
 Battery::Battery(string const name, double const voltage, Connection *const left, Connection *const right)
-    : Component(name, left, right), voltage{voltage}, current{current}
+    : Component(name, left, right), voltage{voltage}
 {
 }
 

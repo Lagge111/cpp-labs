@@ -31,8 +31,3 @@ void Component::moveVoltage(Connection *lowest, Connection *highest, double move
     lowest->setVoltage(lowest->getVoltage() + movedCharge);
     highest->setVoltage(highest->getVoltage() - movedCharge);
 }
-
-// This cannot be used since we set destructor to default in Component.h (???)
-// Component::~Component()
-// {
-// }

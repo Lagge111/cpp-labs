@@ -13,7 +13,6 @@ public:
 
 private:
     double const voltage;
-    double const current = 0;
 };
 
 #endif
