@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Capacitor::Capacitor(string const name, double const capacitance, Connection *const left, Connection *const right)
+Capacitor::Capacitor(string const& name, double const capacitance, Connection *const left, Connection *const right)
     : Component(name, left, right), capacitance{capacitance}, storedCharge{0}, current{0}
 {
 }

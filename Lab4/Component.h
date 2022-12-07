@@ -6,6 +6,9 @@
 
 // TODO: Complementary work needed: Use reference to constant for input parameters
 // of class type.
+/**
+ * Fixed by using reference to constant for input parameters of class type.
+*/
 
 // TODO: Complemetary work needed: Functions not doing anything in the baseclass
 // and are virtual shoukd be declared pure virtual
@@ -28,7 +31,7 @@
 class Component
 {
 public:
-    Component(std::string const name, Connection *const left, Connection *const right);
+    Component(std::string const& name, Connection *const left, Connection *const right);
     virtual void update(double const /* timeStep */) = 0;
     double getVoltage() const;
     virtual double getCurrent() const;

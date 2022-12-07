@@ -7,7 +7,7 @@
 class Battery : public Component
 {
 public:
-    Battery(std::string const name, double const voltage, Connection *const left, Connection *const right);
+    Battery(std::string const& name, double const voltage, Connection *const left, Connection *const right);
     void update(double const /* timeStep */) override;
     ~Battery();
 

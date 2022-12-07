@@ -64,6 +64,11 @@ int main(int argc, char **argv)
                  << "\nError occurred in operation: " << e.what() << endl;
             return 1;
         }
+        catch (out_of_range &e)
+        {
+            cerr << "Value out of range for operation: " << e.what() << endl;
+            return 1;
+        }
     }
     else
     {
