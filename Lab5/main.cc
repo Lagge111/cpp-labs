@@ -31,11 +31,11 @@
 
 using namespace std;
 
-void print(vector<string> text, string /* parameter */);
-void frequency(vector<string> text, string /* parameter */);
-void table(vector<string> text, string /* parameter */);
-void substitute(vector<string> text, string parameter);
-void remove_word(vector<string> text, string parameter);
+void print(vector<string> &text, string /* parameter */);
+void frequency(vector<string> &text, string /* parameter */);
+void table(vector<string> &text, string /* parameter */);
+void substitute(vector<string> &text, string parameter);
+void remove_word(vector<string> &text, string parameter);
 void count_words(vector<string> &text, map<string, int> &results);
 
 int main(int argc, char **argv)
@@ -61,7 +61,8 @@ int main(int argc, char **argv)
     map<string, string> flags_and_parameters{};
 
     /* Add flags and corresponding functions to map */
-    map<string, void (*)(vector<string>, string)> param_func_map = {
+    // TODO: Add reference to vector<string>
+    map<string, void(*)(vector<string>, string)> param_func_map = {
         {"--print", &print},
         {"--frequency", &frequency},
         {"--table", &table},
@@ -74,7 +75,7 @@ int main(int argc, char **argv)
         for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
         {
             string argument{*it};
-            param_func_map[argument.substr(0, argument.find("="))](text, argument.substr(argument.find("=") + 1));
+            param_func_map[argument.substr(0, argument.find("="))](&text, argument.substr(argument.find("=") + 1));
         }
     }
 }
@@ -84,7 +85,7 @@ int main(int argc, char **argv)
  *
  * @param text The vector containing the words from the file.
  */
-void print(vector<string> text, string /* parameter */) 
+void print(vector<string> &text, string /* parameter */) 
 {
     for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
     {
@@ -98,7 +99,7 @@ void print(vector<string> text, string /* parameter */)
  *
  * @param text The vector containing the words from the file.
  */
-void frequency(vector<string> text, string /* parameter */)
+void frequency(vector<string> &text, string /* parameter */)
 {
     map<string, int> results;
     vector<pair<string, int>> sorted_list;
@@ -138,7 +139,7 @@ void count_words(vector<string> &text, map<string, int> &results)
  *
  * @param text The vector containing the words from the file.
  */
-void table(vector<string> text, string /* parameter */)
+void table(vector<string> &text, string /* parameter */)
 {
     map<string, int> results;
     vector<pair<string, int>> sorted_list;
@@ -166,7 +167,7 @@ void table(vector<string> text, string /* parameter */)
  * @param text The vector containing the words from the file.
  * @param parameter The parameter containing the word to replace and the word to replace it with.
  */
-void substitute(vector<string> text, string parameter)
+void substitute(vector<string> &text, string parameter)
 {
     string old_word{};
     string new_word{};
@@ -198,7 +199,7 @@ void substitute(vector<string> text, string parameter)
  * @param text The vector containing the words from the file.
  * @param parameter The parameter containing the word to remove.
  */
-void remove_word(vector<string> text, string parameter)
+void remove_word(vector<string> &text, string parameter)
 {
     text.erase(remove(text.begin(), text.end(), parameter), text.end());
 }
