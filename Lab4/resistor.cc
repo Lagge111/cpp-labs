@@ -25,7 +25,3 @@ double Resistor::getCurrent() const
 {
     return current;
 }
-
-Resistor::~Resistor()
-{
-}

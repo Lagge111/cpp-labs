@@ -9,7 +9,6 @@ class Resistor : public Component
 {
 public:
     Resistor(std::string const& name, double const resistance, Connection *const left, Connection *const right);
-    ~Resistor();
     void update(double const timeStep) override;
     double getCurrent() const override;
 

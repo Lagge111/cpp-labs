@@ -25,7 +25,3 @@ double Capacitor::getCurrent() const
 {
     return current;
 }
-
-Capacitor::~Capacitor()
-{
-}

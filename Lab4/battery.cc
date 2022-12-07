@@ -13,7 +13,3 @@ void Battery::update(double const /* timeStep */)
     left->setVoltage(voltage);
     right->setVoltage(0);
 }
-
-Battery::~Battery()
-{
-}
