@@ -31,11 +31,9 @@
 
 using namespace std;
 
-void print(vector<string> text);
-void frequency(vector<string> text);
-bool cmp(pair<string, int> &a, pair<string, int> &b);
-bool cmp2(pair<string, int> &a, pair<string, int> &b);
-void table(vector<string> text);
+void print(vector<string> text, string /* parameter */);
+void frequency(vector<string> text, string /* parameter */);
+void table(vector<string> text, string /* parameter */);
 void substitute(vector<string> text, string parameter);
 void remove_word(vector<string> text, string parameter);
 void count_words(vector<string> &text, map<string, int> &results);
@@ -45,7 +43,7 @@ int main(int argc, char **argv)
     if (argc < 3)
     {
         cout << "Invalid number of arguments. Enter arguments in the format: ./a.out [file_name] [flag]" << endl;
-        // cout << "List of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
+        cout << "List of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
         return 1;
     }
 
@@ -62,53 +60,21 @@ int main(int argc, char **argv)
     /* Split arguments into flag and parameter */
     map<string, string> flags_and_parameters{};
 
+    /* Add flags and corresponding functions to map */
+    map<string, void (*)(vector<string>, string)> param_func_map = {
+        {"--print", &print},
+        {"--frequency", &frequency},
+        {"--table", &table},
+        {"--remove", &remove_word},
+        {"--substitute", &substitute},
+    };
+
     if (arguments.size() > 0)
     {
         for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
         {
             string argument{*it};
-
-            if (argument.find("="))
-            {
-                flags_and_parameters.insert({argument.substr(0, argument.find("=")), argument.substr(argument.find("=") + 1)});
-            }
-            else
-            {
-                flags_and_parameters.insert({argument, ""});
-            }
-        }
-    }
-
-    /* Add flags and corresponding functions to map */
-    map<string, void (*)(vector<string>)> func_map = {
-        {"--print", &print},
-        {"--frequency", &frequency},
-        {"--table", &table},
-    };
-
-    map<string, void (*)(vector<string>, string)> param_func_map = {
-        {"--remove", &remove_word},
-        {"--substitute", &substitute},
-    };
-
-    /* Call the function corresponding to the input flag */
-    for (map<string, string>::reverse_iterator it{flags_and_parameters.rbegin()}; it != flags_and_parameters.rend(); ++it)
-    {
-        string flag = it->first;
-        if (func_map.find(flag) != func_map.end())
-        {
-            cout << "func_map: " << flag << endl;
-            func_map[flag](text);
-            cout << endl;
-        }
-        else if (param_func_map.find(flag) != param_func_map.end())
-        {
-            cout << "param_func_map: " << flag << " " << it->second << endl;
-            param_func_map[flag](text, it->second);
-        }
-        else
-        {
-            cout << "Invalid flag.\nList of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
+            param_func_map[argument.substr(0, argument.find("="))](text, argument.substr(argument.find("=") + 1));
         }
     }
 }
@@ -118,13 +84,13 @@ int main(int argc, char **argv)
  *
  * @param text The vector containing the words from the file.
  */
-void print(vector<string> text)
+void print(vector<string> text, string /* parameter */) 
 {
-    cout << "i print" << endl;
     for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
     {
         cout << *it << " ";
     }
+    cout << endl;
 }
 
 /**
@@ -132,7 +98,7 @@ void print(vector<string> text)
  *
  * @param text The vector containing the words from the file.
  */
-void frequency(vector<string> text)
+void frequency(vector<string> text, string /* parameter */)
 {
     map<string, int> results;
     vector<pair<string, int>> sorted_list;
@@ -172,7 +138,7 @@ void count_words(vector<string> &text, map<string, int> &results)
  *
  * @param text The vector containing the words from the file.
  */
-void table(vector<string> text)
+void table(vector<string> text, string /* parameter */)
 {
     map<string, int> results;
     vector<pair<string, int>> sorted_list;
@@ -202,7 +168,6 @@ void table(vector<string> text)
  */
 void substitute(vector<string> text, string parameter)
 {
-    cout << "i substitute med parameter: " << parameter << endl;
     string old_word{};
     string new_word{};
     bool reached{false};
