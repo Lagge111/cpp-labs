@@ -1,25 +1,3 @@
-
-/* WHAT THE PROGRAM SHOULD DO */
-/* ----------------------------------------------------------------------------------
-1. Open the file specified in the first command line argument.
-
-2. Place the remaining arguments in a container (list, vector, etc.).
-    a) The first two arguments should not be placed in this container, i.e. not ./a.out and the specified file name.
-    b) Important to keep the order of the arguments.
-
-3. Read all words from the file that was specified into a container called text.
-
-4. For each argument in the argument container (from step 2):
-    a) Find the first occurance of the character '=' (if it exists).
-    b) Split the argument into two parts:
-        - 'flag' which is everything to left of the '='. If no '=' was found, flag is equal to the argument (flag = argument).
-        - 'parameter' which is everything to the right of the '='. If no '=' was found, then this string is empty.
-    c) Determine which operation the 'flag' corresponds to and perform this operation.
-        - It is ok to do use if-else-if structure for this.
-
-5. Once all flags have been processed the program is done.
-------------------------------------------------------------------------------------- */
-
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -36,7 +14,8 @@ void frequency(vector<string> &text, string /* parameter */);
 void table(vector<string> &text, string /* parameter */);
 void substitute(vector<string> &text, string parameter);
 void remove_word(vector<string> &text, string parameter);
-void count_words(vector<string> &text, map<string, int> &results);
+void count_words(vector<string> &text, map<string, int> &results, vector<pair<string, int>> &sorted_list);
+bool str_compare(string a, string b);
 
 int main(int argc, char **argv)
 {
@@ -57,19 +36,16 @@ int main(int argc, char **argv)
     /* Read words from the file into a vector */
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
-    /* Split arguments into flag and parameter */
-    map<string, string> flags_and_parameters{};
-
     /* Add flags and corresponding functions to map */
-    // TODO: Add reference to vector<string>
     map<string, void (*)(vector<string> &, string)> param_func_map = {
         {"--print", print},
         {"--frequency", frequency},
         {"--table", table},
-        {"--remove", remove_word},
         {"--substitute", substitute},
+        {"--remove", remove_word},
     };
 
+    /* Call the function(s) corresponding to the input flags */
     if (arguments.size() > 0)
     {
         for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
@@ -87,10 +63,7 @@ int main(int argc, char **argv)
  */
 void print(vector<string> &text, string /* parameter */)
 {
-    for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
-    {
-        cout << *it << " ";
-    }
+    copy(text.begin(), text.end(), ostream_iterator<string>(cout, " "));
     cout << endl;
 }
 
@@ -103,35 +76,24 @@ void frequency(vector<string> &text, string /* parameter */)
 {
     map<string, int> results;
     vector<pair<string, int>> sorted_list;
-    count_words(text, results);
 
-    // Adds the results to the sorted_list
-    for (map<string, int>::iterator it{results.begin()}; it != results.end(); ++it)
-    {
-        sorted_list.push_back(*it);
-    }
+    count_words(text, results, sorted_list);
 
     // Sorts the sorted_list by frequency
     sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right)
          { return left.second > right.second; });
 
+    // Used to find the length of the longest word in the text vector
+    // which is used to format the output correctly.
+    // TODO: For some reason this only works with the 'cool_text.txt' text file.
+    auto amazing_variable = max_element(text.begin(), text.end(), str_compare);
+    auto longest_word = distance(text.begin(), amazing_variable);
+
     // Iterator for printing the frequency
     for (vector<pair<string, int>>::iterator it{sorted_list.begin()}; it != sorted_list.end(); ++it)
     {
-        cout << setw(11) << it->first << " " << it->second << endl;
+        cout << setw(amazing_variable[longest_word].size()) << it->first << " " << it->second << endl;
     }
-}
-
-/**
- * @brief Counts the frequency of each word in the text vector.
- *
- * @param text The vector containing the words from the file.
- * @param results The map used for pairing a word with its frequency.
- */
-void count_words(vector<string> &text, map<string, int> &results)
-{
-    for_each(text.begin(), text.end(), [&results](string word)
-             { results[word]++; });
 }
 
 /**
@@ -143,21 +105,23 @@ void table(vector<string> &text, string /* parameter */)
 {
     map<string, int> results;
     vector<pair<string, int>> sorted_list;
-    count_words(text, results);
 
-    // Adds the results calculated in count_words to the sorted_list
-    for_each(results.begin(), results.end(), [&sorted_list](auto &word)
-             { sorted_list.push_back(word); });
+    count_words(text, results, sorted_list);
 
     // Sorts the sorted_list in lexicographical order
     sort(sorted_list.begin(), sorted_list.end(), [](auto &left, auto &right)
          { return left.first < right.first; });
 
+    // Used to find the length of the longest word in the text vector
+    // which is used to format the output correctly.
+    // TODO: For some reason this only works with the 'cool_text.txt' text file.
+    auto amazing_variable = max_element(text.begin(), text.end(), str_compare);
+    auto longest_word = distance(text.begin(), amazing_variable);
+
     // Iterator for printing the table
-    // Formatting is wrong
     for (vector<pair<string, int>>::iterator it{sorted_list.begin()}; it != sorted_list.end(); ++it)
     {
-        cout << it->first << " " << it->second << endl;
+        cout << it->first << setw(amazing_variable[longest_word].size() - it->first.size() + 2) << it->second << endl;
     }
 }
 
@@ -184,12 +148,6 @@ void substitute(vector<string> &text, string parameter)
                     new_word.push_back(c);
                 } });
 
-    /* This should work, but doesn't for some reason */
-    // for_each(parameter.begin(), parameter.end(), [&reached, &old_word, &new_word](char c)
-    //          { c == '+'   ? reached = true
-    //            : !reached ? old_word.push_back(c)
-    //                       : new_word.push_back(c); });
-
     replace(text.begin(), text.end(), old_word, new_word);
 }
 
@@ -202,4 +160,37 @@ void substitute(vector<string> &text, string parameter)
 void remove_word(vector<string> &text, string parameter)
 {
     text.erase(remove(text.begin(), text.end(), parameter), text.end());
+}
+
+/* HELPER FUNCTIONS */
+
+/**
+ * @brief Counts the frequency of each word in the text vector. Used in functions frequency and table.
+ *
+ * @param text The vector containing the words from the file.
+ * @param results The map used for pairing a word with its frequency.
+ * @param sorted_list The vector used to store the word-frequency pairs in order.
+ */
+void count_words(vector<string> &text, map<string, int> &results, vector<pair<string, int>> &sorted_list)
+{
+    // Count words and add to results vector
+    for_each(text.begin(), text.end(), [&results](string word)
+             { results[word]++; });
+
+    // Add words to sorted_list vector
+    transform(results.begin(), results.end(), back_inserter(sorted_list), [](const pair<string, int> &p)
+              { return p; });
+}
+
+/**
+ * @brief Compares two strings.
+ *
+ * @param a The first string to compare.
+ * @param b The second string to compare.
+ * @return true True if a < b.
+ * @return false False if a > b.
+ */
+bool str_compare(string a, string b)
+{
+    return (a.size() < b.size());
 }
