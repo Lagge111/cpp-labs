@@ -62,12 +62,12 @@ int main(int argc, char **argv)
 
     /* Add flags and corresponding functions to map */
     // TODO: Add reference to vector<string>
-    map<string, void(*)(vector<string>, string)> param_func_map = {
-        {"--print", &print},
-        {"--frequency", &frequency},
-        {"--table", &table},
-        {"--remove", &remove_word},
-        {"--substitute", &substitute},
+    map<string, void (*)(vector<string> &, string)> param_func_map = {
+        {"--print", print},
+        {"--frequency", frequency},
+        {"--table", table},
+        {"--remove", remove_word},
+        {"--substitute", substitute},
     };
 
     if (arguments.size() > 0)
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
         for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
         {
             string argument{*it};
-            param_func_map[argument.substr(0, argument.find("="))](&text, argument.substr(argument.find("=") + 1));
+            param_func_map[argument.substr(0, argument.find("="))](text, argument.substr(argument.find("=") + 1));
         }
     }
 }
@@ -85,7 +85,7 @@ int main(int argc, char **argv)
  *
  * @param text The vector containing the words from the file.
  */
-void print(vector<string> &text, string /* parameter */) 
+void print(vector<string> &text, string /* parameter */)
 {
     for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
     {
