@@ -74,6 +74,9 @@ void print(vector<string> &text, string /* parameter */)
 }
 
 /**
+ * TODO: There is still some duplicate code in frequency and table which might be possible to move
+ *       to count_words.
+ *
  * @brief Prints a frequency table where the words are sorted in decreasing order on the number of occurences.
  *
  * @param text The vector containing the words from the file.
@@ -97,6 +100,9 @@ void frequency(vector<string> &text, string /* parameter */)
 }
 
 /**
+ * TODO: There is still some duplicate code in frequency and table which might be possible to move
+ *       to count_words.
+ *
  * @brief Prints a frequency table where the words are sorted in lexicographical order.
  *
  * @param text The vector containing the words from the file.
