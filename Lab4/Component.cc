@@ -3,11 +3,11 @@
 
 using namespace std;
 
-Component::Component(string const name, Connection *const left, Connection *const right) : name{name}, left{left}, right{right}
+Component::Component(string const &name, Connection *const left, Connection *const right) : name{name}, left{left}, right{right}
 {
 }
 
-void Component::update(double const timeStep)
+void Component::update(double const /* timeStep */)
 {
 }
 
@@ -26,12 +26,8 @@ string Component::getName() const
     return name;
 }
 
-void Component::moveVoltage(Connection *lowest, Connection *highest, double voltageToBeMoved)
+void Component::moveVoltage(Connection *lowest, Connection *highest, double movedCharge)
 {
-    lowest->setVoltage(lowest->getVoltage() + voltageToBeMoved);
-    highest->setVoltage(highest->getVoltage() - voltageToBeMoved);
-}
-
-Component::~Component()
-{
+    lowest->setVoltage(lowest->getVoltage() + movedCharge);
+    highest->setVoltage(highest->getVoltage() - movedCharge);
 }

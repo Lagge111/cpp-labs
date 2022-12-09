@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Capacitor::Capacitor(string const name, double const capacitance, Connection *const left, Connection *const right)
+Capacitor::Capacitor(string const& name, double const capacitance, Connection *const left, Connection *const right)
     : Component(name, left, right), capacitance{capacitance}, storedCharge{0}, current{0}
 {
 }
@@ -24,8 +24,4 @@ void Capacitor::update(double const timeStep)
 double Capacitor::getCurrent() const
 {
     return current;
-}
-
-Capacitor::~Capacitor()
-{
 }
