@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 {
     if (argc < 3)
     {
-        cout << "Invalid number of arguments. Arguments should follow the format: ./a.out [file_name] [flag]" << endl;
+        cerr << "Invalid number of arguments. Arguments should follow the format: ./a.out [file_name] [flag]" << endl;
         return 1;
     }
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
         string argument{*it};
         if (func_map.count(argument.substr(0, argument.find('='))) == 0)
         {
-            cout << "Invalid flag(s).\nList of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
+            cerr << "Invalid flag(s).\nList of valid flags:\n--print\n--frequency\n--table\n--substitute=<old>+<new>\n--remove=<word>" << endl;
             return 1;
         }
     }
@@ -86,7 +86,7 @@ void frequency(vector<string> &text, string /* parameter */)
 
     vector<pair<string, int>> frequency_list(results.begin(), results.end());
 
-    sort(frequency_list.begin(), frequency_list.end(), [](auto &left, auto &right)
+    sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
          { return left.second > right.second; });
 
     // TODO: Add correct formatting by using setw(x) where x == length of the longest word.
@@ -109,7 +109,7 @@ void table(vector<string> &text, string /* parameter */)
 
     vector<pair<string, int>> frequency_list(results.begin(), results.end());
 
-    sort(frequency_list.begin(), frequency_list.end(), [](auto &left, auto &right)
+    sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
          { return left.first < right.first; });
 
     // TODO: Add correct formatting by using setw(x) where x == length of the longest word - length of the current word.
