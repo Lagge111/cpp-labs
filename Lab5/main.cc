@@ -80,7 +80,7 @@ void print(vector<string> &text, string /* parameter */)
  */
 void frequency(vector<string> &text, string /* parameter */)
 {
-    map<string, int> results;
+    map<string, int> results{};
 
     count_words(text, results);
 
@@ -105,7 +105,7 @@ void frequency(vector<string> &text, string /* parameter */)
  */
 void table(vector<string> &text, string /* parameter */)
 {
-    map<string, int> results;
+    map<string, int> results{};
 
     count_words(text, results);
 
