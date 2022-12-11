@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Resistor::Resistor(string const& name, double const resistance, Connection *const left, Connection *const right)
+Resistor::Resistor(string const &name, double const resistance, Connection *const left, Connection *const right)
     : Component(name, left, right), resistance{resistance}, current{0}
 {
 }

@@ -10,32 +10,6 @@
 
 using namespace std;
 
-// TODO: Complementary work needed: try/catch should only surround the
-// functions which can throw the exceptions (stod, stoi). If the inputted
-// parameters are correct, the program should run without failure.
-/**
- * Fixed by calling the circuit functions outside of the try/catch.
- */
-
-// TODO: Complementary work needed: You never catch your error in your catch
-// block
-/**
- * Fixed by catching the error.
- */
-
-// TODO: Complementary work needed: Compiling your code with the
-// "-Wall -Wextra -Wpedantic" flags should result in 0 warnings.
-/**
- * Fixed by resolving the warnings.
- */
-
-/**
- * Originally in the Simulation class:
- *      COMMENT: There's no need for a simulation class with only one function,
- *               could just as well be a function in main class.
- * Fixed by removing the Simulation class and by moving the simulation function to main.
- */
-
 void circuit_1(int const iterations, int const outputRows, double const timeStep, double const voltage);
 void circuit_2(int const iterations, int const outputRows, double const timeStep, double const voltage);
 void circuit_3(int const iterations, int const outputRows, double const timeStep, double const voltage);
@@ -126,7 +100,6 @@ void simulate(vector<Component *> const circuit, int const iterations, int const
     cout << fixed << setprecision(2) << endl
          << " ";
 
-    /* Print the name of each component */
     for (Component *component : circuit)
     {
         cout << setw(12) << component->getName() << " ";
@@ -135,7 +108,6 @@ void simulate(vector<Component *> const circuit, int const iterations, int const
     cout << endl
          << " ";
 
-    /* Print the voltage and current headers for each component */
     int curcuit_size{static_cast<int>(circuit.size())};
 
     for (int i{0}; i < curcuit_size; ++i)
@@ -146,7 +118,6 @@ void simulate(vector<Component *> const circuit, int const iterations, int const
 
     cout << endl;
 
-    /* Print the voltage and current for each component, for each printed iteration */
     for (int i{1}; i <= iterations; ++i)
     {
         for (Component *component : circuit)
