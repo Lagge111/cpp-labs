@@ -24,11 +24,11 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    /* Open the specified file */
+    /* Open the specified input file */
     ifstream infile{};
     infile.open(argv[1]);
 
-    /* Place remaining arguments into a vector */
+    /* Place remaining arguments in a vector */
     vector<string> arguments(argv + 2, argv + argc);
 
     /* Add flags and corresponding functions to a map */
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
         }
     }
 
-    /* Read words from the file into a vector */
+    /* Read words from the input file into a vector */
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
     /* Call the function(s) corresponding to the input flags */
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 /**
  * @brief Prints all the words in the text vector.
  *
- * @param text The vector containing the words from the file.
+ * @param text The vector containing the words from the input file.
  */
 void print(vector<string> &text, string /* parameter */)
 {
@@ -74,12 +74,9 @@ void print(vector<string> &text, string /* parameter */)
 }
 
 /**
- * TODO: There is still some duplicate code in frequency and table which might be possible to move
- *       to count_words.
- *
  * @brief Prints a frequency table where the words are sorted in decreasing order on the number of occurences.
  *
- * @param text The vector containing the words from the file.
+ * @param text The vector containing the words from the input file.
  */
 void frequency(vector<string> &text, string /* parameter */)
 {
@@ -92,20 +89,19 @@ void frequency(vector<string> &text, string /* parameter */)
     sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
          { return left.second > right.second; });
 
-    // TODO: Add correct formatting by using setw(x) where x == length of the longest word.
+    vector<string>::iterator longest_word = max_element(text.begin(), text.end(), [](string &a, string &b)
+                                                        { return a.size() < b.size(); });
+
     for (vector<pair<string, int>>::iterator it{frequency_list.begin()}; it != frequency_list.end(); ++it)
     {
-        cout << setw(11) << it->first << " " << it->second << endl;
+        cout << setw(longest_word->size()) << it->first << " " << it->second << endl;
     }
 }
 
 /**
- * TODO: There is still some duplicate code in frequency and table which might be possible to move
- *       to count_words.
+ * @brief Prints a frequency table where the words are sorted in lexicographic order.
  *
- * @brief Prints a frequency table where the words are sorted in lexicographical order.
- *
- * @param text The vector containing the words from the file.
+ * @param text The vector containing the words from the input file.
  */
 void table(vector<string> &text, string /* parameter */)
 {
@@ -118,17 +114,19 @@ void table(vector<string> &text, string /* parameter */)
     sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
          { return left.first < right.first; });
 
-    // TODO: Add correct formatting by using setw(x) where x == length of the longest word - length of the current word.
+    vector<string>::iterator longest_word = max_element(text.begin(), text.end(), [](string &a, string &b)
+                                                        { return a.size() < b.size(); });
+
     for (vector<pair<string, int>>::iterator it{frequency_list.begin()}; it != frequency_list.end(); ++it)
     {
-        cout << it->first << setw(3) << it->second << endl;
+        cout << it->first << setw(longest_word->size() - it->first.size() + 2) << it->second << endl;
     }
 }
 
 /**
  * @brief Replaces all occurences of a selected word in the text vector with a new selected word.
  *
- * @param text The vector containing the words from the file.
+ * @param text The vector containing the words from the input file.
  * @param parameter The parameter containing the word to replace and the word to replace it with.
  */
 void substitute(vector<string> &text, string parameter)
@@ -141,7 +139,7 @@ void substitute(vector<string> &text, string parameter)
 /**
  * @brief Removes all occurences of a selected word.
  *
- * @param text The vector containing the words from the file.
+ * @param text The vector containing the words from the input file.
  * @param parameter The parameter containing the word to remove.
  */
 void remove_word(vector<string> &text, string parameter)
@@ -154,12 +152,11 @@ void remove_word(vector<string> &text, string parameter)
 /**
  * @brief Counts the frequency of each word in the text vector. Used in functions frequency and table.
  *
- * @param text The vector containing the words from the file.
+ * @param text The vector containing the words from the input file.
  * @param results The map used for pairing a word with its frequency.
- * @param sorted_list The vector used to store the word-frequency pairs in order.
  */
 void count_words(vector<string> &text, map<string, int> &results)
 {
-    for_each(text.begin(), text.end(), [&results](string word)
+    for_each(text.begin(), text.end(), [&results](string const &word)
              { results[word]++; });
 }
