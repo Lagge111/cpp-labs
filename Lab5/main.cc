@@ -14,7 +14,9 @@ void frequency(vector<string> &text, string /* parameter */);
 void table(vector<string> &text, string /* parameter */);
 void substitute(vector<string> &text, string parameter);
 void remove_word(vector<string> &text, string parameter);
-void count_and_find_max(vector<string> &text, map<string, int> &results, vector<string>::iterator &longest_word);
+void count_words(vector<string> &text, map<string, int> &results);
+void find_longest_word(vector<string> &text, vector<string>::iterator &longest_word);
+vector<pair<string, int>> get_frequency (vector<string> &text);
 
 int main(int argc, char **argv)
 {
@@ -80,15 +82,13 @@ void print(vector<string> &text, string /* parameter */)
  */
 void frequency(vector<string> &text, string /* parameter */)
 {
-    map<string, int> results{};
     vector<string>::iterator longest_word{};
-
-    count_and_find_max(text, results, longest_word);
-
-    vector<pair<string, int>> frequency_list(results.begin(), results.end());
+    vector<pair<string, int>> frequency_list = get_frequency(text);
 
     sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
          { return left.second > right.second; });
+
+    find_longest_word(text, longest_word);
 
     for (vector<pair<string, int>>::iterator it{frequency_list.begin()}; it != frequency_list.end(); ++it)
     {
@@ -103,15 +103,12 @@ void frequency(vector<string> &text, string /* parameter */)
  */
 void table(vector<string> &text, string /* parameter */)
 {
-    map<string, int> results{};
     vector<string>::iterator longest_word{};
+    vector<pair<string, int>> frequency_list = get_frequency(text);
 
-    count_and_find_max(text, results, longest_word);
+    sort(frequency_list.begin(), frequency_list.end());
 
-    vector<pair<string, int>> frequency_list(results.begin(), results.end());
-
-    sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
-         { return left.first < right.first; });
+    find_longest_word(text, longest_word);
 
     for (vector<pair<string, int>>::iterator it{frequency_list.begin()}; it != frequency_list.end(); ++it)
     {
@@ -151,13 +148,35 @@ void remove_word(vector<string> &text, string parameter)
  * @param text The vector containing the words from the input file.
  * @param results The map used for pairing a word with its frequency.
  */
-void count_and_find_max(vector<string> &text, map<string, int> &results, vector<string>::iterator &longest_word)
+void count_words(vector<string> &text, map<string, int> &results)
 {
-    // Find longest word in the text vector.
+    for (vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
+    {
+        results[*it]++;
+    }
+}
+
+/**
+ * @brief Finds the longest word in the text vector. Used in functions frequency and table.
+ * 
+ * @param text The vector containing the words from the input file.
+ * @param longest_word The variable to store the longest word in the text vector.
+*/
+void find_longest_word(vector<string> &text, vector<string>::iterator &longest_word)
+{
     longest_word = max_element(text.begin(), text.end(), [](string &a, string &b)
                                { return a.size() < b.size(); });
+}
 
-    // Add word frequency to results map.
-    for_each(text.begin(), text.end(), [&results](string const &word)
-             { results[word]++; });
+/**
+ * @brief Returns the frequency for each word in the text vector. Used in function frequency and table.
+ * 
+ * @param text The vector containing the words from the input file.
+*/
+vector<pair<string, int>> get_frequency (vector<string> &text)
+{
+    map<string, int> results{};
+    count_words(text, results);
+    vector<pair<string, int>> frequency_list(results.begin(), results.end());
+    return frequency_list;
 }
