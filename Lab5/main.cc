@@ -157,6 +157,11 @@ void remove_word(vector<string> &text, string parameter)
  */
 void count_words(vector<string> &text, map<string, int> &results)
 {
-    for_each(text.begin(), text.end(), [&results](string const &word)
-             { results[word]++; });
+    // for_each(text.begin(), text.end(), [&results](string const &word)
+    //          { results[word]++; });
+
+    for(vector<string>::iterator it{text.begin()}; it != text.end(); ++it)
+    {
+        results[*it]++;
+    }
 }
