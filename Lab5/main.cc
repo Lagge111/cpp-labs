@@ -9,11 +9,19 @@
 
 using namespace std;
 
-void print(vector<string> &text, string /* parameter */);
-void frequency(vector<string> &text, string /* parameter */);
-void table(vector<string> &text, string /* parameter */);
-void substitute(vector<string> &text, string parameter);
-void remove_word(vector<string> &text, string parameter);
+// TODO: Complementary work needed: Use at least reference for input parameters
+// of class type. Use reference to constant if you don't need to change the value.
+// (Hint: string is a class type and check your lamda functions)
+/**
+ * Fixed by setting input parameters of class type to either reference or
+ * reference to constant.
+ */
+
+void print(vector<string> &text, string const & /* parameter */);
+void frequency(vector<string> &text, string const & /* parameter */);
+void table(vector<string> &text, string const & /* parameter */);
+void substitute(vector<string> &text, string const &parameter);
+void remove_word(vector<string> &text, string const &parameter);
 void find_longest_word(vector<string> &text, vector<string>::iterator &longest_word);
 vector<pair<string, int>> get_frequency(vector<string> &text);
 
@@ -33,7 +41,7 @@ int main(int argc, char **argv)
     vector<string> arguments(argv + 2, argv + argc);
 
     /* Add flags and corresponding functions to a map */
-    map<string, void (*)(vector<string> &, string)> func_map = {
+    map<string, void (*)(vector<string> &, string const &)> func_map = {
         {"--print", print},
         {"--frequency", frequency},
         {"--table", table},
@@ -63,18 +71,18 @@ int main(int argc, char **argv)
     }
 }
 
-void print(vector<string> &text, string /* parameter */)
+void print(vector<string> &text, string const & /* parameter */)
 {
     copy(text.begin(), text.end(), ostream_iterator<string>(cout, " "));
     cout << endl;
 }
 
-void frequency(vector<string> &text, string /* parameter */)
+void frequency(vector<string> &text, string const & /* parameter */)
 {
     vector<string>::iterator longest_word{};
     vector<pair<string, int>> frequency_list{get_frequency(text)};
 
-    sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> &left, pair<string, int> &right)
+    sort(frequency_list.begin(), frequency_list.end(), [](pair<string, int> const &left, pair<string, int> const &right)
          { return left.second > right.second; });
 
     find_longest_word(text, longest_word);
@@ -85,7 +93,7 @@ void frequency(vector<string> &text, string /* parameter */)
     }
 }
 
-void table(vector<string> &text, string /* parameter */)
+void table(vector<string> &text, string const & /* parameter */)
 {
     vector<string>::iterator longest_word{};
     vector<pair<string, int>> frequency_list{get_frequency(text)};
@@ -100,14 +108,14 @@ void table(vector<string> &text, string /* parameter */)
     }
 }
 
-void substitute(vector<string> &text, string parameter)
+void substitute(vector<string> &text, string const &parameter)
 {
     string old_word(parameter.substr(0, parameter.find('+')));
     string new_word(parameter.substr(parameter.find('+') + 1));
     replace(text.begin(), text.end(), old_word, new_word);
 }
 
-void remove_word(vector<string> &text, string parameter)
+void remove_word(vector<string> &text, string const &parameter)
 {
     text.erase(remove(text.begin(), text.end(), parameter), text.end());
 }
@@ -116,7 +124,7 @@ void remove_word(vector<string> &text, string parameter)
 
 void find_longest_word(vector<string> &text, vector<string>::iterator &longest_word)
 {
-    longest_word = max_element(text.begin(), text.end(), [](string &a, string &b)
+    longest_word = max_element(text.begin(), text.end(), [](string const &a, string const &b)
                                { return a.size() < b.size(); });
 }
 
