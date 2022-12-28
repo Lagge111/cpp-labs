@@ -1,6 +1,6 @@
 # Programming in C++
 
-### Lab assignments from the course [726G77 / TDDE18](https://www.ida.liu.se/~TDDE18/current/info/index.en.shtml) (2022)
+### Lab assignments for the course [726G77 / TDDE18](https://www.ida.liu.se/~TDDE18/current/info/index.en.shtml) (2022)
 
 ### -----------------------------------------------------------------
 
