@@ -9,14 +9,6 @@
 
 using namespace std;
 
-// TODO: Complementary work needed: Use at least reference for input parameters
-// of class type. Use reference to constant if you don't need to change the value.
-// (Hint: string is a class type and check your lamda functions)
-/**
- * Fixed by setting input parameters of class type to either reference or
- * reference to constant.
- */
-
 void print(vector<string> &text, string const & /* parameter */);
 void frequency(vector<string> &text, string const & /* parameter */);
 void table(vector<string> &text, string const & /* parameter */);
@@ -33,14 +25,11 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    /* Open the specified input file */
     ifstream infile{};
     infile.open(argv[1]);
 
-    /* Place remaining arguments in a vector */
     vector<string> arguments(argv + 2, argv + argc);
 
-    /* Add flags and corresponding functions to a map */
     map<string, void (*)(vector<string> &, string const &)> func_map = {
         {"--print", print},
         {"--frequency", frequency},
@@ -49,7 +38,6 @@ int main(int argc, char **argv)
         {"--remove", remove_word},
     };
 
-    /* Check if the input flags are valid */
     for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
     {
         string argument{*it};
@@ -60,10 +48,8 @@ int main(int argc, char **argv)
         }
     }
 
-    /* Read words from the input file into a vector */
     vector<string> text((istream_iterator<string>(infile)), istream_iterator<string>());
 
-    /* Call the function(s) corresponding to the input flags */
     for (vector<string>::iterator it{arguments.begin()}; it != arguments.end(); ++it)
     {
         string argument{*it};
